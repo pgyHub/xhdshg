@@ -8,6 +8,7 @@ const entryCards = [
 ]
 
 const Home = () => {
+  const [activeTab, setActiveTab] = useState<'account' | 'sms'>('account')
   const [showLoginModal, setShowLoginModal] = useState(false)
 
   return (
@@ -27,12 +28,108 @@ const Home = () => {
             <Link to="/dashboard" className="button cloud-secondary-button">视频教程</Link>
           </div>
         </div>
+        
+        {/* 右侧登录注册界面 */}
         <div className="cloud-hero-right">
-          <img 
-            src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2Fimage.png&nonce=72846ebd-51ac-4ee1-aa36-9c1b7fdef9b9&project_id=7629176607961399322&sign=1f511ecd4678db1085bfd2ccacf9604bef5c26ac2cc593fac596215e67f044f7" 
-            alt="小红点生活馆"
-            style={{ width: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}
-          />
+          <div className="login-register-panel">
+            {/* 左侧扫码区域 */}
+            <div className="qr-scan-section">
+              <div className="qr-container">
+                <div className="qr-code-box">
+                  <div className="qr-placeholder">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                      <rect x="10" y="10" width="30" height="30" fill="none" stroke="#333" strokeWidth="3"/>
+                      <rect x="80" y="10" width="30" height="30" fill="none" stroke="#333" strokeWidth="3"/>
+                      <rect x="10" y="80" width="30" height="30" fill="none" stroke="#333" strokeWidth="3"/>
+                      <rect x="20" y="20" width="10" height="10" fill="#333"/>
+                      <rect x="90" y="20" width="10" height="10" fill="#333"/>
+                      <rect x="20" y="90" width="10" height="10" fill="#333"/>
+                      <rect x="45" y="45" width="30" height="30" fill="none" stroke="#333" strokeWidth="2"/>
+                      <rect x="50" y="50" width="20" height="20" fill="#333"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="phone-mockup">
+                  <div className="phone-screen">
+                    <div className="phone-header">小红点生活馆</div>
+                    <div className="phone-scan-icon">📱</div>
+                  </div>
+                </div>
+              </div>
+              <p className="qr-hint">请使用小红点APP扫码登录</p>
+              <button className="download-app-btn">
+                <span className="app-icon">📲</span>
+                <span>下载小红点APP</span>
+              </button>
+              <div className="third-party-login">
+                <button className="third-party-btn wechat">
+                  <span>💬</span>
+                </button>
+                <button className="third-party-btn alipay">
+                  <span>💳</span>
+                </button>
+                <button className="third-party-btn weibo">
+                  <span>📧</span>
+                </button>
+              </div>
+            </div>
+
+            {/* 右侧账号登录区域 */}
+            <div className="account-login-section">
+              <div className="login-tabs">
+                <button 
+                  className={activeTab === 'account' ? 'active' : ''}
+                  onClick={() => setActiveTab('account')}
+                >
+                  账号登录
+                </button>
+                <button 
+                  className={activeTab === 'sms' ? 'active' : ''}
+                  onClick={() => setActiveTab('sms')}
+                >
+                  短信登录
+                </button>
+              </div>
+
+              <div className="login-form">
+                {activeTab === 'account' ? (
+                  <>
+                    <div className="input-group">
+                      <input type="text" placeholder="手机号/用户名/邮箱" />
+                    </div>
+                    <div className="input-group">
+                      <input type="password" placeholder="密码" />
+                      <span className="forgot-password">忘记密码？</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="input-group">
+                      <input type="text" placeholder="请输入手机号" />
+                    </div>
+                    <div className="input-group sms-input">
+                      <input type="text" placeholder="请输入验证码" />
+                      <button className="get-code-btn">获取验证码</button>
+                    </div>
+                  </>
+                )}
+
+                <div className="agreement-row">
+                  <input type="checkbox" id="agreement" />
+                  <label htmlFor="agreement">
+                    阅读并接受 <a href="#">《小红点用户协议》</a> 和 <a href="#">《隐私政策》</a>
+                  </label>
+                </div>
+
+                <button className="login-submit-btn">登录</button>
+
+                <div className="register-link">
+                  <span>还没有账号？</span>
+                  <a href="#">立即注册</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -70,43 +167,8 @@ const Home = () => {
       </section>
 
       <div className="right-floating-tools">
-        <button onClick={() => setShowLoginModal(true)}>登录</button>
-        <button onClick={() => setShowLoginModal(true)}>注册</button>
+        <button onClick={() => setShowLoginModal(true)}>咨询</button>
       </div>
-
-      {showLoginModal && (
-        <div className="login-modal-mask" onClick={() => setShowLoginModal(false)}>
-          <div className="login-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="login-modal-close" onClick={() => setShowLoginModal(false)}>×</button>
-            <div className="login-modal-left">
-              <h3>登录</h3>
-              <p>小红点APP/支付宝/钉钉</p>
-              <div className="mock-qr">
-                <div className="mock-qr-inner">二维码</div>
-              </div>
-              <span>其他方式：支付宝 / 淘宝 / 微博 / 飞书</span>
-            </div>
-            <div className="login-modal-right">
-              <div className="login-modal-tabs">
-                <button className="active">账号登录</button>
-                <button>手机号登录</button>
-                <button>通行密钥</button>
-                <button className="go-register">前往注册</button>
-              </div>
-              <div className="login-modal-form">
-                <input placeholder="账号名  请输入" />
-                <input type="password" placeholder="密码  请输入" />
-                <button className="login-submit">立即登录</button>
-                <div className="login-links">
-                  <span>忘记登录名</span>
-                  <span>忘记密码</span>
-                  <span>RAM登录</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
