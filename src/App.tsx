@@ -6,6 +6,7 @@ import 婚纱摄影 from './pages/WeddingPhotography'
 import 彩妆 from './pages/Makeup'
 import 美发 from './pages/Hairdressing'
 import 全屋定制 from './pages/HomeCustomization'
+import 服装定制 from './pages/Clothing'
 import 短视频制作 from './pages/ShortVideoProduction'
 import 中餐馆 from './pages/ChineseRestaurant'
 import 会员后台 from './pages/MemberBackend'
@@ -18,6 +19,7 @@ const navItems = [
   { label: '彩妆', path: '/makeup' },
   { label: '美发', path: '/hairdressing' },
   { label: '全屋定制', path: '/home-customization' },
+  { label: '服装定制', path: '/clothing' },
   { label: '短视频制作', path: '/short-video-production' },
   { label: '中餐馆', path: '/chinese-restaurant' },
   { label: '数据驾驶舱', path: '/dashboard' }
@@ -53,6 +55,7 @@ function App() {
             <Route path="/hairdressing" element={<美发 />} />
             <Route path="/home-customization" element={<全屋定制 />} />
             <Route path="/short-video-production" element={<短视频制作 />} />
+            <Route path="/clothing" element={<服装定制 />} />
             <Route path="/chinese-restaurant" element={<中餐馆 />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/member-backend" element={<会员后台 />} />

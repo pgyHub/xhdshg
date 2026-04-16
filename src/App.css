@@ -1291,3 +1291,74 @@
   color: #5a67d8;
   text-decoration: underline;
 }
+
+/* 首页业务模块4列布局 */
+.cards-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1200px) {
+  .cards-grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.category-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  border: 1px solid #e6ebf5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(47, 82, 235, 0.15);
+  border-color: #667eea;
+}
+
+.category-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.category-card h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #1b2b44;
+  font-weight: 600;
+}
+
+.category-card p {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7a90;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.category-card span {
+  color: #667eea;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.category-card:hover span {
+  color: #5a67d8;
+}

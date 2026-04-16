@@ -148,18 +148,20 @@ const Home = () => {
           <h3>业务模块快速入口</h3>
           <span>按模块查看专题页面</span>
         </div>
-        <div className="cards-grid cards-grid-3">
+        <div className="cards-grid cards-grid-4">
           {[
-            ['婚纱摄影', '/wedding-photography'],
-            ['彩妆', '/makeup'],
-            ['美发', '/hairdressing'],
-            ['全屋定制', '/home-customization'],
-            ['短视频制作', '/short-video-production'],
-            ['中餐馆', '/chinese-restaurant']
-          ].map(([name, path]) => (
+            ['婚纱摄影', '/wedding-photography', '💍', '记录永恒瞬间，专业团队打造梦幻婚礼'],
+            ['彩妆', '/makeup', '💄', '精致妆容，发现你的独特之美'],
+            ['美发', '/hairdressing', '✂️', '时尚造型，从头开始改变'],
+            ['全屋定制', '/home-customization', '🏠', '专属空间，打造理想家居'],
+            ['服装定制', '/clothing', '👔', '量身定制，彰显个性品味'],
+            ['短视频制作', '/short-video-production', '🎬', '创意影像，记录精彩瞬间'],
+            ['中餐馆', '/chinese-restaurant', '🍜', '传承经典，品味地道美食']
+          ].map(([name, path, icon, desc]) => (
             <Link key={name} to={path} className="category-card">
+              <div className="category-icon">{icon}</div>
               <h4>{name}</h4>
-              <p>进入{name}专题页面，查看案例、套餐、运营洞察与参考站点。</p>
+              <p>{desc}</p>
               <span>查看详情</span>
             </Link>
           ))}
