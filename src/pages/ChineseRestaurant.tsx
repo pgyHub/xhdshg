@@ -1,51 +1,117 @@
-import IndustryPage from '../components/IndustryPage'
+import { Link } from 'react-router-dom'
 
-const 中餐馆 = () => (
-  <IndustryPage
-    category="中餐馆"
-    title="中餐馆品牌化运营"
-    subtitle="从招牌菜品打造、门店服务流程到线上传播，助力餐饮业务稳定增长。"
-    highlights={['菜品标准化出品', '门店服务SOP', '线上线下联动营销']}
-    workflow={['菜单策略', '供应链准备', '门店运营', '活动推广', '复购管理']}
-    scenarios={['家庭聚餐', '商务宴请', '节庆套餐', '团建订餐']}
-    marketStats={[
-      { label: '日均翻台率', value: '4.6 次' },
-      { label: '团购转化率', value: '27%' },
-      { label: '会员复购率', value: '63%' },
-      { label: '客单价', value: '¥132' }
-    ]}
-    sampleCases={[
-      { title: '午市套餐升级', data: '午市营收 +34%', desc: '优化套餐结构与出餐节奏，提升工作日时段效率。' },
-      { title: '家庭聚餐主题季', data: '预约量增长 48%', desc: '结合节假日场景上新套餐，提升预订与到店率。' },
-      { title: '会员积分体系上线', data: '90天复购 +22%', desc: '围绕消费积分和生日权益提升顾客粘性。' }
-    ]}
-    mockServices={[
-      { name: '双人精选套餐', price: 168, description: '招牌菜2道+时蔬+汤品+饮料，适合情侣与朋友聚餐。' },
-      { name: '商务宴请包间', price: 1988, description: '10人包间定制菜单，含服务管家与会务支持。' },
-      { name: '家庭欢聚套餐', price: 568, description: '6-8人共享菜品组合，覆盖老人和儿童口味。' }
-    ]}
-    showcaseItems={[
-      { title: '招牌菜升级计划', tag: '菜品策略', summary: '围绕高复购菜品做标准化出品与视觉升级。' },
-      { title: '周末家庭套餐', tag: '场景营销', summary: '通过家庭聚餐场景策划提升周末客流和客单。' },
-      { title: '门店口碑运营', tag: '会员复购', summary: '建立评价反馈与积分机制，提升复购粘性。' }
-    ]}
-    capabilityMatrix={[
-      { name: '菜单工程', detail: '按利润率与销量结构优化菜单，提升整体经营效率。' },
-      { name: '门店运营', detail: '优化排队、点餐、上菜和结算流程，提升服务体验。' },
-      { name: '活动营销', detail: '围绕节日和主题场景策划活动，提升客流峰值。' },
-      { name: '会员系统', detail: '通过积分、储值、权益体系提升复购和口碑传播。' }
-    ]}
-    insights={[
-      '头部餐饮品牌普遍通过“场景套餐 + 数字化会员”提升复购。',
-      '菜单工程优化是提升利润率和翻台效率的关键抓手。',
-      '短视频与本地生活平台联动已成为重要获客渠道。'
-    ]}
-    faqs={[
-      { q: '支持包间和团体预订吗？', a: '支持，可按人数与预算定制菜单和服务。' },
-      { q: '是否提供企业餐饮服务？', a: '支持会议餐、活动餐和长期企业合作方案。' },
-      { q: '会员权益有哪些？', a: '含积分、生日礼、专属套餐和优先预订权益。' }
-    ]}
-  />
-)
+const ChineseRestaurant = () => {
+  const dishes = [
+    { name: '招牌北京烤鸭', category: '招牌菜', price: '¥298', emoji: '🦆', desc: '传统工艺，皮脆肉嫩' },
+    { name: '宫保鸡丁', category: '经典川菜', price: '¥68', emoji: '🍗', desc: '麻辣鲜香，下饭神器' },
+    { name: '清蒸鲈鱼', category: '鲜活海鲜', price: '¥168', emoji: '🐟', desc: '新鲜食材，清淡养生' },
+    { name: '红烧狮子头', category: '淮扬名菜', price: '¥88', emoji: '🥩', desc: '入口即化，肥而不腻' },
+    { name: '糖醋里脊', category: '酸甜口味', price: '¥58', emoji: '🍖', desc: '外酥里嫩，酸甜可口' },
+    { name: '麻婆豆腐', category: '川菜代表', price: '¥38', emoji: '🧈', desc: '麻辣鲜香，开胃下饭' },
+  ]
 
-export default 中餐馆
+  const packages = [
+    { name: '家庭聚会套餐', price: '¥888', people: '4-6人', features: ['8道热菜', '2道凉菜', '1份甜品', '茶水免费'] },
+    { name: '商务宴请套餐', price: '¥1,888', people: '10人桌', features: ['12道菜品', '4道凉菜', '2份甜品', '指定酒水'] },
+    { name: '婚宴寿宴套餐', price: '¥2,888', people: '10人桌', features: ['14道菜品', '6道凉菜', '3份甜品', '场地布置'] },
+  ]
+
+  return (
+    <div className="restaurant-page">
+      {/* Hero */}
+      <section className="res-hero">
+        <div className="res-hero-overlay"></div>
+        <div className="res-hero-content">
+          <span className="res-hero-badge">LXJ CHINA</span>
+          <h1>传承经典 · 品味地道</h1>
+          <p>正宗中餐，家的味道</p>
+          <div className="res-hero-actions">
+            <button className="res-btn-primary">立即订座</button>
+            <button className="res-btn-secondary">浏览菜单</button>
+          </div>
+        </div>
+      </section>
+
+      {/* 品牌故事 */}
+      <section className="res-story">
+        <div className="res-container">
+          <div className="res-story-content">
+            <div className="res-story-text">
+              <h2>关于龙香居</h2>
+              <p>龙香居始创于1998年，专注于传承中华美食文化，选用新鲜食材，由资深厨师团队精心烹制，为您呈现地道的家乡味道。</p>
+              <div className="res-story-stats">
+                <div className="res-stat">
+                  <span className="res-stat-num">26</span>
+                  <span className="res-stat-label">年历史</span>
+                </div>
+                <div className="res-stat">
+                  <span className="res-stat-num">50万+</span>
+                  <span className="res-stat-label">顾客信赖</span>
+                </div>
+                <div className="res-stat">
+                  <span className="res-stat-num">98%</span>
+                  <span className="res-stat-label">好评率</span>
+                </div>
+              </div>
+            </div>
+            <div className="res-story-visual">🍜</div>
+          </div>
+        </div>
+      </section>
+
+      {/* 招牌菜品 */}
+      <section className="res-dishes">
+        <div className="res-container">
+          <h2 className="res-section-title">招牌菜品</h2>
+          <div className="res-dishes-grid">
+            {dishes.map((dish, index) => (
+              <div key={index} className="res-dish-card">
+                <div className="res-dish-emoji">{dish.emoji}</div>
+                <div className="res-dish-info">
+                  <span className="res-dish-category">{dish.category}</span>
+                  <h4>{dish.name}</h4>
+                  <p>{dish.desc}</p>
+                </div>
+                <div className="res-dish-price">{dish.price}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 套餐推荐 */}
+      <section className="res-packages">
+        <div className="res-container">
+          <h2 className="res-section-title">精选套餐</h2>
+          <div className="res-packages-grid">
+            {packages.map((pkg, index) => (
+              <div key={index} className={`res-package-card ${index === 1 ? 'featured' : ''}`}>
+                {index === 1 && <div className="res-package-badge">最受欢迎</div>}
+                <h3>{pkg.name}</h3>
+                <div className="res-package-price">{pkg.price}</div>
+                <span className="res-package-people">{pkg.people}</span>
+                <ul className="res-package-features">
+                  {pkg.features.map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+                <button className="res-package-btn">立即预订</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 预约CTA */}
+      <section className="res-cta">
+        <div className="res-container">
+          <h2>期待您的光临</h2>
+          <p>订座热线：400-888-9999</p>
+          <button className="res-btn-primary">立即订座</button>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export default ChineseRestaurant

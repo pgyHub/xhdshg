@@ -1,51 +1,103 @@
-import IndustryPage from '../components/IndustryPage'
+import { Link } from 'react-router-dom'
 
-const 服装定制 = () => (
-  <IndustryPage
-    category="服装定制"
-    title="量身定制服装服务"
-    subtitle="提供西装、衬衫、礼服、旗袍等品类的量身定制，结合品质面料与精湛工艺。"
-    highlights={['资深裁缝团队', '精选品质面料', '半成品试身服务']}
-    workflow={['需求沟通', '量体裁衣', '面料选择', '剪裁制作', '试身调整', '成品交付']}
-    scenarios={['商务正装', '婚礼礼服', '私人定制', '企业制服']}
-    marketStats={[
-      { label: '月定制订单', value: '286' },
-      { label: '首次满意率', value: '92%' },
-      { label: '客户转介绍率', value: '45%' },
-      { label: '平均定制周期', value: '14天' }
-    ]}
-    sampleCases={[
-      { title: '企业高管定制项目', data: '累计服务 1,200+ 位高管', desc: '为企业家和高管提供商务正装定制，树立专业形象。' },
-      { title: '婚礼礼服定制', data: '婚礼季订单增长 68%', desc: '为新郎新娘定制婚礼礼服，打造完美时刻。' },
-      { title: '私人定制会员服务', data: '会员复购率 78%', desc: '建立长期客户档案，提供季度定制服务。' }
-    ]}
-    mockServices={[
-      { name: '经典西装定制', price: 3980, description: '含量体、面料选择、半成品试身与终身修改服务。' },
-      { name: '高端衬衫定制', price: 680, description: '精选高支棉面料，支持领型、袖型个性化定制。' },
-      { name: '婚礼礼服定制套餐', price: 8880, description: '含新郎西装+衬衫+领带/领结全套定制。' }
-    ]}
-    showcaseItems={[
-      { title: '英伦经典西装', tag: '商务', summary: '注重肩线与腰部线条的经典剪裁，适配多种商务场景。' },
-      { title: '东方旗袍定制', tag: '中式', summary: '融合传统工艺与现代审美，展现东方女性魅力。' },
-      { title: '休闲时尚单品', tag: '生活', summary: '将定制品质融入日常穿搭，提升生活品质感。' }
-    ]}
-    capabilityMatrix={[
-      { name: '精准量体', detail: '采用国际标准量体方法，确保每件服装贴合身形。' },
-      { name: '面料甄选', detail: '与意大利、英国等顶级面料商合作，品质有保障。' },
-      { name: '工艺传承', detail: '传统裁缝技艺结合现代工艺，保证细节品质。' },
-      { name: '售后保障', detail: '提供终身修改服务和专业熨烫保养指导。' }
-    ]}
-    insights={[
-      '定制服装行业正向"数字化量体"和"快速交付"方向升级。',
-      '年轻消费群体对"个性化定制"的接受度持续提升。',
-      '企业制服定制成为B端业务的重要增长点。'
-    ]}
-    faqs={[
-      { q: '定制需要多长时间？', a: '常规订单10-15个工作日，加急可协商。' },
-      { q: '可以只定制单件吗？', a: '支持单件定制，也可搭配套餐组合。' },
-      { q: '如何保养定制服装？', a: '提供专业保养指导，终身享受修改服务。' }
-    ]}
-  />
-)
+const Clothing = () => {
+  const categories = [
+    { name: '西装定制', emoji: '👔', desc: '商务正装' },
+    { name: '衬衫定制', emoji: '👕', desc: '品质衬衫' },
+    { name: '礼服定制', emoji: '🎩', desc: '特殊场合' },
+    { name: '旗袍定制', emoji: '👘', desc: '中式定制' },
+    { name: '大衣定制', emoji: '🧥', desc: '秋冬单品' },
+    { name: '裤装定制', emoji: '👖', desc: '裤装系列' },
+  ]
 
-export default 服装定制
+  const products = [
+    { name: '经典西装套装', price: '¥3,980', emoji: '👔', category: '西装' },
+    { name: '高支棉衬衫', price: '¥680', emoji: '👕', category: '衬衫' },
+    { name: '婚礼礼服套餐', price: '¥8,880', emoji: '🎩', category: '礼服' },
+    { name: '量身定制旗袍', price: '¥2,980', emoji: '👘', category: '旗袍' },
+    { name: '羊绒大衣', price: '¥5,800', emoji: '🧥', category: '大衣' },
+    { name: '休闲裤定制', price: '¥580', emoji: '👖', category: '裤装' },
+  ]
+
+  const features = [
+    { icon: '📏', title: '精准量体', desc: '专业量体师，精准测量每一个部位' },
+    { icon: '🧵', title: '精选面料', desc: '来自意大利、英国的品质面料' },
+    { icon: '✂️', title: '精湛工艺', desc: '传统裁缝技艺，现代工艺标准' },
+    { icon: '🔧', title: '终身服务', desc: '免费修改，终身售后服务' },
+  ]
+
+  return (
+    <div className="clothing-page">
+      {/* Hero */}
+      <section className="cl-hero">
+        <div className="cl-hero-content">
+          <h1>量身定制 · 品质生活</h1>
+          <p>专业服装定制，为您打造专属魅力</p>
+          <button className="cl-btn-primary">立即预约量体</button>
+        </div>
+      </section>
+
+      {/* 定制分类 */}
+      <section className="cl-categories">
+        <div className="cl-container">
+          <h2 className="cl-section-title">定制品类</h2>
+          <div className="cl-categories-grid">
+            {categories.map((cat, index) => (
+              <div key={index} className="cl-category-card">
+                <div className="cl-category-emoji">{cat.emoji}</div>
+                <h4>{cat.name}</h4>
+                <span>{cat.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 产品展示 */}
+      <section className="cl-products">
+        <div className="cl-container">
+          <h2 className="cl-section-title">热门产品</h2>
+          <div className="cl-products-grid">
+            {products.map((product, index) => (
+              <div key={index} className="cl-product-card">
+                <div className="cl-product-image">{product.emoji}</div>
+                <div className="cl-product-info">
+                  <span className="cl-product-category">{product.category}</span>
+                  <h4>{product.name}</h4>
+                  <span className="cl-product-price">{product.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 定制优势 */}
+      <section className="cl-features">
+        <div className="cl-container">
+          <h2 className="cl-section-title">定制优势</h2>
+          <div className="cl-features-grid">
+            {features.map((feature, index) => (
+              <div key={index} className="cl-feature-card">
+                <div className="cl-feature-icon">{feature.icon}</div>
+                <h4>{feature.title}</h4>
+                <p>{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="cl-cta">
+        <div className="cl-container">
+          <h2>开启您的定制之旅</h2>
+          <p>专业团队，为您打造独一无二的服装</p>
+          <button className="cl-btn-primary">立即预约</button>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export default Clothing

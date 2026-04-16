@@ -1362,3 +1362,2930 @@
 .category-card:hover span {
   color: #5a67d8;
 }
+
+/* ========================================
+   婚纱摄影页面样式 - 浪漫精致风格
+   ======================================== */
+
+.wedding-photography-page {
+  width: 100%;
+  background: linear-gradient(180deg, #fff9f9 0%, #ffffff 100%);
+}
+
+/* Hero Banner */
+.wp-hero-banner {
+  position: relative;
+  height: 600px;
+  background: linear-gradient(135deg, #f8e1e7 0%, #e8d4f0 50%, #d4e4f7 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.wp-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,...');
+  opacity: 0.1;
+}
+
+.wp-hero-content {
+  flex: 1;
+  max-width: 600px;
+  z-index: 2;
+}
+
+.wp-hero-content h1 {
+  font-size: 56px;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+  font-weight: 300;
+  letter-spacing: 8px;
+}
+
+.wp-hero-content p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.wp-hero-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.wp-btn-primary {
+  background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(233, 30, 99, 0.3);
+}
+
+.wp-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(233, 30, 99, 0.4);
+}
+
+.wp-btn-secondary {
+  background: white;
+  color: #e91e63;
+  border: 2px solid #e91e63;
+  padding: 14px 38px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.wp-btn-secondary:hover {
+  background: #e91e63;
+  color: white;
+}
+
+.wp-hero-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  z-index: 2;
+  height: 450px;
+}
+
+.wp-gallery-item {
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.wp-gallery-item.large {
+  grid-row: span 2;
+  font-size: 120px;
+}
+
+.wp-gallery-item:hover {
+  transform: scale(1.02);
+}
+
+/* Section Container */
+.wp-section-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+.wp-section-title {
+  text-align: center;
+  font-size: 36px;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.wp-section-subtitle {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+  margin-bottom: 50px;
+}
+
+/* 品牌优势 */
+.wp-advantages {
+  background: white;
+}
+
+.wp-advantage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.wp-advantage-card {
+  text-align: center;
+  padding: 40px 30px;
+  background: #fff9f9;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.wp-advantage-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(233, 30, 99, 0.1);
+}
+
+.wp-advantage-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.wp-advantage-card h3 {
+  font-size: 20px;
+  color: #2c2c2c;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.wp-advantage-card p {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 风格分类 */
+.wp-style-categories {
+  background: #fafafa;
+  padding: 30px 0;
+}
+
+.wp-category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.wp-category-tab {
+  padding: 12px 30px;
+  border: 2px solid #e8e8e8;
+  background: white;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.wp-category-tab:hover {
+  border-color: #e91e63;
+  color: #e91e63;
+}
+
+.wp-category-tab.active {
+  background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+  border-color: #e91e63;
+  color: white;
+}
+
+/* 客片展示 */
+.wp-portfolio {
+  background: white;
+}
+
+.wp-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.wp-portfolio-item {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.wp-portfolio-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(233, 30, 99, 0.15);
+}
+
+.wp-portfolio-image {
+  height: 280px;
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+}
+
+.wp-portfolio-info {
+  padding: 25px;
+}
+
+.wp-portfolio-info h3 {
+  font-size: 18px;
+  color: #2c2c2c;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.wp-portfolio-category {
+  display: inline-block;
+  background: #fce4ec;
+  color: #e91e63;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.wp-portfolio-price {
+  display: block;
+  color: #e91e63;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 套餐推荐 */
+.wp-packages {
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+}
+
+.wp-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.wp-package-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  border: 2px solid #f0f0f0;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.wp-package-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.wp-package-card.featured {
+  border: 3px solid #e91e63;
+  transform: scale(1.05);
+}
+
+.wp-package-card.featured:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.wp-package-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.wp-package-card h3 {
+  font-size: 24px;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.wp-package-price {
+  margin-bottom: 30px;
+}
+
+.wp-package-price .currency {
+  font-size: 24px;
+  color: #e91e63;
+  vertical-align: top;
+}
+
+.wp-package-price .amount {
+  font-size: 48px;
+  color: #e91e63;
+  font-weight: 700;
+}
+
+.wp-package-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.wp-package-features li {
+  padding: 12px 0;
+  color: #666;
+  font-size: 14px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.wp-package-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.wp-package-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(233, 30, 99, 0.4);
+}
+
+.wp-package-btn.outline {
+  background: white;
+  color: #e91e63;
+  border: 2px solid #e91e63;
+}
+
+.wp-package-btn.outline:hover {
+  background: #e91e63;
+  color: white;
+}
+
+/* 拍摄流程 */
+.wp-process {
+  background: white;
+}
+
+.wp-process-timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.wp-process-timeline::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 100px;
+  right: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #fce4ec, #e91e63, #fce4ec);
+}
+
+.wp-process-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.wp-step-number {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 auto 20px;
+  box-shadow: 0 5px 20px rgba(233, 30, 99, 0.3);
+}
+
+.wp-step-content h3 {
+  font-size: 18px;
+  color: #2c2c2c;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.wp-step-content p {
+  color: #999;
+  font-size: 14px;
+}
+
+/* 底部CTA */
+.wp-cta {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.wp-cta h2 {
+  font-size: 42px;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.wp-cta p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.wp-cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.wp-btn-primary.large {
+  padding: 20px 60px;
+  font-size: 18px;
+}
+
+.wp-btn-link {
+  color: #e91e63;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.wp-btn-link:hover {
+  color: #c2185b;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .wp-advantage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .wp-portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .wp-packages-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+  
+  .wp-package-card.featured {
+    transform: none;
+  }
+  
+  .wp-package-card.featured:hover {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .wp-hero-banner {
+    flex-direction: column;
+    height: auto;
+    padding: 60px 20px;
+  }
+  
+  .wp-hero-content {
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .wp-hero-content h1 {
+    font-size: 36px;
+    letter-spacing: 4px;
+  }
+  
+  .wp-hero-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .wp-hero-gallery {
+    grid-template-columns: 1fr 1fr;
+    height: 300px;
+    margin-top: 40px;
+  }
+  
+  .wp-gallery-item.large {
+    grid-row: span 1;
+  }
+  
+  .wp-advantage-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .wp-portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .wp-process-timeline {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .wp-process-timeline::before {
+    display: none;
+  }
+}
+
+/* ========================================
+   彩妆页面样式 - 高端美妆风格
+   ======================================== */
+
+.makeup-page {
+  width: 100%;
+  background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+}
+
+.mk-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 5%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #3d2d3d 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.mk-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+}
+
+.mk-hero-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.mk-hero-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.mk-hero-tag {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: #d4af37;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  border: 1px solid #d4af37;
+}
+
+.mk-hero-text h1 {
+  font-size: 64px;
+  font-weight: 300;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mk-hero-text p {
+  font-size: 20px;
+  color: #999;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.mk-hero-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.mk-btn-primary {
+  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+  color: #1a1a1a;
+  border: none;
+  padding: 18px 48px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 2px;
+}
+
+.mk-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+}
+
+.mk-btn-secondary {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 18px 48px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.mk-btn-secondary:hover {
+  background: white;
+  color: #1a1a1a;
+}
+
+.mk-hero-visual {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mk-visual-main {
+  font-size: 300px;
+  filter: drop-shadow(0 20px 60px rgba(212, 175, 55, 0.3));
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.mk-visual-accent {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mk-visual-accent span {
+  font-size: 40px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.mk-visual-accent span:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.mk-visual-accent span:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Container */
+.mk-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.mk-section-title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 300;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mk-section-subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  margin-bottom: 60px;
+}
+
+/* 服务项目 */
+.mk-services {
+  background: #1a1a1a;
+}
+
+.mk-service-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.mk-tab {
+  background: transparent;
+  border: 2px solid #333;
+  color: #888;
+  padding: 16px 40px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 2px;
+}
+
+.mk-tab:hover {
+  border-color: #d4af37;
+  color: #d4af37;
+}
+
+.mk-tab.active {
+  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+  color: #1a1a1a;
+  border-color: #d4af37;
+}
+
+.mk-service-title {
+  text-align: center;
+  font-size: 32px;
+  color: white;
+  margin-bottom: 50px;
+  font-weight: 300;
+}
+
+.mk-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.mk-service-card {
+  background: #2d2d2d;
+  padding: 40px 30px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  border: 1px solid #3d3d3d;
+}
+
+.mk-service-card:hover {
+  transform: translateY(-10px);
+  border-color: #d4af37;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.mk-service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mk-service-header h4 {
+  font-size: 22px;
+  color: white;
+  font-weight: 500;
+}
+
+.mk-service-duration {
+  background: #3d3d3d;
+  color: #888;
+  padding: 4px 12px;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+.mk-service-price {
+  font-size: 48px;
+  color: #d4af37;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.mk-service-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+
+.mk-service-features li {
+  padding: 12px 0;
+  color: #aaa;
+  font-size: 14px;
+  border-bottom: 1px solid #3d3d3d;
+}
+
+.mk-service-btn {
+  width: 100%;
+  background: transparent;
+  border: 2px solid #d4af37;
+  color: #d4af37;
+  padding: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.mk-service-btn:hover {
+  background: #d4af37;
+  color: #1a1a1a;
+}
+
+/* 热门妆面 */
+.mk-looks {
+  background: #2d2d2d;
+}
+
+.mk-looks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.mk-look-card {
+  background: #3d3d3d;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.mk-look-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.mk-look-visual {
+  height: 250px;
+  background: linear-gradient(135deg, #4d4d4d 0%, #3d3d3d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+}
+
+.mk-look-info {
+  padding: 30px;
+}
+
+.mk-look-tag {
+  display: inline-block;
+  background: #d4af37;
+  color: #1a1a1a;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.mk-look-info h4 {
+  font-size: 22px;
+  color: white;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.mk-look-info p {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 造型师团队 */
+.mk-artists {
+  background: #1a1a1a;
+}
+
+.mk-artists-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.mk-artist-card {
+  text-align: center;
+  padding: 40px 20px;
+  background: #2d2d2d;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.mk-artist-card:hover {
+  transform: translateY(-10px);
+  background: #3d3d3d;
+}
+
+.mk-artist-avatar {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.mk-artist-card h4 {
+  font-size: 20px;
+  color: white;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.mk-artist-title {
+  display: block;
+  color: #d4af37;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.mk-artist-specialty {
+  display: block;
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.mk-artist-experience {
+  display: inline-block;
+  background: #3d3d3d;
+  color: #aaa;
+  padding: 4px 12px;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+/* 品牌特色 */
+.mk-features {
+  background: #2d2d2d;
+}
+
+.mk-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.mk-feature-card {
+  text-align: center;
+  padding: 50px 30px;
+  background: #3d3d3d;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.mk-feature-card:hover {
+  transform: translateY(-10px);
+  background: #4d4d4d;
+}
+
+.mk-feature-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.mk-feature-card h3 {
+  font-size: 20px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.mk-feature-card p {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 底部CTA */
+.mk-cta {
+  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.mk-cta h2 {
+  font-size: 42px;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.mk-cta p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.mk-cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.mk-btn-link {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 16px;
+  transition: opacity 0.3s;
+}
+
+.mk-btn-link:hover {
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .mk-service-grid,
+  .mk-looks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .mk-artists-grid,
+  .mk-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mk-hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .mk-hero-visual {
+    margin-top: 60px;
+  }
+  
+  .mk-visual-main {
+    font-size: 200px;
+  }
+  
+  .mk-service-grid,
+  .mk-looks-grid,
+  .mk-artists-grid,
+  .mk-features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .mk-service-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* ========================================
+   美发页面样式 - 时尚造型风格
+   ======================================== */
+
+.hairdressing-page {
+  width: 100%;
+  background: #fafafa;
+}
+
+.hd-hero {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+  padding: 120px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hd-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,...');
+  opacity: 0.05;
+}
+
+.hd-hero-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.hd-hero-tag {
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 6px;
+  color: #e74c3c;
+  margin-bottom: 20px;
+}
+
+.hd-hero-text h1 {
+  font-size: 72px;
+  font-weight: 300;
+  color: white;
+  margin-bottom: 20px;
+  letter-spacing: 4px;
+}
+
+.hd-hero-text p {
+  font-size: 22px;
+  color: #bdc3c7;
+  line-height: 1.8;
+}
+
+.hd-hero-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hd-hero-main {
+  font-size: 300px;
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.3));
+}
+
+.hd-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.hd-section-title {
+  text-align: center;
+  font-size: 42px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.hd-section-subtitle {
+  text-align: center;
+  color: #95a5a6;
+  font-size: 16px;
+  margin-bottom: 60px;
+}
+
+/* 热门趋势 */
+.hd-trends {
+  background: white;
+}
+
+.hd-trends-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.hd-trend-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  border-top: 4px solid;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.hd-trend-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.hd-trend-emoji {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.hd-trend-card h4 {
+  font-size: 22px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.hd-trend-style {
+  display: inline-block;
+  background: #ecf0f1;
+  color: #7f8c8d;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* 服务项目 */
+.hd-services {
+  background: #fafafa;
+}
+
+.hd-service-section {
+  margin-bottom: 80px;
+}
+
+.hd-service-category {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 40px;
+  padding-left: 20px;
+  border-left: 4px solid #e74c3c;
+}
+
+.hd-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.hd-service-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+}
+
+.hd-service-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.hd-service-icon {
+  font-size: 60px;
+  margin-right: 25px;
+}
+
+.hd-service-info {
+  flex: 1;
+}
+
+.hd-service-info h4 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.hd-service-info p {
+  color: #95a5a6;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.hd-service-time {
+  color: #e74c3c;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hd-service-price-wrap {
+  text-align: right;
+}
+
+.hd-service-price {
+  display: block;
+  font-size: 28px;
+  color: #e74c3c;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.hd-service-btn {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.hd-service-btn:hover {
+  background: #e74c3c;
+}
+
+/* 发型师团队 */
+.hd-stylists {
+  background: white;
+}
+
+.hd-stylists-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.hd-stylist-card {
+  text-align: center;
+  background: white;
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s;
+}
+
+.hd-stylist-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.hd-stylist-avatar {
+  font-size: 100px;
+  margin-bottom: 20px;
+}
+
+.hd-stylist-info h4 {
+  font-size: 22px;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.hd-stylist-position {
+  display: inline-block;
+  background: #e74c3c;
+  color: white;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.hd-stylist-specialty {
+  color: #95a5a6;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.hd-stylist-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.hd-stylist-rating {
+  color: #f39c12;
+}
+
+/* CTA */
+.hd-cta {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  padding: 100px 20px;
+}
+
+.hd-cta-content {
+  text-align: center;
+}
+
+.hd-cta h2 {
+  font-size: 42px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.hd-cta p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+}
+
+.hd-cta-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hd-btn-primary {
+  background: white;
+  color: #e74c3c;
+  border: none;
+  padding: 18px 60px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.hd-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.hd-btn-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.hd-btn-link:hover {
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .hd-trends-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hd-stylists-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hd-hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .hd-hero-main {
+    font-size: 200px;
+    margin-top: 60px;
+  }
+  
+  .hd-trends-grid,
+  .hd-service-grid,
+  .hd-stylists-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   全屋定制页面样式 - 品质家居风格
+   ======================================== */
+
+.home-customization-page {
+  width: 100%;
+  background: #fafafa;
+}
+
+.hc-hero {
+  position: relative;
+  height: 700px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hc-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,...');
+  opacity: 0.1;
+}
+
+.hc-hero-content {
+  text-align: center;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hc-hero-tag {
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 25px;
+}
+
+.hc-hero-content h1 {
+  font-size: 64px;
+  color: white;
+  margin-bottom: 20px;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+
+.hc-hero-content p {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.hc-hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.hc-btn-primary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.hc-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(245, 87, 108, 0.4);
+}
+
+.hc-btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 16px 48px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.hc-btn-secondary:hover {
+  background: white;
+  color: #2a5298;
+}
+
+.hc-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.hc-section-title {
+  text-align: center;
+  font-size: 42px;
+  color: #1e3c72;
+  margin-bottom: 60px;
+  font-weight: 300;
+}
+
+/* 空间分类 */
+.hc-spaces {
+  background: white;
+}
+
+.hc-spaces-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.hc-space-card {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fafafa;
+  border-radius: 16px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.hc-space-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.hc-space-emoji {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+.hc-space-card h4 {
+  font-size: 18px;
+  color: #1e3c72;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.hc-space-card p {
+  color: #888;
+  font-size: 13px;
+}
+
+/* 设计风格 */
+.hc-styles {
+  background: #fafafa;
+}
+
+.hc-styles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.hc-style-card {
+  background: white;
+  border-radius: 20px;
+  padding: 50px 30px;
+  text-align: center;
+  border-bottom: 4px solid;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.hc-style-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.hc-style-emoji {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.hc-style-card h4 {
+  font-size: 22px;
+  color: #1e3c72;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.hc-style-card p {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 服务套餐 */
+.hc-services {
+  background: white;
+}
+
+.hc-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hc-service-card {
+  background: #fafafa;
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.hc-service-card.featured {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  transform: scale(1.05);
+}
+
+.hc-service-card.featured:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.hc-service-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hc-service-card h3 {
+  font-size: 24px;
+  color: #1e3c72;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.hc-service-card.featured h3,
+.hc-service-card.featured .hc-service-price,
+.hc-service-card.featured li {
+  color: white;
+}
+
+.hc-service-price {
+  font-size: 42px;
+  color: #f5576c;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.hc-service-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.hc-service-features li {
+  padding: 14px 0;
+  color: #666;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.hc-service-card.featured .hc-service-features li {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.hc-service-btn {
+  width: 100%;
+  padding: 16px;
+  background: #1e3c72;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.hc-service-card.featured .hc-service-btn {
+  background: white;
+  color: #1e3c72;
+}
+
+.hc-service-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* 服务流程 */
+.hc-process {
+  background: #fafafa;
+}
+
+.hc-process-steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.hc-process-steps::before {
+  content: '';
+  position: absolute;
+  top: 35px;
+  left: 80px;
+  right: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+}
+
+.hc-step {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.hc-step-num {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 auto 20px;
+  box-shadow: 0 5px 20px rgba(30, 60, 114, 0.3);
+}
+
+.hc-step h4 {
+  font-size: 18px;
+  color: #1e3c72;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.hc-step p {
+  color: #888;
+  font-size: 14px;
+}
+
+/* CTA */
+.hc-cta {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hc-cta h2 {
+  font-size: 42px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.hc-cta p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .hc-spaces-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .hc-styles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hc-hero-content h1 {
+    font-size: 42px;
+  }
+  
+  .hc-spaces-grid,
+  .hc-styles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hc-services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hc-service-card.featured {
+    transform: none;
+  }
+  
+  .hc-process-steps {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .hc-process-steps::before {
+    display: none;
+  }
+}
+
+/* ========================================
+   短视频制作页面样式 - 现代科技风格
+   ======================================== */
+
+.short-video-page {
+  width: 100%;
+  background: #0a0a0a;
+  color: white;
+}
+
+.sv-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.sv-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 50%, rgba(45, 55, 234, 0.15) 0%, transparent 50%);
+}
+
+.sv-hero-content {
+  text-align: center;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.sv-hero-tag {
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 8px;
+  color: #ea4545;
+  margin-bottom: 25px;
+}
+
+.sv-hero-content h1 {
+  font-size: 72px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #b4b4b4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sv-hero-content p {
+  font-size: 22px;
+  color: #888;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.sv-hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.sv-btn-primary {
+  background: linear-gradient(135deg, #ea4545 0%, #ff6b6b 100%);
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sv-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(234, 69, 69, 0.4);
+}
+
+.sv-btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid #333;
+  padding: 16px 48px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sv-btn-secondary:hover {
+  border-color: #ea4545;
+  color: #ea4545;
+}
+
+.sv-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.sv-section-title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 60px;
+  background: linear-gradient(135deg, #ffffff 0%, #b4b4b4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 服务项目 */
+.sv-services {
+  background: #0a0a0a;
+}
+
+.sv-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.sv-service-card {
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  border: 1px solid #2a2a4a;
+  transition: all 0.3s;
+}
+
+.sv-service-card:hover {
+  transform: translateY(-10px);
+  border-color: #ea4545;
+  box-shadow: 0 20px 60px rgba(234, 69, 69, 0.2);
+}
+
+.sv-service-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.sv-service-card h3 {
+  font-size: 26px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.sv-service-price {
+  font-size: 36px;
+  color: #ea4545;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.sv-service-desc {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.sv-service-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.sv-service-features li {
+  padding: 12px 0;
+  color: #aaa;
+  font-size: 14px;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+.sv-service-btn {
+  width: 100%;
+  background: #ea4545;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sv-service-btn:hover {
+  background: #ff6b6b;
+}
+
+/* 服务流程 */
+.sv-process {
+  background: #0f0f1a;
+}
+
+.sv-process-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.sv-process-item {
+  text-align: center;
+  padding: 40px 20px;
+  background: #1a1a2e;
+  border-radius: 16px;
+  transition: all 0.3s;
+}
+
+.sv-process-item:hover {
+  transform: translateY(-10px);
+  background: #2a2a4a;
+}
+
+.sv-process-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ea4545;
+  margin-bottom: 15px;
+}
+
+.sv-process-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.sv-process-item h4 {
+  font-size: 18px;
+  color: white;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.sv-process-item p {
+  color: #888;
+  font-size: 13px;
+}
+
+/* 案例展示 */
+.sv-cases {
+  background: #0a0a0a;
+}
+
+.sv-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.sv-case-card {
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+  border-radius: 20px;
+  padding: 50px 30px;
+  text-align: center;
+  border: 1px solid #2a2a4a;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.sv-case-card:hover {
+  transform: translateY(-10px);
+  border-color: #ea4545;
+  box-shadow: 0 20px 60px rgba(234, 69, 69, 0.2);
+}
+
+.sv-case-emoji {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.sv-case-card h4 {
+  font-size: 22px;
+  color: white;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.sv-case-card span {
+  color: #ea4545;
+  font-size: 14px;
+}
+
+/* CTA */
+.sv-cta {
+  background: linear-gradient(135deg, #ea4545 0%, #ff6b6b 100%);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.sv-cta h2 {
+  font-size: 42px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.sv-cta p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .sv-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .sv-process-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sv-hero-content h1 {
+    font-size: 48px;
+  }
+  
+  .sv-services-grid,
+  .sv-cases-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sv-process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========================================
+   中餐馆页面样式 - 传统中国风
+   ======================================== */
+
+.restaurant-page {
+  width: 100%;
+  background: linear-gradient(180deg, #fff 0%, #fff9f0 100%);
+}
+
+.res-hero {
+  position: relative;
+  height: 600px;
+  background: linear-gradient(135deg, #c0392b 0%, #8e44ad 50%, #c0392b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.res-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,...');
+  opacity: 0.1;
+}
+
+.res-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 50%);
+}
+
+.res-hero-content {
+  text-align: center;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.res-hero-badge {
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 6px;
+  color: #ffd700;
+  margin-bottom: 20px;
+  padding: 8px 20px;
+  border: 1px solid #ffd700;
+}
+
+.res-hero-content h1 {
+  font-size: 56px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 300;
+  letter-spacing: 8px;
+}
+
+.res-hero-content p {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 40px;
+}
+
+.res-hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.res-btn-primary {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  color: #8b0000;
+  border: none;
+  padding: 18px 50px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.res-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+}
+
+.res-btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 16px 48px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.res-btn-secondary:hover {
+  background: white;
+  color: #c0392b;
+}
+
+.res-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.res-section-title {
+  text-align: center;
+  font-size: 42px;
+  color: #c0392b;
+  margin-bottom: 60px;
+  font-weight: 300;
+}
+
+/* 品牌故事 */
+.res-story {
+  background: white;
+}
+
+.res-story-content {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.res-story-text {
+  flex: 1;
+}
+
+.res-story-text h2 {
+  font-size: 36px;
+  color: #c0392b;
+  margin-bottom: 25px;
+  font-weight: 300;
+}
+
+.res-story-text p {
+  font-size: 16px;
+  color: #666;
+  line-height: 2;
+  margin-bottom: 40px;
+}
+
+.res-story-stats {
+  display: flex;
+  gap: 50px;
+}
+
+.res-stat {
+  text-align: center;
+}
+
+.res-stat-num {
+  display: block;
+  font-size: 48px;
+  color: #ffd700;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.res-stat-label {
+  color: #888;
+  font-size: 14px;
+}
+
+.res-story-visual {
+  font-size: 250px;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
+}
+
+/* 招牌菜品 */
+.res-dishes {
+  background: #fff9f0;
+}
+
+.res-dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.res-dish-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+}
+
+.res-dish-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+}
+
+.res-dish-emoji {
+  font-size: 80px;
+  margin-right: 25px;
+}
+
+.res-dish-info {
+  flex: 1;
+}
+
+.res-dish-category {
+  display: inline-block;
+  background: #ffd700;
+  color: #8b0000;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.res-dish-info h4 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.res-dish-info p {
+  color: #888;
+  font-size: 14px;
+}
+
+.res-dish-price {
+  font-size: 28px;
+  color: #c0392b;
+  font-weight: 700;
+}
+
+/* 套餐推荐 */
+.res-packages {
+  background: white;
+}
+
+.res-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.res-package-card {
+  background: #fff9f0;
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.res-package-card.featured {
+  background: linear-gradient(135deg, #c0392b 0%, #8e44ad 100%);
+  transform: scale(1.05);
+}
+
+.res-package-card.featured:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.res-package-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  color: #8b0000;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.res-package-card h3 {
+  font-size: 24px;
+  color: #c0392b;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.res-package-card.featured h3,
+.res-package-card.featured .res-package-price,
+.res-package-card.featured li {
+  color: white;
+}
+
+.res-package-price {
+  font-size: 48px;
+  color: #ffd700;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.res-package-people {
+  display: block;
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.res-package-card.featured .res-package-people {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.res-package-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.res-package-features li {
+  padding: 12px 0;
+  color: #666;
+  font-size: 14px;
+  border-bottom: 1px solid #f0e6d3;
+}
+
+.res-package-card.featured .res-package-features li {
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.res-package-btn {
+  width: 100%;
+  padding: 16px;
+  background: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.res-package-card.featured .res-package-btn {
+  background: #ffd700;
+  color: #8b0000;
+}
+
+.res-package-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* CTA */
+.res-cta {
+  background: linear-gradient(135deg, #c0392b 0%, #8e44ad 100%);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.res-cta h2 {
+  font-size: 42px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.res-cta p {
+  font-size: 20px;
+  color: #ffd700;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .res-story-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .res-story-stats {
+    justify-content: center;
+  }
+  
+  .res-packages-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+  
+  .res-package-card.featured {
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .res-hero-content h1 {
+    font-size: 40px;
+    letter-spacing: 4px;
+  }
+  
+  .res-dishes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .res-dish-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .res-dish-emoji {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+/* ========================================
+   服装定制页面样式 - 优衣库简约风格
+   ======================================== */
+
+.clothing-page {
+  width: 100%;
+  background: #fafafa;
+}
+
+.cl-hero {
+  background: white;
+  padding: 150px 20px;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.cl-hero h1 {
+  font-size: 56px;
+  color: #111;
+  margin-bottom: 15px;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+
+.cl-hero p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.cl-btn-primary {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 18px 60px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cl-btn-primary:hover {
+  background: #333;
+}
+
+.cl-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.cl-section-title {
+  text-align: center;
+  font-size: 36px;
+  color: #111;
+  margin-bottom: 60px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+/* 定制品类 */
+.cl-categories {
+  background: white;
+}
+
+.cl-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.cl-category-card {
+  text-align: center;
+  padding: 50px 20px;
+  background: #fafafa;
+  border-radius: 8px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.cl-category-card:hover {
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.cl-category-emoji {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.cl-category-card h4 {
+  font-size: 18px;
+  color: #111;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.cl-category-card span {
+  color: #888;
+  font-size: 13px;
+}
+
+/* 产品展示 */
+.cl-products {
+  background: #fafafa;
+}
+
+.cl-products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.cl-product-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.cl-product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.cl-product-image {
+  height: 300px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+}
+
+.cl-product-info {
+  padding: 30px;
+  text-align: center;
+}
+
+.cl-product-category {
+  display: inline-block;
+  color: #888;
+  font-size: 12px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.cl-product-info h4 {
+  font-size: 20px;
+  color: #111;
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+.cl-product-price {
+  display: block;
+  font-size: 24px;
+  color: #111;
+  font-weight: 600;
+}
+
+/* 定制优势 */
+.cl-features {
+  background: white;
+}
+
+.cl-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.cl-feature-card {
+  text-align: center;
+  padding: 60px 30px;
+}
+
+.cl-feature-icon {
+  font-size: 60px;
+  margin-bottom: 25px;
+}
+
+.cl-feature-card h4 {
+  font-size: 20px;
+  color: #111;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.cl-feature-card p {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* CTA */
+.cl-cta {
+  background: #111;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.cl-cta h2 {
+  font-size: 36px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+
+.cl-cta p {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 40px;
+}
+
+.cl-cta .cl-btn-primary {
+  background: white;
+  color: #111;
+}
+
+.cl-cta .cl-btn-primary:hover {
+  background: #f0f0f0;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .cl-categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .cl-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cl-hero h1 {
+    font-size: 40px;
+  }
+  
+  .cl-categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .cl-products-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cl-features-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,72 +1,142 @@
-import IndustryPage from '../components/IndustryPage'
+import { Link } from 'react-router-dom'
 
-const 全屋定制 = () => (
-  <IndustryPage
-    category="全屋定制"
-    title="全屋定制与空间美学"
-    subtitle="从户型测量到施工落地，提供设计、选材、生产、安装一体化的家居升级方案。"
-    highlights={['全案设计能力', '环保选材体系', '项目进度可视化']}
-    workflow={['上门量房', '功能规划', '3D方案确认', '生产安装', '验收与售后']}
-    scenarios={['新房整屋定制', '旧房局改焕新', '收纳系统升级', '商住空间改造']}
-    quickActions={['免费量尺', '免费设计', '免费出图', '预约免费设计', '在线报修', '附近门店']}
-    productSystems={[
-      {
-        title: '全屋成品',
-        items: ['客厅', '餐厅', '卧室', '青少年房', '书房茶室', '休闲阳台']
-      },
-      {
-        title: '全屋定制',
-        items: ['威特森系列', '西格', '柯林π', '贝利尼', '青影', '东方木作']
-      },
-      {
-        title: '整体橱柜',
-        items: ['东方风', '欧式简奢', '北欧风', '现代轻奢', '意式极简', '中古风']
-      }
-    ]}
-    sceneCases={[
-      { scene: '住宅公寓', desc: '围绕家庭动线与收纳需求，配置全屋柜体、背景墙与软装系统。' },
-      { scene: '酒店案例', desc: '结合酒店定位规划客房收纳、卫浴和公共区域家具模块。' },
-      { scene: '老年康养', desc: '重点考虑无障碍、安全扶手、低高度收纳与防滑细节设计。' },
-      { scene: '办公案例', desc: '以效率和品牌展示为核心，打造前台、会议室、工位一体空间。' }
-    ]}
-    marketStats={[
-      { label: '月度签约数', value: '128' },
-      { label: '方案采纳率', value: '63%' },
-      { label: '按期交付率', value: '96%' },
-      { label: '平均客单价', value: '¥86,000' }
-    ]}
-    sampleCases={[
-      { title: '90平旧房改造', data: '工期缩短 14 天', desc: '以模块化定制减少现场返工，提升安装效率。' },
-      { title: '收纳体系升级', data: '储物空间 +37%', desc: '围绕家庭成员动线重构柜体与功能分区。' },
-      { title: '精装房软硬一体', data: '预算控制误差 < 5%', desc: '设计、选材与生产同步推进，控制成本波动。' }
-    ]}
-    mockServices={[
-      { name: '全屋设计咨询包', price: 1999, description: '含量房、平面规划、3D效果图与预算建议。' },
-      { name: '整屋柜体定制', price: 68800, description: '衣柜/橱柜/餐边柜/书柜一体化定制方案。' },
-      { name: '厨房焕新改造', price: 26800, description: '动线优化、柜体升级与功能五金组合落地。' }
-    ]}
-    showcaseItems={[
-      { title: '小户型收纳升级', tag: '实用型', summary: '通过垂直收纳与多功能柜体提升空间使用率。' },
-      { title: '轻奢整屋方案', tag: '品质型', summary: '风格统一、材质升级，强调细节工艺与耐用性。' },
-      { title: '旧房局改焕新', tag: '改造型', summary: '聚焦厨房/客厅/卧室功能重构，控制预算与工期。' }
-    ]}
-    capabilityMatrix={[
-      { name: '空间规划', detail: '围绕户型痛点进行动线、采光和功能区系统优化。' },
-      { name: '材料体系', detail: '建立环保与耐用双维度选材标准，保障长期使用。' },
-      { name: '施工协同', detail: '设计、工厂生产、现场安装节奏协同，减少返工。' },
-      { name: '交付保障', detail: '验收标准化 + 售后巡检机制，保障落地品质。' }
-    ]}
-    insights={[
-      '头部定制品牌都在强化“标准化交付能力”和“数字化设计体验”。',
-      '局改和收纳升级成为增速较快的细分需求场景。',
-      '案例可视化和价格透明化是提升签约率的重要因素。'
-    ]}
-    faqs={[
-      { q: '多久可以看到设计方案？', a: '量房后通常 3-7 天可提供初版方案。' },
-      { q: '预算如何控制？', a: '前期会拆分主材、五金、安装等费用，避免后期超支。' },
-      { q: '工期大概多久？', a: '常规项目 30-60 天，局改项目可更快交付。' }
-    ]}
-  />
-)
+const HomeCustomization = () => {
+  const spaces = [
+    { name: '客厅', emoji: '🛋️', desc: '会客娱乐核心区域' },
+    { name: '卧室', emoji: '🛏️', desc: '私密休息空间' },
+    { name: '厨房', emoji: '🍳', desc: '烹饪料理中心' },
+    { name: '书房', emoji: '📚', desc: '学习工作空间' },
+    { name: '衣帽间', emoji: '👔', desc: '收纳整理区域' },
+    { name: '阳台', emoji: '🌿', desc: '休闲观景区' },
+  ]
 
-export default 全屋定制
+  const styles = [
+    { name: '现代简约', color: '#607d8b', emoji: '🏠', desc: '简洁线条，注重空间感' },
+    { name: '欧式古典', color: '#8d6e63', emoji: '🏰', desc: '精致雕花，华丽氛围' },
+    { name: '新中式', color: '#bf360c', emoji: '🐉', desc: '传统元素，现代演绎' },
+    { name: '北欧自然', color: '#558b2f', emoji: '🌲', desc: '原木质感，温馨舒适' },
+  ]
+
+  const services = [
+    { name: '全屋设计方案', price: '免费', features: ['上门量房', '3套方案供选', 'VR全景预览'] },
+    { name: '基础套餐', price: '¥680/㎡', features: ['柜体定制', '标准五金', '专业安装'] },
+    { name: '尊享套餐', price: '¥980/㎡', features: ['全屋定制', '进口五金', '终身质保'] },
+  ]
+
+  return (
+    <div className="home-customization-page">
+      {/* Hero */}
+      <section className="hc-hero">
+        <div className="hc-hero-bg"></div>
+        <div className="hc-hero-content">
+          <span className="hc-hero-tag">HOMEKOODW</span>
+          <h1>定制专属理想家</h1>
+          <p>专业设计团队 · 品质材料 · 一站式服务</p>
+          <div className="hc-hero-actions">
+            <button className="hc-btn-primary">免费预约设计</button>
+            <button className="hc-btn-secondary">查看案例</button>
+          </div>
+        </div>
+      </section>
+
+      {/* 空间分类 */}
+      <section className="hc-spaces">
+        <div className="hc-container">
+          <h2 className="hc-section-title">全屋空间定制</h2>
+          <div className="hc-spaces-grid">
+            {spaces.map((space, index) => (
+              <div key={index} className="hc-space-card">
+                <div className="hc-space-emoji">{space.emoji}</div>
+                <h4>{space.name}</h4>
+                <p>{space.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 设计风格 */}
+      <section className="hc-styles">
+        <div className="hc-container">
+          <h2 className="hc-section-title">设计风格</h2>
+          <div className="hc-styles-grid">
+            {styles.map((style, index) => (
+              <div key={index} className="hc-style-card" style={{ borderBottomColor: style.color }}>
+                <div className="hc-style-emoji">{style.emoji}</div>
+                <h4>{style.name}</h4>
+                <p>{style.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 服务套餐 */}
+      <section className="hc-services">
+        <div className="hc-container">
+          <h2 className="hc-section-title">服务套餐</h2>
+          <div className="hc-services-grid">
+            {services.map((service, index) => (
+              <div key={index} className={`hc-service-card ${index === 1 ? 'featured' : ''}`}>
+                {index === 1 && <div className="hc-service-badge">推荐</div>}
+                <h3>{service.name}</h3>
+                <div className="hc-service-price">{service.price}</div>
+                <ul className="hc-service-features">
+                  {service.features.map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+                <button className="hc-service-btn">立即咨询</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 流程 */}
+      <section className="hc-process">
+        <div className="hc-container">
+          <h2 className="hc-section-title">服务流程</h2>
+          <div className="hc-process-steps">
+            <div className="hc-step">
+              <div className="hc-step-num">01</div>
+              <h4>预约量房</h4>
+              <p>专业团队上门测量</p>
+            </div>
+            <div className="hc-step">
+              <div className="hc-step-num">02</div>
+              <h4>方案设计</h4>
+              <p>3套方案供您选择</p>
+            </div>
+            <div className="hc-step">
+              <div className="hc-step-num">03</div>
+              <h4>确认下单</h4>
+              <p>确定方案，签订合同</p>
+            </div>
+            <div className="hc-step">
+              <div className="hc-step-num">04</div>
+              <h4>生产配送</h4>
+              <p>工厂生产，专业配送</p>
+            </div>
+            <div className="hc-step">
+              <div className="hc-step-num">05</div>
+              <h4>安装验收</h4>
+              <p>专业安装，满意交付</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="hc-cta">
+        <div className="hc-container">
+          <h2>开启您的定制之旅</h2>
+          <p>专业团队，为您打造梦想家</p>
+          <button className="hc-btn-primary">立即预约</button>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export default HomeCustomization

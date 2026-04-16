@@ -1,51 +1,148 @@
-import IndustryPage from '../components/IndustryPage'
+import { Link } from 'react-router-dom'
 
-const 美发 = () => (
-  <IndustryPage
-    category="美发"
-    title="潮流美发与头皮护理"
-    subtitle="结合脸型与职业场景进行发型设计，支持剪、染、烫、护理全链路服务。"
-    highlights={['发型顾问制服务', '进口护理产品', '造型趋势实时更新']}
-    workflow={['风格测试', '发质诊断', '发型设计', '剪烫染执行', '日常打理指导']}
-    scenarios={['通勤精致造型', '约会氛围造型', '商务稳重造型', '舞台时尚造型']}
-    marketStats={[
-      { label: '月服务人次', value: '2,460' },
-      { label: '护理项目占比', value: '57%' },
-      { label: '高客单转化', value: '29%' },
-      { label: '会员留存率', value: '88%' }
-    ]}
-    sampleCases={[
-      { title: '头皮护理专项月', data: '客单提升 18%', desc: '以头皮诊断+疗程卡为核心，带动高价值护理服务。' },
-      { title: '门店造型升级周', data: '预约增长 42%', desc: '联动社媒发型趋势内容，提升年轻客群到店意愿。' },
-      { title: '会员复购激活', data: '复购提升 25%', desc: '通过档案化管理提醒顾客定期维护发型与发质。' }
-    ]}
-    mockServices={[
-      { name: '形象设计剪裁', price: 268, description: '结合脸型/职业场景设计发型，含造型建议。' },
-      { name: '轻奢染烫套系', price: 1180, description: '含烫染+修护，支持潮流发色与质感卷度打造。' },
-      { name: '深层头皮护理', price: 399, description: '头皮清洁、舒缓导入与居家护理建议。' }
-    ]}
-    showcaseItems={[
-      { title: '法式层次短发', tag: '潮流款', summary: '轻盈层次与轮廓修饰，适合职场与日常通勤。' },
-      { title: '质感冷棕染发', tag: '发色', summary: '低调高级发色路线，配合护色方案提升维持时长。' },
-      { title: '头皮焕活疗程', tag: '护理', summary: '针对油脂与敏感问题进行分型护理。' }
-    ]}
-    capabilityMatrix={[
-      { name: '发型数据库', detail: '结合脸型、发量、职业属性快速匹配推荐发型。' },
-      { name: '头皮管理体系', detail: '支持检测、疗程、居家护理建议三段式方案。' },
-      { name: '门店运营支持', detail: '通过项目组合和会员储值方案提升门店经营效率。' },
-      { name: '造型内容输出', detail: '联动短视频模块进行发型内容营销与获客。' }
-    ]}
-    insights={[
-      '头部连锁普遍将剪发从单次服务升级为周期化会员维护。',
-      '“发质改善”成为高客单项目核心，护理占比持续增长。',
-      '发型师个人IP化可显著提升预约率与品牌曝光。'
-    ]}
-    faqs={[
-      { q: '首次到店如何选择发型？', a: '可先进行顾问咨询，我们会结合脸型和场景给出建议。' },
-      { q: '染烫后如何护理？', a: '提供个性化护理计划和周期提醒，帮助延长效果。' },
-      { q: '是否有会员套餐？', a: '有，支持剪烫染与护理组合包及次卡模式。' }
-    ]}
-  />
-)
+const Hairdressing = () => {
+  const services = [
+    { 
+      category: '造型服务', 
+      items: [
+        { name: '精致剪发', price: '¥168', time: '60分钟', emoji: '✂️', desc: '资深发型师剪发+造型' },
+        { name: '时尚烫发', price: '¥488', time: '120分钟', emoji: '💇', desc: '冷烫/热烫可选，含护理' },
+        { name: '潮流染发', price: '¥398', time: '90分钟', emoji: '🎨', desc: '进口染剂，色彩饱满' },
+        { name: '烫染套餐', price: '¥768', time: '180分钟', emoji: '💆', desc: '烫发+染发+护理全套' },
+      ]
+    },
+    {
+      category: '护理服务',
+      items: [
+        { name: '头皮深层护理', price: '¥288', time: '45分钟', emoji: '🌿', desc: '头皮清洁+按摩+滋养' },
+        { name: '受损发质修护', price: '¥328', time: '60分钟', emoji: '💚', desc: '专业护理，还原秀发健康' },
+        { name: '丝滑顺发护理', price: '¥268', time: '40分钟', emoji: '✨', desc: '瞬间顺滑，光泽亮丽' },
+      ]
+    },
+    {
+      category: '会员服务',
+      items: [
+        { name: '月度会员', price: '¥1,680/月', time: '', emoji: '👑', desc: '无限次洗剪吹+8折优惠' },
+        { name: '季度会员', price: '¥4,280/季', time: '', emoji: '💎', desc: '全部服务5折+专属造型师' },
+        { name: '年度会员', price: '¥15,800/年', time: '', emoji: '🌟', desc: '全年无限次+优先预约' },
+      ]
+    }
+  ]
 
-export default 美发
+  const trends = [
+    { name: '法式慵懒卷', style: '优雅', emoji: '💃', color: '#8B4513' },
+    { name: '韩式空气刘海', style: '清新', emoji: '🌸', color: '#DDA0DD' },
+    { name: '日系短发', style: '干练', emoji: '🍃', color: '#696969' },
+    { name: '欧美挑染', style: '个性', emoji: '⚡', color: '#FF6B6B' },
+    { name: '中式复古盘发', style: '端庄', emoji: '🐉', color: '#8B0000' },
+    { name: '精灵短发', style: '俏皮', emoji: '✨', color: '#C0C0C0' },
+  ]
+
+  const stylists = [
+    { name: 'Tony Zhang', position: '艺术总监', specialty: '创意染发/造型', experience: '15年', emoji: '👨‍🎨', rating: 4.9 },
+    { name: 'Coco Wang', position: '资深发型师', specialty: '韩式烫发/护理', experience: '10年', emoji: '💇‍♀️', rating: 4.8 },
+    { name: 'Ken Lee', position: '发型师', specialty: '日系剪发/造型', experience: '8年', emoji: '✂️', rating: 4.9 },
+    { name: 'Mika Liu', position: '色彩总监', specialty: '创意染发/挑染', experience: '12年', emoji: '🎨', rating: 4.9 },
+  ]
+
+  return (
+    <div className="hairdressing-page">
+      {/* Hero Section */}
+      <section className="hd-hero">
+        <div className="hd-hero-content">
+          <div className="hd-hero-text">
+            <span className="hd-hero-tag">MEIFAZHAN</span>
+            <h1>从头开始改变</h1>
+            <p>专业美发团队，打造专属您的时尚造型</p>
+          </div>
+          <div className="hd-hero-visual">
+            <div className="hd-hero-main">✂️</div>
+          </div>
+        </div>
+      </section>
+
+      {/* 热门趋势 */}
+      <section className="hd-trends">
+        <div className="hd-container">
+          <h2 className="hd-section-title">热门发型趋势</h2>
+          <p className="hd-section-subtitle">当下最in的发型灵感</p>
+          <div className="hd-trends-grid">
+            {trends.map((trend, index) => (
+              <div key={index} className="hd-trend-card" style={{ borderTopColor: trend.color }}>
+                <div className="hd-trend-emoji">{trend.emoji}</div>
+                <h4>{trend.name}</h4>
+                <span className="hd-trend-style">{trend.style}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 服务项目 */}
+      <section className="hd-services">
+        <div className="hd-container">
+          {services.map((section, idx) => (
+            <div key={idx} className="hd-service-section">
+              <h3 className="hd-service-category">{section.category}</h3>
+              <div className="hd-service-grid">
+                {section.items.map((item, i) => (
+                  <div key={i} className="hd-service-card">
+                    <div className="hd-service-icon">{item.emoji}</div>
+                    <div className="hd-service-info">
+                      <h4>{item.name}</h4>
+                      <p>{item.desc}</p>
+                      {item.time && <span className="hd-service-time">{item.time}</span>}
+                    </div>
+                    <div className="hd-service-price-wrap">
+                      <span className="hd-service-price">{item.price}</span>
+                      <button className="hd-service-btn">预约</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 发型师团队 */}
+      <section className="hd-stylists">
+        <div className="hd-container">
+          <h2 className="hd-section-title">发型师团队</h2>
+          <div className="hd-stylists-grid">
+            {stylists.map((stylist, index) => (
+              <div key={index} className="hd-stylist-card">
+                <div className="hd-stylist-avatar">{stylist.emoji}</div>
+                <div className="hd-stylist-info">
+                  <h4>{stylist.name}</h4>
+                  <span className="hd-stylist-position">{stylist.position}</span>
+                  <p className="hd-stylist-specialty">{stylist.specialty}</p>
+                  <div className="hd-stylist-meta">
+                    <span>{stylist.experience}</span>
+                    <span className="hd-stylist-rating">★ {stylist.rating}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 预约CTA */}
+      <section className="hd-cta">
+        <div className="hd-container">
+          <div className="hd-cta-content">
+            <h2>预约您的专属造型</h2>
+            <p>专业团队，为您打造完美发型</p>
+            <div className="hd-cta-buttons">
+              <button className="hd-btn-primary">立即预约</button>
+              <Link to="/makeup" className="hd-btn-link">查看彩妆服务 →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export default Hairdressing
