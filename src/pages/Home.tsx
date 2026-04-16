@@ -25,10 +25,11 @@ const Home = () => {
           </div>
         </div>
         <div className="cloud-hero-right">
-          <div className="planet-mock"></div>
-          <div className="floating-screen top">经营总览大屏</div>
-          <div className="floating-screen middle">销售趋势分析</div>
-          <div className="floating-screen bottom">业务洞察卡片</div>
+          <img 
+            src="https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2Fimage.png&nonce=72846ebd-51ac-4ee1-aa36-9c1b7fdef9b9&project_id=7629176607961399322&sign=1f511ecd4678db1085bfd2ccacf9604bef5c26ac2cc593fac596215e67f044f7" 
+            alt="小红点生活馆"
+            style={{ width: '100%', height: 'auto', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}
+          />
         </div>
       </section>
 
