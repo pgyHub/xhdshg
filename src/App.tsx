@@ -35,10 +35,6 @@ function App() {
               <h1>小红点生活馆</h1>
               <span>云智一体生活服务平台</span>
             </div>
-            <div className="header-actions">
-              <button type="button" className="header-login-button" onClick={() => setShowLoginModal(true)}>登录</button>
-              <button type="button" className="header-register-entry" onClick={() => setShowLoginModal(true)}>免费注册</button>
-            </div>
           </div>
           <nav className="main-nav">
             {navItems.map((item) => (

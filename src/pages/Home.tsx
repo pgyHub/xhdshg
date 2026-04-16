@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const entryCards = [
   { title: '进入工作台', desc: '快速进入业务管理后台，统一查看模块数据。', path: '/member-backend' },
@@ -7,6 +8,8 @@ const entryCards = [
 ]
 
 const Home = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false)
+
   return (
     <div className="cloud-home">
       <section className="cloud-hero">
@@ -19,7 +22,7 @@ const Home = () => {
             无需复杂开发，分钟级完成数据呈现与经营汇报。
           </p>
           <div className="cloud-hero-actions">
-            <Link to="/dashboard" className="button button-primary">创建我的报表大屏</Link>
+            <button onClick={() => setShowLoginModal(true)} className="button button-primary">立即体验</button>
             <Link to="/dashboard" className="button cloud-secondary-button">帮助文档</Link>
             <Link to="/dashboard" className="button cloud-secondary-button">视频教程</Link>
           </div>
@@ -67,10 +70,43 @@ const Home = () => {
       </section>
 
       <div className="right-floating-tools">
-        <button>评</button>
-        <button>改</button>
-        <button>询</button>
+        <button onClick={() => setShowLoginModal(true)}>登录</button>
+        <button onClick={() => setShowLoginModal(true)}>注册</button>
       </div>
+
+      {showLoginModal && (
+        <div className="login-modal-mask" onClick={() => setShowLoginModal(false)}>
+          <div className="login-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setShowLoginModal(false)}>×</button>
+            <div className="login-modal-left">
+              <h3>登录</h3>
+              <p>小红点APP/支付宝/钉钉</p>
+              <div className="mock-qr">
+                <div className="mock-qr-inner">二维码</div>
+              </div>
+              <span>其他方式：支付宝 / 淘宝 / 微博 / 飞书</span>
+            </div>
+            <div className="login-modal-right">
+              <div className="login-modal-tabs">
+                <button className="active">账号登录</button>
+                <button>手机号登录</button>
+                <button>通行密钥</button>
+                <button className="go-register">前往注册</button>
+              </div>
+              <div className="login-modal-form">
+                <input placeholder="账号名  请输入" />
+                <input type="password" placeholder="密码  请输入" />
+                <button className="login-submit">立即登录</button>
+                <div className="login-links">
+                  <span>忘记登录名</span>
+                  <span>忘记密码</span>
+                  <span>RAM登录</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
