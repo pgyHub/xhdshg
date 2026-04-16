@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+type ServiceTab = 'bridal' | 'commercial' | 'event'
+
 const Makeup = () => {
-  const [activeTab, setActiveTab] = useState('bridal')
+  const [activeTab, setActiveTab] = useState<ServiceTab>('bridal')
   
   const services = {
     bridal: {
@@ -100,7 +102,7 @@ const Makeup = () => {
           <div className="mk-service-content">
             <h3 className="mk-service-title">{services[activeTab].title}</h3>
             <div className="mk-service-grid">
-              {services[activeTab].items.map((service, index) => (
+              {services[activeTab].items.map((service: any, index: number) => (
                 <div key={index} className="mk-service-card">
                   <div className="mk-service-header">
                     <h4>{service.name}</h4>
@@ -108,7 +110,7 @@ const Makeup = () => {
                   </div>
                   <div className="mk-service-price">{service.price}</div>
                   <ul className="mk-service-features">
-                    {service.features.map((feature, i) => (
+                    {service.features.map((feature: string, i: number) => (
                       <li key={i}>{feature}</li>
                     ))}
                   </ul>

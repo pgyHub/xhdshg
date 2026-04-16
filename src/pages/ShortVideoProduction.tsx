@@ -1,38 +1,37 @@
-import { Link } from 'react-router-dom'
+
+const services = [
+  { 
+    name: '短视频代运营', 
+    price: '¥3,980/月',
+    desc: '全托管式服务，省心省力',
+    features: ['账号定位规划', '内容策划拍摄', '后期剪辑制作', '数据运营分析', '粉丝互动管理'],
+    emoji: '📱'
+  },
+  { 
+    name: '单条视频制作', 
+    price: '¥1,280/条',
+    desc: '高品质单条视频定制',
+    features: ['脚本策划', '专业拍摄', '精细剪辑', '配音字幕', '3次修改'],
+    emoji: '🎬'
+  },
+  { 
+    name: '企业宣传片', 
+    price: '¥12,800起',
+    desc: '品牌级宣传视频制作',
+    features: ['创意策划', '4K拍摄', '专业配音', '特效包装', '多版本输出'],
+    emoji: '🎥'
+  },
+]
+
+const process = [
+  { step: '01', title: '需求沟通', desc: '了解您的品牌和目标受众', icon: '💬' },
+  { step: '02', title: '方案策划', desc: '制定内容策略和创意方向', icon: '📝' },
+  { step: '03', title: '拍摄执行', desc: '专业团队现场拍摄', icon: '📹' },
+  { step: '04', title: '后期制作', desc: '剪辑、调色、特效包装', icon: '✂️' },
+  { step: '05', title: '审核交付', desc: '满意后交付成片', icon: '✅' },
+]
 
 const ShortVideoProduction = () => {
-  const services = [
-    { 
-      name: '短视频代运营', 
-      price: '¥3,980/月',
-      desc: '全托管式服务，省心省力',
-      features: ['账号定位规划', '内容策划拍摄', '后期剪辑制作', '数据运营分析', '粉丝互动管理'],
-      emoji: '📱'
-    },
-    { 
-      name: '单条视频制作', 
-      price: '¥1,280/条',
-      desc: '高品质单条视频定制',
-      features: ['脚本策划', '专业拍摄', '精细剪辑', '配音字幕', '3次修改'],
-      emoji: '🎬'
-    },
-    { 
-      name: '企业宣传片', 
-      price: '¥12,800起',
-      desc: '品牌级宣传视频制作',
-      features: ['创意策划', '4K拍摄', '专业配音', '特效包装', '多版本输出'],
-      emoji: '🎥'
-    },
-  ]
-
-  const process = [
-    { step: '01', title: '需求沟通', desc: '了解您的品牌和目标受众', icon: '💬' },
-    { step: '02', title: '方案策划', desc: '制定内容策略和创意方向', icon: '📝' },
-    { step: '03', title: '拍摄执行', desc: '专业团队现场拍摄', icon: '📹' },
-    { step: '04', title: '后期制作', desc: '剪辑、调色、特效包装', icon: '✂️' },
-    { step: '05', title: '审核交付', desc: '满意后交付成片', icon: '✅' },
-  ]
-
   return (
     <div className="short-video-page">
       {/* Hero */}

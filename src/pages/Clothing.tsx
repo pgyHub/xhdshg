@@ -1,31 +1,30 @@
-import { Link } from 'react-router-dom'
+
+const categories = [
+  { name: '西装定制', emoji: '👔', desc: '商务正装' },
+  { name: '衬衫定制', emoji: '👕', desc: '品质衬衫' },
+  { name: '礼服定制', emoji: '🎩', desc: '特殊场合' },
+  { name: '旗袍定制', emoji: '👘', desc: '中式定制' },
+  { name: '大衣定制', emoji: '🧥', desc: '秋冬单品' },
+  { name: '裤装定制', emoji: '👖', desc: '裤装系列' },
+]
+
+const products = [
+  { name: '经典西装套装', price: '¥3,980', emoji: '👔', category: '西装' },
+  { name: '高支棉衬衫', price: '¥680', emoji: '👕', category: '衬衫' },
+  { name: '婚礼礼服套餐', price: '¥8,880', emoji: '🎩', category: '礼服' },
+  { name: '量身定制旗袍', price: '¥2,980', emoji: '👘', category: '旗袍' },
+  { name: '羊绒大衣', price: '¥5,800', emoji: '🧥', category: '大衣' },
+  { name: '休闲裤定制', price: '¥580', emoji: '👖', category: '裤装' },
+]
+
+const features = [
+  { icon: '📏', title: '精准量体', desc: '专业量体师，精准测量每一个部位' },
+  { icon: '🧵', title: '精选面料', desc: '来自意大利、英国的品质面料' },
+  { icon: '✂️', title: '精湛工艺', desc: '传统裁缝技艺，现代工艺标准' },
+  { icon: '🔧', title: '终身服务', desc: '免费修改，终身售后服务' },
+]
 
 const Clothing = () => {
-  const categories = [
-    { name: '西装定制', emoji: '👔', desc: '商务正装' },
-    { name: '衬衫定制', emoji: '👕', desc: '品质衬衫' },
-    { name: '礼服定制', emoji: '🎩', desc: '特殊场合' },
-    { name: '旗袍定制', emoji: '👘', desc: '中式定制' },
-    { name: '大衣定制', emoji: '🧥', desc: '秋冬单品' },
-    { name: '裤装定制', emoji: '👖', desc: '裤装系列' },
-  ]
-
-  const products = [
-    { name: '经典西装套装', price: '¥3,980', emoji: '👔', category: '西装' },
-    { name: '高支棉衬衫', price: '¥680', emoji: '👕', category: '衬衫' },
-    { name: '婚礼礼服套餐', price: '¥8,880', emoji: '🎩', category: '礼服' },
-    { name: '量身定制旗袍', price: '¥2,980', emoji: '👘', category: '旗袍' },
-    { name: '羊绒大衣', price: '¥5,800', emoji: '🧥', category: '大衣' },
-    { name: '休闲裤定制', price: '¥580', emoji: '👖', category: '裤装' },
-  ]
-
-  const features = [
-    { icon: '📏', title: '精准量体', desc: '专业量体师，精准测量每一个部位' },
-    { icon: '🧵', title: '精选面料', desc: '来自意大利、英国的品质面料' },
-    { icon: '✂️', title: '精湛工艺', desc: '传统裁缝技艺，现代工艺标准' },
-    { icon: '🔧', title: '终身服务', desc: '免费修改，终身售后服务' },
-  ]
-
   return (
     <div className="clothing-page">
       {/* Hero */}

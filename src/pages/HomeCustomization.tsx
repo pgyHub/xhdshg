@@ -1,28 +1,27 @@
-import { Link } from 'react-router-dom'
+
+const spaces = [
+  { name: '客厅', emoji: '🛋️', desc: '会客娱乐核心区域' },
+  { name: '卧室', emoji: '🛏️', desc: '私密休息空间' },
+  { name: '厨房', emoji: '🍳', desc: '烹饪料理中心' },
+  { name: '书房', emoji: '📚', desc: '学习工作空间' },
+  { name: '衣帽间', emoji: '👔', desc: '收纳整理区域' },
+  { name: '阳台', emoji: '🌿', desc: '休闲观景区' },
+]
+
+const styles = [
+  { name: '现代简约', color: '#607d8b', emoji: '🏠', desc: '简洁线条，注重空间感' },
+  { name: '欧式古典', color: '#8d6e63', emoji: '🏰', desc: '精致雕花，华丽氛围' },
+  { name: '新中式', color: '#bf360c', emoji: '🐉', desc: '传统元素，现代演绎' },
+  { name: '北欧自然', color: '#558b2f', emoji: '🌲', desc: '原木质感，温馨舒适' },
+]
+
+const services = [
+  { name: '全屋设计方案', price: '免费', features: ['上门量房', '3套方案供选', 'VR全景预览'] },
+  { name: '基础套餐', price: '¥680/㎡', features: ['柜体定制', '标准五金', '专业安装'] },
+  { name: '尊享套餐', price: '¥980/㎡', features: ['全屋定制', '进口五金', '终身质保'] },
+]
 
 const HomeCustomization = () => {
-  const spaces = [
-    { name: '客厅', emoji: '🛋️', desc: '会客娱乐核心区域' },
-    { name: '卧室', emoji: '🛏️', desc: '私密休息空间' },
-    { name: '厨房', emoji: '🍳', desc: '烹饪料理中心' },
-    { name: '书房', emoji: '📚', desc: '学习工作空间' },
-    { name: '衣帽间', emoji: '👔', desc: '收纳整理区域' },
-    { name: '阳台', emoji: '🌿', desc: '休闲观景区' },
-  ]
-
-  const styles = [
-    { name: '现代简约', color: '#607d8b', emoji: '🏠', desc: '简洁线条，注重空间感' },
-    { name: '欧式古典', color: '#8d6e63', emoji: '🏰', desc: '精致雕花，华丽氛围' },
-    { name: '新中式', color: '#bf360c', emoji: '🐉', desc: '传统元素，现代演绎' },
-    { name: '北欧自然', color: '#558b2f', emoji: '🌲', desc: '原木质感，温馨舒适' },
-  ]
-
-  const services = [
-    { name: '全屋设计方案', price: '免费', features: ['上门量房', '3套方案供选', 'VR全景预览'] },
-    { name: '基础套餐', price: '¥680/㎡', features: ['柜体定制', '标准五金', '专业安装'] },
-    { name: '尊享套餐', price: '¥980/㎡', features: ['全屋定制', '进口五金', '终身质保'] },
-  ]
-
   return (
     <div className="home-customization-page">
       {/* Hero */}

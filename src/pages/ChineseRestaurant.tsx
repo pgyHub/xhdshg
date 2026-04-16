@@ -1,21 +1,20 @@
-import { Link } from 'react-router-dom'
+
+const dishes = [
+  { name: '招牌北京烤鸭', category: '招牌菜', price: '¥298', emoji: '🦆', desc: '传统工艺，皮脆肉嫩' },
+  { name: '宫保鸡丁', category: '经典川菜', price: '¥68', emoji: '🍗', desc: '麻辣鲜香，下饭神器' },
+  { name: '清蒸鲈鱼', category: '鲜活海鲜', price: '¥168', emoji: '🐟', desc: '新鲜食材，清淡养生' },
+  { name: '红烧狮子头', category: '淮扬名菜', price: '¥88', emoji: '🥩', desc: '入口即化，肥而不腻' },
+  { name: '糖醋里脊', category: '酸甜口味', price: '¥58', emoji: '🍖', desc: '外酥里嫩，酸甜可口' },
+  { name: '麻婆豆腐', category: '川菜代表', price: '¥38', emoji: '🧈', desc: '麻辣鲜香，开胃下饭' },
+]
+
+const packages = [
+  { name: '家庭聚会套餐', price: '¥888', people: '4-6人', features: ['8道热菜', '2道凉菜', '1份甜品', '茶水免费'] },
+  { name: '商务宴请套餐', price: '¥1,888', people: '10人桌', features: ['12道菜品', '4道凉菜', '2份甜品', '指定酒水'] },
+  { name: '婚宴寿宴套餐', price: '¥2,888', people: '10人桌', features: ['14道菜品', '6道凉菜', '3份甜品', '场地布置'] },
+]
 
 const ChineseRestaurant = () => {
-  const dishes = [
-    { name: '招牌北京烤鸭', category: '招牌菜', price: '¥298', emoji: '🦆', desc: '传统工艺，皮脆肉嫩' },
-    { name: '宫保鸡丁', category: '经典川菜', price: '¥68', emoji: '🍗', desc: '麻辣鲜香，下饭神器' },
-    { name: '清蒸鲈鱼', category: '鲜活海鲜', price: '¥168', emoji: '🐟', desc: '新鲜食材，清淡养生' },
-    { name: '红烧狮子头', category: '淮扬名菜', price: '¥88', emoji: '🥩', desc: '入口即化，肥而不腻' },
-    { name: '糖醋里脊', category: '酸甜口味', price: '¥58', emoji: '🍖', desc: '外酥里嫩，酸甜可口' },
-    { name: '麻婆豆腐', category: '川菜代表', price: '¥38', emoji: '🧈', desc: '麻辣鲜香，开胃下饭' },
-  ]
-
-  const packages = [
-    { name: '家庭聚会套餐', price: '¥888', people: '4-6人', features: ['8道热菜', '2道凉菜', '1份甜品', '茶水免费'] },
-    { name: '商务宴请套餐', price: '¥1,888', people: '10人桌', features: ['12道菜品', '4道凉菜', '2份甜品', '指定酒水'] },
-    { name: '婚宴寿宴套餐', price: '¥2,888', people: '10人桌', features: ['14道菜品', '6道凉菜', '3份甜品', '场地布置'] },
-  ]
-
   return (
     <div className="restaurant-page">
       {/* Hero */}

@@ -9,7 +9,6 @@ const entryCards = [
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState<'account' | 'sms'>('account')
-  const [showLoginModal, setShowLoginModal] = useState(false)
 
   return (
     <div className="cloud-home">
@@ -23,7 +22,7 @@ const Home = () => {
             无需复杂开发，分钟级完成数据呈现与经营汇报。
           </p>
           <div className="cloud-hero-actions">
-            <button onClick={() => setShowLoginModal(true)} className="button button-primary">立即体验</button>
+            <Link to="/dashboard" className="button button-primary">立即体验</Link>
             <Link to="/dashboard" className="button cloud-secondary-button">帮助文档</Link>
             <Link to="/dashboard" className="button cloud-secondary-button">视频教程</Link>
           </div>
@@ -169,7 +168,7 @@ const Home = () => {
       </section>
 
       <div className="right-floating-tools">
-        <button onClick={() => setShowLoginModal(true)}>咨询</button>
+        <button>咨询</button>
       </div>
     </div>
   )
