@@ -1,55 +1,51 @@
-import React, { useState, useEffect } from 'react'
-import { serviceAPI } from '../services/api'
+import IndustryPage from '../components/IndustryPage'
 
-const 美发: React.FC = () => {
-  const [services, setServices] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const data = await serviceAPI.getServices('美发')
-        setServices(data)
-      } catch (err) {
-        setError('获取服务数据失败')
-        console.error('获取服务数据失败:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchServices()
-  }, [])
-
-  if (loading) {
-    return <div>加载中...</div>
-  }
-
-  return (
-    <div>
-      <h2>美发</h2>
-      <p>我们提供专业的美发服务，包括剪发、染发、烫发等。</p>
-      {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
-      <div style={{ marginTop: '30px' }}>
-        <h3>服务项目</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
-          {services.length > 0 ? (
-            services.map((service) => (
-              <div key={service.id} style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
-                <h4>{service.name}</h4>
-                <p>价格：¥{service.price}</p>
-                <p>包含：{service.description}</p>
-              </div>
-            ))
-          ) : (
-            <div style={{ gridColumn: '1 / -1', textAlign: 'center' }}>
-              <p>暂无服务数据</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
+const 美发 = () => (
+  <IndustryPage
+    category="美发"
+    title="潮流美发与头皮护理"
+    subtitle="结合脸型与职业场景进行发型设计，支持剪、染、烫、护理全链路服务。"
+    highlights={['发型顾问制服务', '进口护理产品', '造型趋势实时更新']}
+    workflow={['风格测试', '发质诊断', '发型设计', '剪烫染执行', '日常打理指导']}
+    scenarios={['通勤精致造型', '约会氛围造型', '商务稳重造型', '舞台时尚造型']}
+    marketStats={[
+      { label: '月服务人次', value: '2,460' },
+      { label: '护理项目占比', value: '57%' },
+      { label: '高客单转化', value: '29%' },
+      { label: '会员留存率', value: '88%' }
+    ]}
+    sampleCases={[
+      { title: '头皮护理专项月', data: '客单提升 18%', desc: '以头皮诊断+疗程卡为核心，带动高价值护理服务。' },
+      { title: '门店造型升级周', data: '预约增长 42%', desc: '联动社媒发型趋势内容，提升年轻客群到店意愿。' },
+      { title: '会员复购激活', data: '复购提升 25%', desc: '通过档案化管理提醒顾客定期维护发型与发质。' }
+    ]}
+    mockServices={[
+      { name: '形象设计剪裁', price: 268, description: '结合脸型/职业场景设计发型，含造型建议。' },
+      { name: '轻奢染烫套系', price: 1180, description: '含烫染+修护，支持潮流发色与质感卷度打造。' },
+      { name: '深层头皮护理', price: 399, description: '头皮清洁、舒缓导入与居家护理建议。' }
+    ]}
+    showcaseItems={[
+      { title: '法式层次短发', tag: '潮流款', summary: '轻盈层次与轮廓修饰，适合职场与日常通勤。' },
+      { title: '质感冷棕染发', tag: '发色', summary: '低调高级发色路线，配合护色方案提升维持时长。' },
+      { title: '头皮焕活疗程', tag: '护理', summary: '针对油脂与敏感问题进行分型护理。' }
+    ]}
+    capabilityMatrix={[
+      { name: '发型数据库', detail: '结合脸型、发量、职业属性快速匹配推荐发型。' },
+      { name: '头皮管理体系', detail: '支持检测、疗程、居家护理建议三段式方案。' },
+      { name: '门店运营支持', detail: '通过项目组合和会员储值方案提升门店经营效率。' },
+      { name: '造型内容输出', detail: '联动短视频模块进行发型内容营销与获客。' }
+    ]}
+    insights={[
+      '头部连锁普遍将剪发从单次服务升级为周期化会员维护。',
+      '“发质改善”成为高客单项目核心，护理占比持续增长。',
+      '发型师个人IP化可显著提升预约率与品牌曝光。'
+    ]}
+    faqs={[
+      { q: '首次到店如何选择发型？', a: '可先进行顾问咨询，我们会结合脸型和场景给出建议。' },
+      { q: '染烫后如何护理？', a: '提供个性化护理计划和周期提醒，帮助延长效果。' },
+      { q: '是否有会员套餐？', a: '有，支持剪烫染与护理组合包及次卡模式。' }
+    ]}
+  />
+)
 
 export default 美发

@@ -1,55 +1,51 @@
-import React, { useState, useEffect } from 'react'
-import { serviceAPI } from '../services/api'
+import IndustryPage from '../components/IndustryPage'
 
-const 中餐馆: React.FC = () => {
-  const [services, setServices] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const data = await serviceAPI.getServices('中餐馆')
-        setServices(data)
-      } catch (err) {
-        setError('获取服务数据失败')
-        console.error('获取服务数据失败:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchServices()
-  }, [])
-
-  if (loading) {
-    return <div>加载中...</div>
-  }
-
-  return (
-    <div>
-      <h2>中餐馆</h2>
-      <p>我们提供正宗的中餐服务，包括粤菜、川菜、鲁菜等多种菜系。</p>
-      {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
-      <div style={{ marginTop: '30px' }}>
-        <h3>特色菜品</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
-          {services.length > 0 ? (
-            services.map((service) => (
-              <div key={service.id} style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
-                <h4>{service.name}</h4>
-                <p>价格：¥{service.price}</p>
-                <p>包含：{service.description}</p>
-              </div>
-            ))
-          ) : (
-            <div style={{ gridColumn: '1 / -1', textAlign: 'center' }}>
-              <p>暂无服务数据</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
+const 中餐馆 = () => (
+  <IndustryPage
+    category="中餐馆"
+    title="中餐馆品牌化运营"
+    subtitle="从招牌菜品打造、门店服务流程到线上传播，助力餐饮业务稳定增长。"
+    highlights={['菜品标准化出品', '门店服务SOP', '线上线下联动营销']}
+    workflow={['菜单策略', '供应链准备', '门店运营', '活动推广', '复购管理']}
+    scenarios={['家庭聚餐', '商务宴请', '节庆套餐', '团建订餐']}
+    marketStats={[
+      { label: '日均翻台率', value: '4.6 次' },
+      { label: '团购转化率', value: '27%' },
+      { label: '会员复购率', value: '63%' },
+      { label: '客单价', value: '¥132' }
+    ]}
+    sampleCases={[
+      { title: '午市套餐升级', data: '午市营收 +34%', desc: '优化套餐结构与出餐节奏，提升工作日时段效率。' },
+      { title: '家庭聚餐主题季', data: '预约量增长 48%', desc: '结合节假日场景上新套餐，提升预订与到店率。' },
+      { title: '会员积分体系上线', data: '90天复购 +22%', desc: '围绕消费积分和生日权益提升顾客粘性。' }
+    ]}
+    mockServices={[
+      { name: '双人精选套餐', price: 168, description: '招牌菜2道+时蔬+汤品+饮料，适合情侣与朋友聚餐。' },
+      { name: '商务宴请包间', price: 1988, description: '10人包间定制菜单，含服务管家与会务支持。' },
+      { name: '家庭欢聚套餐', price: 568, description: '6-8人共享菜品组合，覆盖老人和儿童口味。' }
+    ]}
+    showcaseItems={[
+      { title: '招牌菜升级计划', tag: '菜品策略', summary: '围绕高复购菜品做标准化出品与视觉升级。' },
+      { title: '周末家庭套餐', tag: '场景营销', summary: '通过家庭聚餐场景策划提升周末客流和客单。' },
+      { title: '门店口碑运营', tag: '会员复购', summary: '建立评价反馈与积分机制，提升复购粘性。' }
+    ]}
+    capabilityMatrix={[
+      { name: '菜单工程', detail: '按利润率与销量结构优化菜单，提升整体经营效率。' },
+      { name: '门店运营', detail: '优化排队、点餐、上菜和结算流程，提升服务体验。' },
+      { name: '活动营销', detail: '围绕节日和主题场景策划活动，提升客流峰值。' },
+      { name: '会员系统', detail: '通过积分、储值、权益体系提升复购和口碑传播。' }
+    ]}
+    insights={[
+      '头部餐饮品牌普遍通过“场景套餐 + 数字化会员”提升复购。',
+      '菜单工程优化是提升利润率和翻台效率的关键抓手。',
+      '短视频与本地生活平台联动已成为重要获客渠道。'
+    ]}
+    faqs={[
+      { q: '支持包间和团体预订吗？', a: '支持，可按人数与预算定制菜单和服务。' },
+      { q: '是否提供企业餐饮服务？', a: '支持会议餐、活动餐和长期企业合作方案。' },
+      { q: '会员权益有哪些？', a: '含积分、生日礼、专属套餐和优先预订权益。' }
+    ]}
+  />
+)
 
 export default 中餐馆

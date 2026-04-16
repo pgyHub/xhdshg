@@ -72,7 +72,7 @@ const 会员后台: React.FC = () => {
 
   const handleFileDownload = async (filename: string) => {
     try {
-      const data = await fileAPI.downloadFile(filename)
+      await fileAPI.downloadFile(filename)
       // 创建下载链接
       const link = document.createElement('a')
       link.href = `/api/files/download/${filename}`

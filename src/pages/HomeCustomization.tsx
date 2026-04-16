@@ -1,72 +1,72 @@
-import React, { useState, useEffect } from 'react'
-import { serviceAPI } from '../services/api'
+import IndustryPage from '../components/IndustryPage'
 
-const 全屋定制: React.FC = () => {
-  const [services, setServices] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const data = await serviceAPI.getServices('全屋定制')
-        setServices(data)
-      } catch (err) {
-        setError('获取服务数据失败')
-        console.error('获取服务数据失败:', err)
-      } finally {
-        setLoading(false)
+const 全屋定制 = () => (
+  <IndustryPage
+    category="全屋定制"
+    title="全屋定制与空间美学"
+    subtitle="从户型测量到施工落地，提供设计、选材、生产、安装一体化的家居升级方案。"
+    highlights={['全案设计能力', '环保选材体系', '项目进度可视化']}
+    workflow={['上门量房', '功能规划', '3D方案确认', '生产安装', '验收与售后']}
+    scenarios={['新房整屋定制', '旧房局改焕新', '收纳系统升级', '商住空间改造']}
+    quickActions={['免费量尺', '免费设计', '免费出图', '预约免费设计', '在线报修', '附近门店']}
+    productSystems={[
+      {
+        title: '全屋成品',
+        items: ['客厅', '餐厅', '卧室', '青少年房', '书房茶室', '休闲阳台']
+      },
+      {
+        title: '全屋定制',
+        items: ['威特森系列', '西格', '柯林π', '贝利尼', '青影', '东方木作']
+      },
+      {
+        title: '整体橱柜',
+        items: ['东方风', '欧式简奢', '北欧风', '现代轻奢', '意式极简', '中古风']
       }
-    }
-    fetchServices()
-  }, [])
-
-  if (loading) {
-    return <div>加载中...</div>
-  }
-
-  return (
-    <div>
-      <h2>全屋定制</h2>
-      <p>我们提供个性化的全屋定制服务，包括衣柜、橱柜、书柜等家具定制。</p>
-      {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
-      <div style={{ marginTop: '30px' }}>
-        <h3>服务流程</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
-          <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
-            <h4>1. 需求沟通</h4>
-            <p>了解客户需求，制定定制方案</p>
-          </div>
-          <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
-            <h4>2. 设计方案</h4>
-            <p>专业设计师设计定制方案</p>
-          </div>
-          <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
-            <h4>3. 生产安装</h4>
-            <p>工厂生产，专业安装</p>
-          </div>
-        </div>
-      </div>
-      <div style={{ marginTop: '30px' }}>
-        <h3>服务项目</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
-          {services.length > 0 ? (
-            services.map((service) => (
-              <div key={service.id} style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
-                <h4>{service.name}</h4>
-                <p>价格：¥{service.price}</p>
-                <p>包含：{service.description}</p>
-              </div>
-            ))
-          ) : (
-            <div style={{ gridColumn: '1 / -1', textAlign: 'center' }}>
-              <p>暂无服务数据</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
+    ]}
+    sceneCases={[
+      { scene: '住宅公寓', desc: '围绕家庭动线与收纳需求，配置全屋柜体、背景墙与软装系统。' },
+      { scene: '酒店案例', desc: '结合酒店定位规划客房收纳、卫浴和公共区域家具模块。' },
+      { scene: '老年康养', desc: '重点考虑无障碍、安全扶手、低高度收纳与防滑细节设计。' },
+      { scene: '办公案例', desc: '以效率和品牌展示为核心，打造前台、会议室、工位一体空间。' }
+    ]}
+    marketStats={[
+      { label: '月度签约数', value: '128' },
+      { label: '方案采纳率', value: '63%' },
+      { label: '按期交付率', value: '96%' },
+      { label: '平均客单价', value: '¥86,000' }
+    ]}
+    sampleCases={[
+      { title: '90平旧房改造', data: '工期缩短 14 天', desc: '以模块化定制减少现场返工，提升安装效率。' },
+      { title: '收纳体系升级', data: '储物空间 +37%', desc: '围绕家庭成员动线重构柜体与功能分区。' },
+      { title: '精装房软硬一体', data: '预算控制误差 < 5%', desc: '设计、选材与生产同步推进，控制成本波动。' }
+    ]}
+    mockServices={[
+      { name: '全屋设计咨询包', price: 1999, description: '含量房、平面规划、3D效果图与预算建议。' },
+      { name: '整屋柜体定制', price: 68800, description: '衣柜/橱柜/餐边柜/书柜一体化定制方案。' },
+      { name: '厨房焕新改造', price: 26800, description: '动线优化、柜体升级与功能五金组合落地。' }
+    ]}
+    showcaseItems={[
+      { title: '小户型收纳升级', tag: '实用型', summary: '通过垂直收纳与多功能柜体提升空间使用率。' },
+      { title: '轻奢整屋方案', tag: '品质型', summary: '风格统一、材质升级，强调细节工艺与耐用性。' },
+      { title: '旧房局改焕新', tag: '改造型', summary: '聚焦厨房/客厅/卧室功能重构，控制预算与工期。' }
+    ]}
+    capabilityMatrix={[
+      { name: '空间规划', detail: '围绕户型痛点进行动线、采光和功能区系统优化。' },
+      { name: '材料体系', detail: '建立环保与耐用双维度选材标准，保障长期使用。' },
+      { name: '施工协同', detail: '设计、工厂生产、现场安装节奏协同，减少返工。' },
+      { name: '交付保障', detail: '验收标准化 + 售后巡检机制，保障落地品质。' }
+    ]}
+    insights={[
+      '头部定制品牌都在强化“标准化交付能力”和“数字化设计体验”。',
+      '局改和收纳升级成为增速较快的细分需求场景。',
+      '案例可视化和价格透明化是提升签约率的重要因素。'
+    ]}
+    faqs={[
+      { q: '多久可以看到设计方案？', a: '量房后通常 3-7 天可提供初版方案。' },
+      { q: '预算如何控制？', a: '前期会拆分主材、五金、安装等费用，避免后期超支。' },
+      { q: '工期大概多久？', a: '常规项目 30-60 天，局改项目可更快交付。' }
+    ]}
+  />
+)
 
 export default 全屋定制
