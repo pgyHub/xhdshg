@@ -979,14 +979,27 @@
 
 /* 登录注册面板样式 */
 .login-register-panel {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(47, 82, 235, 0.15);
   overflow: hidden;
   min-height: 480px;
+}
+
+/* 仅显示二维码的样式 */
+.qr-only-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.qr-only-panel .qr-scan-section {
+  border-right: none;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 380px;
 }
 
 /* 左侧扫码区域 */
