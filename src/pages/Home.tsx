@@ -1,12 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
-const entryCards = [
-  { title: '进入工作台', desc: '快速进入业务管理后台，统一查看模块数据。', path: '/member-backend' },
-  { title: '浏览数据看板', desc: '查看经营分析、趋势图与关键指标监控。', path: '/dashboard' },
-  { title: '浏览大屏模板', desc: '体验可视化驾驶舱风格模板与行业展示页。', path: '/dashboard' }
-]
-
 const Home = () => {
   const [activeTab, setActiveTab] = useState<'account' | 'sms'>('account')
 
@@ -130,16 +124,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="cloud-entry-grid">
-        {entryCards.map((item) => (
-          <Link key={item.title} to={item.path} className="cloud-entry-card">
-            <h4>{item.title}</h4>
-            <p>{item.desc}</p>
-            <span>立即进入 ↗</span>
-          </Link>
-        ))}
       </section>
 
       <section className="section">
