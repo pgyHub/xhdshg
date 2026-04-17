@@ -4289,3 +4289,506 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ========================================
+   AI 大数据人工智能风格 - 数据驾驶舱
+   ======================================== */
+
+.ai-dashboard {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e1a 0%, #0d1526 50%, #0f1a2e 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* 粒子画布背景 */
+.particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 神经网络画布 */
+.neural-canvas {
+  width: 100%;
+  height: 160px;
+}
+
+/* AI 顶部标题栏 */
+.ai-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  font-size: 13px;
+  color: #00d4ff;
+}
+
+.ai-badge-dot {
+  width: 8px;
+  height: 8px;
+  background: #00d4ff;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.ai-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #00d4ff, #00ff88, #ff6b9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+}
+
+.ai-time {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Courier New', monospace;
+}
+
+/* AI 统计数据栏 */
+.ai-stats-bar {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 20px 32px;
+}
+
+.ai-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(0, 212, 255, 0.02) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.ai-stat-card:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 212, 255, 0.05) 100%);
+  border-color: rgba(0, 212, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.ai-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.ai-icon-brain { background: linear-gradient(135deg, #00d4ff, #0099ff); }
+.ai-icon-data { background: linear-gradient(135deg, #00ff88, #00cc6a); }
+.ai-icon-predict { background: linear-gradient(135deg, #ff6b9d, #ff4081); }
+.ai-icon-alert { background: linear-gradient(135deg, #ffd93d, #ff9500); }
+
+.ai-stat-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ai-stat-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ai-stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ai-stat-trend {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.ai-stat-trend.up {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.15);
+}
+
+.ai-stat-trend.down {
+  color: #ff6b9d;
+  background: rgba(255, 107, 157, 0.15);
+}
+
+/* AI 主内容区 */
+.ai-main-content {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 280px 1fr 300px;
+  gap: 20px;
+  padding: 0 32px 20px;
+  height: calc(100vh - 260px);
+}
+
+.ai-left-panel,
+.ai-center-panel,
+.ai-right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+/* AI 卡片通用样式 */
+.ai-card {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 14px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.ai-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ai-card-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ai-card-badge {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: rgba(0, 212, 255, 0.2);
+  color: #00d4ff;
+}
+
+.ai-badge-green { background: rgba(0, 255, 136, 0.2); color: #00ff88; }
+.ai-badge-red { background: rgba(255, 107, 157, 0.2); color: #ff6b9d; }
+.ai-badge-purple { background: rgba(157, 78, 221, 0.2); color: #9d4edd; }
+.ai-badge-blue { background: rgba(77, 139, 255, 0.2); color: #4d8bff; }
+
+/* 神经网络卡片 */
+.neural-card {
+  padding-bottom: 8px;
+}
+
+.neural-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 212, 255, 0.1);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 聚类图例 */
+.cluster-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.dot-cyan { background: #00d4ff; }
+.dot-pink { background: #ff6b9d; }
+.dot-yellow { background: #ffd93d; }
+
+/* 实时指示器 */
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  background: #00ff88;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* AI 雷达卡片 */
+.ai-radar-card {
+  flex: 1;
+}
+
+.radar-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.radar-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 40px;
+  align-items: center;
+  gap: 10px;
+}
+
+.feature-name {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.feature-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.feature-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #00d4ff, #00ff88);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.feature-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #00d4ff;
+  text-align: right;
+}
+
+/* 预测图例 */
+.predict-legend {
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.line {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.line.solid { background: #00d4ff; }
+.line.dashed {
+  background: repeating-linear-gradient(90deg, #ff6b9d 0, #ff6b9d 4px, transparent 4px, transparent 8px);
+}
+
+/* 异常列表 */
+.anomaly-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.anomaly-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 71, 87, 0.1);
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.anomaly-time {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: monospace;
+}
+
+.anomaly-desc {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.anomaly-tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+.anomaly-tag:first-of-type {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+}
+
+.anomaly-tag:last-of-type {
+  background: rgba(255, 217, 61, 0.2);
+  color: #ffd93d;
+}
+
+/* AI 推荐卡片 */
+.ai-recommend-card {
+  flex: 1;
+}
+
+.recommend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recommend-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  background: rgba(0, 212, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.recommend-item:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
+.recommend-icon {
+  font-size: 20px;
+}
+
+.recommend-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recommend-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.recommend-desc {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+}
+
+/* AI 底部状态栏 */
+.ai-footer {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 12px 32px;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+.ai-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ai-footer-icon {
+  font-size: 14px;
+}
+
+/* 响应式适配 */
+@media (max-width: 1200px) {
+  .ai-main-content {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .ai-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .radar-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .ai-stats-bar {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .ai-main-content {
+    padding: 0 16px 16px;
+  }
+
+  .ai-footer {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
