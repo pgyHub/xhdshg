@@ -2,7 +2,6 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background-attachment: fixed;
-  position: relative;
 }
 
 .app-shell::before {
@@ -18,11 +17,6 @@
     radial-gradient(circle at 40% 40%, rgba(102, 126, 234, 0.15) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
-}
-
-.app-shell > * {
-  position: relative;
-  z-index: 1;
 }
 
 .site-header {
