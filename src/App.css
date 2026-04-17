@@ -4824,3 +4824,246 @@
     gap: 16px;
   }
 }
+
+/* ========================================
+   京东风格页脚样式
+   ======================================== */
+
+.site-footer {
+  margin-top: 40px;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+}
+
+/* 服务承诺区 */
+.footer-service {
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+  padding: 30px 0;
+}
+
+.service-container {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.service-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.service-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.service-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.service-desc {
+  font-size: 12px;
+  color: #999;
+}
+
+/* 导航链接区 */
+.footer-links {
+  padding: 40px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.links-container {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+}
+
+.link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link-group h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.link-group a {
+  font-size: 13px;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.link-group a:hover {
+  color: #667eea;
+}
+
+.link-group-app h4 {
+  margin-bottom: 16px;
+}
+
+.qr-codes {
+  display: flex;
+  gap: 16px;
+}
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.qr-box {
+  width: 90px;
+  height: 90px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-item span {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 底部版权区 */
+.footer-bottom {
+  background: #fafafa;
+  padding: 20px 0;
+}
+
+.bottom-container {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #999;
+}
+
+.copyright a {
+  color: #999;
+  text-decoration: none;
+}
+
+.copyright a:hover {
+  color: #667eea;
+}
+
+.divider {
+  color: #ddd;
+}
+
+.credentials {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #bbb;
+}
+
+.certifications {
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.cert-icon {
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.cert-item span:last-child {
+  font-size: 11px;
+  color: #999;
+}
+
+/* 响应式 */
+@media (max-width: 1024px) {
+  .service-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .links-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .service-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .links-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .link-group-app {
+    grid-column: span 2;
+  }
+
+  .qr-codes {
+    justify-content: center;
+  }
+
+  .copyright,
+  .credentials {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+}
