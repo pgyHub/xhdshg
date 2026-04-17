@@ -1,3 +1,4 @@
+import Footer from '../components/Footer'
 
 const categories = [
   { name: '西装定制', emoji: '👔', desc: '商务正装' },
@@ -95,6 +96,7 @@ const Clothing = () => {
           <button className="cl-btn-primary">立即预约</button>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

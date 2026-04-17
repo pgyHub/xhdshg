@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 const Hairdressing = () => {
   const services = [
@@ -141,6 +142,7 @@ const Hairdressing = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

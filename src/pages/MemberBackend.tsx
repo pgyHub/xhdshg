@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { userAPI, fileAPI } from '../services/api'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 const 会员后台: React.FC = () => {
   const [userInfo, setUserInfo] = useState<any>(null)
@@ -166,6 +167,7 @@ const 会员后台: React.FC = () => {
       >
         退出登录
       </button>
+      <Footer />
     </div>
   )
 }

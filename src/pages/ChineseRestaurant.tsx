@@ -1,3 +1,4 @@
+import Footer from '../components/Footer'
 
 const dishes = [
   { name: '招牌北京烤鸭', category: '招牌菜', price: '¥298', emoji: '🦆', desc: '传统工艺，皮脆肉嫩' },
@@ -109,6 +110,7 @@ const ChineseRestaurant = () => {
           <button className="res-btn-primary">立即订座</button>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

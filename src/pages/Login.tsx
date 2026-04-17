@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { authAPI } from '../services/api'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 const Login = () => {
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login')
@@ -91,6 +92,7 @@ const Login = () => {
           </form>
         )}
       </section>
+      <Footer />
     </div>
   )
 }

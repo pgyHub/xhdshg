@@ -1,3 +1,4 @@
+import Footer from '../components/Footer'
 
 const spaces = [
   { name: '客厅', emoji: '🛋️', desc: '会客娱乐核心区域' },
@@ -134,6 +135,7 @@ const HomeCustomization = () => {
           <button className="hc-btn-primary">立即预约</button>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

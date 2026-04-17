@@ -1,3 +1,4 @@
+import Footer from '../components/Footer'
 
 const services = [
   { 
@@ -118,6 +119,7 @@ const ShortVideoProduction = () => {
           <button className="sv-btn-primary">立即预约</button>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

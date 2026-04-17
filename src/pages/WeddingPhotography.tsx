@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 const WeddingPhotography = () => {
   const [activeCategory, setActiveCategory] = useState('all')
@@ -222,6 +223,7 @@ const WeddingPhotography = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }
