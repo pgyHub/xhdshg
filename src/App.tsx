@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import 婚纱摄影 from './pages/WeddingPhotography'
@@ -40,9 +40,14 @@ function App() {
           </div>
           <nav className="main-nav">
             {navItems.map((item) => (
-              <Link key={item.path} to={item.path}>
+              <NavLink 
+                key={item.path} 
+                to={item.path} 
+                className={({ isActive }) => isActive ? 'active' : ''}
+                end={item.path === '/'}
+              >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
           </nav>
         </header>
