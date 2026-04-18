@@ -7,7 +7,21 @@ const 彩妆 = () => (
     subtitle="覆盖婚礼、晚宴、商务和拍摄等多场景，提供妆面设计与造型搭配一体化服务。"
     highlights={['场景化妆面设计', '皮肤状态评估', '妆发整体搭配']}
     workflow={['风格沟通', '妆发方案确认', '上妆执行', '造型定妆', '现场补妆支持']}
+    siteStyle="beauty"
+    styleSections={['品牌KV主视觉', '明星单品陈列', '妆容灵感栏目', '会员权益入口']}
     scenarios={['新娘妆容', '商务形象妆', '活动晚宴妆', '短视频上镜妆']}
+    referenceSites={[
+      { name: 'YSL Beauty 中国官网', url: 'https://www.yslbeautycn.com/' },
+      { name: '毛戈平美妆官网', url: 'https://www.maogepingbeauty.com/' }
+    ]}
+    layoutModules={[
+      { title: '明星单品主视觉', desc: '顶部使用大图Banner + 主打产品卖点，模拟品牌主推系列。' },
+      { title: '底妆/彩妆分类导航', desc: '按“底妆、眼妆、唇妆、工具”拆分模块，支持后续接入真实SKU。' },
+      { title: '妆容灵感专区', desc: '以“通勤妆、约会妆、晚宴妆”卡片展示，当前为示例文案。' },
+      { title: '口碑评价模块', desc: '展示虚拟评分、体验反馈与用户标签，后续可接评论数据。' },
+      { title: '化妆服务套餐区', desc: '结合上门妆造/试妆/跟妆服务形成套餐卡片，支持后续改价。' },
+      { title: '品牌故事与会员权益', desc: '预留品牌理念、会员积分、生日礼等信息展示位。' }
+    ]}
     marketStats={[
       { label: '日均预约单', value: '96' },
       { label: '上镜妆占比', value: '41%' },
