@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import type { CSSProperties } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { serviceAPI } from '../services/api'
 
@@ -10,6 +11,11 @@ type ServiceItem = {
   description: string
 }
 
+export type HeroMediaItem = { src: string; alt: string; kind?: 'image' | 'video' }
+
+const isHeroVideo = (m: HeroMediaItem) =>
+  m.kind === 'video' || /\.(mp4|webm|ogg)(\?|$)/i.test(m.src)
+
 type IndustryPageProps = {
   category: string
   title: string
@@ -19,8 +25,8 @@ type IndustryPageProps = {
   scenarios: string[]
   marketStats: Array<{ label: string; value: string }>
   sampleCases: Array<{ title: string; data: string; desc: string }>
-  mockServices: Array<{ name: string; price: number; description: string }>
-  showcaseItems: Array<{ title: string; tag: string; summary: string }>
+  mockServices: Array<{ name: string; price: number; description: string; image?: string }>
+  showcaseItems: Array<{ title: string; tag: string; summary: string; image?: string }>
   capabilityMatrix: Array<{ name: string; detail: string }>
   insights: string[]
   faqs: Array<{ q: string; a: string }>
@@ -28,9 +34,29 @@ type IndustryPageProps = {
   productSystems?: Array<{ title: string; items: string[] }>
   sceneCases?: Array<{ scene: string; desc: string }>
   referenceSites?: Array<{ name: string; url: string }>
-  layoutModules?: Array<{ title: string; desc: string }>
+  layoutModules?: Array<{ title: string; desc: string; image?: string }>
+  /** 右侧主视觉：传入则用实拍图 / 视频替换灰底占位（可传多条纵向排列） */
+  heroMedia?: HeroMediaItem | HeroMediaItem[]
+  /** 门店环境 / 明档等横图展示 */
+  venueGallery?: Array<{ src: string; caption: string }>
+  /** 三图横滑区块标题（默认仅适用于餐饮） */
+  venueSectionTitle?: string
+  venueSectionSubtitle?: string
   siteStyle?: 'beauty' | 'hair' | 'home' | 'video' | 'restaurant' | 'fashion'
   styleSections?: string[]
+  /** 为 true 时不渲染默认双栏 Hero（用于上方已自定义旗舰店首屏） */
+  skipDefaultHero?: boolean
+  /**
+   * 整段双栏 Hero 区域铺满视频背景；多段时按 dwellMs 交叉淡入轮播（类似背景轮播图）。
+   * 与 `heroMedia` 中的视频二选一：若设置此项，则不在侧栏堆叠视频，仅保留 `heroMedia` 里的图片类条目。
+   */
+  heroBackdropVideos?: {
+    sources: string[]
+    /** 每条视频作为「当前背景」的停留时长（毫秒），默认 14000 */
+    dwellMs?: number
+    /** 淡入淡出时长（毫秒），默认 900；对应 CSS 变量 */
+    crossfadeMs?: number
+  }
 }
 
 const IndustryPage = ({
@@ -52,8 +78,14 @@ const IndustryPage = ({
   sceneCases,
   referenceSites,
   layoutModules,
+  heroMedia,
+  venueGallery,
+  venueSectionTitle,
+  venueSectionSubtitle,
   siteStyle,
-  styleSections
+  styleSections,
+  skipDefaultHero,
+  heroBackdropVideos
 }: IndustryPageProps) => {
   const [services, setServices] = useState<ServiceItem[]>([])
   const [loading, setLoading] = useState(true)
@@ -84,31 +116,175 @@ const IndustryPage = ({
     fetchServices()
   }, [category])
 
+  const heroMediaList: HeroMediaItem[] = heroMedia
+    ? Array.isArray(heroMedia)
+      ? heroMedia
+      : [heroMedia]
+    : []
+
+  const backdropSources = heroBackdropVideos?.sources?.filter(Boolean) ?? []
+  const useBackdrop = backdropSources.length > 0
+  const dwellMs = heroBackdropVideos?.dwellMs ?? 14000
+  const crossfadeMs = heroBackdropVideos?.crossfadeMs ?? 900
+  const [backdropIndex, setBackdropIndex] = useState(0)
+  const backdropVideoRefs = useRef<(HTMLVideoElement | null)[]>([])
+
+  const syncBackdropPlayback = useCallback(() => {
+    backdropSources.forEach((_, i) => {
+      const el = backdropVideoRefs.current[i]
+      if (!el) return
+      if (i === backdropIndex) {
+        el.muted = true
+        el.playsInline = true
+        el.loop = true
+        void el.play().catch(() => {})
+      } else {
+        el.pause()
+      }
+    })
+  }, [backdropIndex, backdropSources])
+
+  useEffect(() => {
+    if (!useBackdrop || backdropSources.length < 2) return
+    const t = window.setInterval(() => {
+      setBackdropIndex((i) => (i + 1) % backdropSources.length)
+    }, dwellMs)
+    return () => window.clearInterval(t)
+  }, [useBackdrop, backdropSources.length, dwellMs])
+
+  useEffect(() => {
+    if (!useBackdrop) return
+    syncBackdropPlayback()
+  }, [useBackdrop, syncBackdropPlayback])
+
+  const heroMediaForCard: HeroMediaItem[] = useBackdrop
+    ? heroMediaList.filter((m) => !isHeroVideo(m))
+    : heroMediaList
+
   return (
     <div className={`page-wrap site-style-${siteStyle ?? 'beauty'}`}>
-      <section className="industry-hero">
-        <div>
-          <span className="section-tag">{category}</span>
-          <h2>{title}</h2>
-          <p>{subtitle}</p>
-          <div className="industry-hero-actions">
-            <Link to="/info/booking-service" className="button button-primary">立即预约</Link>
-            <Link to="/dashboard" className="button button-light">查看经营数据</Link>
+      {!skipDefaultHero && (
+        <section
+          className={`industry-hero${useBackdrop ? ' industry-hero--backdrop-video' : ''}`}
+          style={
+            useBackdrop
+              ? ({ ['--hero-backdrop-fade' as string]: `${crossfadeMs}ms` } as CSSProperties)
+              : undefined
+          }
+        >
+          {useBackdrop && (
+            <>
+              <div className="industry-hero-backdrop" aria-hidden="true">
+                {backdropSources.map((src, i) => (
+                  <video
+                    key={src}
+                    ref={(el) => {
+                      backdropVideoRefs.current[i] = el
+                    }}
+                    className={i === backdropIndex ? 'is-active' : ''}
+                    src={src}
+                    muted
+                    playsInline
+                    loop
+                    preload="auto"
+                    tabIndex={-1}
+                  />
+                ))}
+              </div>
+              <div className="industry-hero-backdrop-scrim" aria-hidden="true" />
+            </>
+          )}
+          <div className="industry-hero-body">
+            <div>
+              <span className="section-tag">{category}</span>
+              <h2>{title}</h2>
+              <p>{subtitle}</p>
+              <div className="industry-hero-actions">
+                <Link to="/info/booking-service" className="button button-primary">立即预约</Link>
+                <Link to="/dashboard" className="button button-light">查看经营数据</Link>
+              </div>
+            </div>
+            <div className={`hero-side-card${useBackdrop ? ' hero-side-card--on-video' : ''}`}>
+              <h4>热门场景</h4>
+              <ul>
+                {scenarios.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              {useBackdrop && backdropSources.length > 1 && (
+                <div className="hero-backdrop-indicators" role="group" aria-label="背景样片轮播">
+                  {backdropSources.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      className={`hero-backdrop-dot${i === backdropIndex ? ' is-active' : ''}`}
+                      aria-label={`背景样片 ${i + 1}`}
+                      aria-current={i === backdropIndex ? 'true' : undefined}
+                      onClick={() => setBackdropIndex(i)}
+                    />
+                  ))}
+                </div>
+              )}
+              {useBackdrop && backdropSources.length === 1 && (
+                <p className="hero-backdrop-caption">背景为单段样片视频，全区域循环播放。</p>
+              )}
+              {heroMediaForCard.length > 0 ? (
+                <div
+                  className={`hero-visual-stack${
+                    heroMediaForCard.some(isHeroVideo) ? ' hero-visual-stack--video' : ''
+                  }`}
+                >
+                  {heroMediaForCard.map((item, idx) => (
+                    <div
+                      key={`${item.src}-${idx}`}
+                      className={`hero-visual-photo${isHeroVideo(item) ? ' hero-visual-photo--video' : ''}`}
+                    >
+                      {isHeroVideo(item) ? (
+                        <video
+                          src={item.src}
+                          controls
+                          playsInline
+                          muted
+                          loop
+                          autoPlay
+                          preload="metadata"
+                          aria-label={item.alt}
+                        />
+                      ) : (
+                        <img src={item.src} alt={item.alt} loading="lazy" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ) : !useBackdrop ? (
+                <div className="hero-visual-placeholder">
+                  <span>主视觉占位图</span>
+                  <p>后续替换为业务实拍图 / 品牌KV / 项目效果图</p>
+                </div>
+              ) : (
+                <p className="hero-backdrop-hint">样片在整区背景轮播；下方「样片与场景」可放静帧组图。</p>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="hero-side-card">
-          <h4>热门场景</h4>
-          <ul>
-            {scenarios.map((item) => (
-              <li key={item}>{item}</li>
+        </section>
+      )}
+
+      {venueGallery && venueGallery.length > 0 && (
+        <section className="section restaurant-venue-strip">
+          <div className="section-title-row">
+            <h3>{venueSectionTitle ?? '门店与就餐环境'}</h3>
+            <span>{venueSectionSubtitle ?? '真实场景示意，增强信任感与代入感'}</span>
+          </div>
+          <div className="venue-gallery">
+            {venueGallery.map((v) => (
+              <figure className="venue-gallery-item" key={v.src}>
+                <img src={v.src} alt={v.caption} loading="lazy" />
+                <figcaption>{v.caption}</figcaption>
+              </figure>
             ))}
-          </ul>
-          <div className="hero-visual-placeholder">
-            <span>主视觉占位图</span>
-            <p>后续替换为业务实拍图 / 品牌KV / 项目效果图</p>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="promo-strip">
         <p>{category}限时活动：新用户首单立减 12%，企业客户可申请专属方案。当前为演示内容。</p>
@@ -146,7 +322,12 @@ const IndustryPage = ({
         </div>
         <div className="cards-grid cards-grid-3">
           {mockServices.slice(0, 3).map((service) => (
-            <article key={service.name} className="showcase-card">
+            <article key={service.name} className={`showcase-card${service.image ? ' showcase-card-with-image' : ''}`}>
+              {service.image && (
+                <div className="showcase-card-thumb">
+                  <img src={service.image} alt="" loading="lazy" />
+                </div>
+              )}
               <span className="showcase-tag">推荐</span>
               <h4>{service.name}</h4>
               <p>{service.description}</p>
@@ -243,7 +424,12 @@ const IndustryPage = ({
           </div>
           <div className="cards-grid cards-grid-3">
             {layoutModules.map((item) => (
-              <article className="feature-card" key={item.title}>
+              <article className={`feature-card${item.image ? ' feature-card-with-image' : ''}`} key={item.title}>
+                {item.image && (
+                  <div className="feature-card-thumb">
+                    <img src={item.image} alt="" loading="lazy" />
+                  </div>
+                )}
                 <h4>{item.title}</h4>
                 <p>{item.desc}</p>
               </article>
@@ -303,7 +489,12 @@ const IndustryPage = ({
         </div>
         <div className="cards-grid cards-grid-3">
           {showcaseItems.map((item) => (
-            <article className="showcase-card" key={item.title}>
+            <article className={`showcase-card${item.image ? ' showcase-card-with-image' : ''}`} key={item.title}>
+              {item.image && (
+                <div className="showcase-card-thumb">
+                  <img src={item.image} alt="" loading="lazy" />
+                </div>
+              )}
               <span className="showcase-tag">{item.tag}</span>
               <h4>{item.title}</h4>
               <p>{item.summary}</p>

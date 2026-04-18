@@ -10,14 +10,18 @@ from app.models.user import User
 from app.schemas.auth import Token, TokenData, UserLogin
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="/auth/login",
+    scheme_name="JWT 令牌",
+    description="请先调用下方「登录获取令牌」接口，在 HTTP 请求头填写：Authorization: Bearer <返回的 access_token>",
+)
 
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     """获取当前用户"""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
+        detail="无法验证身份，请重新登录或检查令牌是否有效。",
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
@@ -34,14 +38,19 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     return user
 
 
-@router.post("/login", response_model=Token)
+@router.post(
+    "/login",
+    response_model=Token,
+    summary="登录获取令牌",
+    description="使用表单提交「用户名、密码」（与常见网页登录相同）。成功后请复制 access_token，在需要登录的接口里带上 Bearer。",
+)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     """用户登录"""
     user = db.query(User).filter(User.username == form_data.username).first()
     if not user or not verify_password(form_data.password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="用户名或密码错误",
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)

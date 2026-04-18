@@ -1,10 +1,19 @@
 import IndustryPage from '../components/IndustryPage'
+import { videoStock } from '../data/moduleStockImages'
 
 const 短视频制作 = () => (
   <IndustryPage
     category="短视频制作"
     title="短视频内容策划与制作"
     subtitle="围绕品牌增长目标提供脚本策划、拍摄执行、后期包装与投放建议。"
+    heroMedia={{ src: videoStock.hero, alt: '剪辑与创作工作台示意', kind: 'image' }}
+    venueSectionTitle="案例与创作流"
+    venueSectionSubtitle="三图为横滑展示位；每图独立占位，上线后请换项目截图或封面。与其他行业模块所用图互不重复。"
+    venueGallery={[
+      { src: videoStock.g1, caption: '横滑位一：脚本/分镜企划示意（对应选题与结构说明）' },
+      { src: videoStock.g2, caption: '横滑位二：拍摄与素材管理示意（对应片场/素材库入口）' },
+      { src: videoStock.g3, caption: '横滑位三：剪辑时间线与交付示意（对应后期与版本交付）' }
+    ]}
     highlights={['脚本与人设打造', '平台节奏化剪辑', '数据复盘优化']}
     workflow={['目标拆解', '选题脚本', '现场拍摄', '后期包装', '数据复盘']}
     siteStyle="video"
@@ -14,12 +23,12 @@ const 短视频制作 = () => (
       { name: '剪映创作平台', url: 'https://www.capcut.cn/' }
     ]}
     layoutModules={[
-      { title: '创作工具主Banner', desc: '突出脚本生成、智能剪辑、字幕包装等能力入口。' },
-      { title: '模板中心', desc: '展示“探店、口播、产品种草”模板卡，当前使用示例数据。' },
-      { title: '爆款案例专区', desc: '按播放量区间展示虚拟案例，后续可接入真实项目数据。' },
-      { title: '制作流程看板', desc: '用分阶段卡片说明策划-拍摄-剪辑-发布流程。' },
-      { title: '套餐与交付时效', desc: '按基础版/进阶版/增长版展示服务差异与时效。' },
-      { title: '学习与帮助中心', desc: '预留教程、常见问题、创作规范等内容模块。' }
+      { title: '创作工具主Banner', desc: '突出脚本生成、智能剪辑、字幕包装等能力入口。', image: videoStock.l1 },
+      { title: '模板中心', desc: '展示“探店、口播、产品种草”模板卡，当前使用示例数据。', image: videoStock.l2 },
+      { title: '爆款案例专区', desc: '按播放量区间展示虚拟案例，后续可接入真实项目数据。', image: videoStock.l3 },
+      { title: '制作流程看板', desc: '用分阶段卡片说明策划-拍摄-剪辑-发布流程。', image: videoStock.l4 },
+      { title: '套餐与交付时效', desc: '按基础版/进阶版/增长版展示服务差异与时效。', image: videoStock.l5 },
+      { title: '学习与帮助中心', desc: '预留教程、常见问题、创作规范等内容模块。', image: videoStock.l6 }
     ]}
     marketStats={[
       { label: '月产出视频数', value: '420' },
@@ -33,14 +42,44 @@ const 短视频制作 = () => (
       { title: '婚纱摄影账号孵化', data: '3个月粉丝破 10 万', desc: '通过前后对比案例建立高记忆度内容模型。' }
     ]}
     mockServices={[
-      { name: '短视频代运营基础版', price: 5800, description: '每月12条内容，含选题策划与基础剪辑包装。' },
-      { name: '品牌增长专项', price: 19800, description: '内容矩阵搭建 + 商业转化路径设计 + 数据复盘。' },
-      { name: '直播切片快反服务', price: 2600, description: '重点片段二创分发，48小时内完成首批交付。' }
+      {
+        name: '短视频代运营基础版',
+        price: 5800,
+        description: '每月12条内容，含选题策划与基础剪辑包装。配图为套餐卡片版式占位。',
+        image: videoStock.p1
+      },
+      {
+        name: '品牌增长专项',
+        price: 19800,
+        description: '内容矩阵搭建 + 商业转化路径设计 + 数据复盘。配图为套餐卡片版式占位。',
+        image: videoStock.p2
+      },
+      {
+        name: '直播切片快反服务',
+        price: 2600,
+        description: '重点片段二创分发，48小时内完成首批交付。配图为套餐卡片版式占位。',
+        image: videoStock.p3
+      }
     ]}
     showcaseItems={[
-      { title: '餐饮爆款短片', tag: '门店增长', summary: '聚焦“菜品出锅瞬间”与“顾客反馈”构建高转化素材。' },
-      { title: '老板IP栏目', tag: '品牌人设', summary: '持续输出观点与经营故事，形成账号辨识度。' },
-      { title: '产品测评系列', tag: '种草转化', summary: '通过对比评测和真实场景应用提升购买意愿。' }
+      {
+        title: '门店获客案例位',
+        tag: '门店增长',
+        summary: '用于呈现探店/菜品镜头与转化话术结构；配图为版式占位，请换对应行业成片封面。',
+        image: videoStock.s1
+      },
+      {
+        title: '老板 IP 栏目案例位',
+        tag: '品牌人设',
+        summary: '用于呈现人设口播与栏目化更新节奏；配图为版式占位，请换真实栏目头图。',
+        image: videoStock.s2
+      },
+      {
+        title: '测评种草案例位',
+        tag: '种草转化',
+        summary: '用于呈现对比结构、卖点拆解与 CTA；配图为版式占位，请换测评类成片封面。',
+        image: videoStock.s3
+      }
     ]}
     capabilityMatrix={[
       { name: '内容策划', detail: '建立选题库、脚本库、镜头模板，提升产出稳定性。' },

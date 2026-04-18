@@ -1,64 +1,126 @@
 import IndustryPage from '../components/IndustryPage'
+import FashionFlagshipHero from '../components/FashionFlagshipHero'
+import { fashionFlagship } from '../data/fashionFlagshipImages'
 
+/**
+ * 服装定制：顶部为「旗舰店式」首页（结构参考优衣库类电商，配图用 Unsplash 合法素材）。
+ * 下方保留 IndustryPage 业务模块；skipDefaultHero 避免双 Hero。
+ */
 const 服装定制 = () => (
-  <IndustryPage
-    category="服装定制"
-    title="服装定制与品牌穿搭方案"
-    subtitle="围绕通勤、商务、活动等场景提供版型建议、面料选择与个性化定制服务。"
-    highlights={['版型顾问服务', '面料与工艺可视化', '快速改版与交付']}
-    workflow={['需求沟通', '风格选款', '量体建档', '试衣修改', '成衣交付']}
-    siteStyle="fashion"
-    styleSections={['新品主题横幅', '男女童分类区', '穿搭推荐位', '尺码与售后入口']}
-    scenarios={['企业团体定制', '商务通勤定制', '活动演出服定制', '情侣/家庭主题装']}
-    referenceSites={[
-      { name: '优衣库中国官网', url: 'https://www.uniqlo.cn/' }
-    ]}
-    layoutModules={[
-      { title: '新品与主题系列区', desc: '采用电商首页结构展示“春夏新品、联名系列、基础款”模块。' },
-      { title: '男女童分类入口', desc: '按男装、女装、童装、配件快速跳转，当前为示例分类。' },
-      { title: '尺码与版型助手', desc: '预留在线尺码建议和版型推荐组件，后续可接入算法。' },
-      { title: '材质与功能标签', desc: '展示“速干、抗皱、保暖”等标签，辅助用户快速筛选。' },
-      { title: '定制套装推荐', desc: '以场景穿搭为核心提供虚拟套装组合和价格示例。' },
-      { title: '会员权益与售后', desc: '预留积分、改衣服务、退换规则等信息模块。' }
-    ]}
-    marketStats={[
-      { label: '月度定制单量', value: '1,180' },
-      { label: '一次试穿通过率', value: '84%' },
-      { label: '复购用户占比', value: '46%' },
-      { label: '平均客单价', value: '¥799' }
-    ]}
-    sampleCases={[
-      { title: '企业工装升级', data: '30天交付 860 套', desc: '建立尺码档案和标准打版流程，提升团体订单交付效率。' },
-      { title: '商务西服定制季', data: '客单提升 31%', desc: '通过面料分层和版型推荐，提升中高客单转化。' },
-      { title: '活动主题服装', data: '满意度 98%', desc: '结合活动主题快速出样，支持小批量多款式生产。' }
-    ]}
-    mockServices={[
-      { name: '商务轻定制衬衫', price: 399, description: '支持领型、袖长、版型微调，7-10天交付。' },
-      { name: '高端西服全定制', price: 2680, description: '量体建档 + 面料挑选 + 两次试衣修改。' },
-      { name: '企业团体工装方案', price: 699, description: '按人数分级报价，支持logo刺绣与统一风格管理。' }
-    ]}
-    showcaseItems={[
-      { title: '轻商务通勤系列', tag: '日常通勤', summary: '简洁版型与易打理面料结合，适合高频穿着场景。' },
-      { title: '高定礼仪套装', tag: '商务活动', summary: '强化正式场合质感表达，兼顾舒适与挺阔。' },
-      { title: '品牌团体工装', tag: '企业定制', summary: '统一品牌视觉与岗位差异，提升团队形象一致性。' }
-    ]}
-    capabilityMatrix={[
-      { name: '版型数据库', detail: '积累不同体型版型模板，提升首版合身率和交付效率。' },
-      { name: '柔性供应链', detail: '支持小单快反与大批量稳定生产的双模式交付。' },
-      { name: '面料管理', detail: '按季节和场景建立面料推荐策略，控制成本与体验平衡。' },
-      { name: '会员运营', detail: '通过穿搭建议和换季推荐提升复购与客单结构。' }
-    ]}
-    insights={[
-      '服装定制正在从“礼服场景”扩展到通勤与企业形象场景。',
-      '数字化量体与版型推荐可显著降低修改率和交付周期。',
-      '标准款 + 微定制是当前兼顾规模化和个性化的主流路径。'
-    ]}
-    faqs={[
-      { q: '定制周期多久？', a: '常规 7-15 天，复杂工艺款会根据排期延长。' },
-      { q: '支持团体定制吗？', a: '支持，可按企业人数、预算和岗位场景定制。' },
-      { q: '尺码不合适怎么办？', a: '支持一次免费修改，确保成衣合体与舒适度。' }
-    ]}
-  />
+  <>
+    <FashionFlagshipHero />
+    <IndustryPage
+      skipDefaultHero
+      category="服装定制"
+      title="服装定制与品牌穿搭方案"
+      subtitle="围绕通勤、商务、活动等场景提供版型建议、面料选择与个性化定制服务。"
+      highlights={['版型顾问服务', '面料与工艺可视化', '快速改版与交付']}
+      workflow={['需求沟通', '风格选款', '量体建档', '试衣修改', '成衣交付']}
+      siteStyle="fashion"
+      styleSections={['新品主题横幅', '男女童分类区', '穿搭推荐位', '尺码与售后入口']}
+      scenarios={['企业团体定制', '商务通勤定制', '活动演出服定制', '情侣/家庭主题装']}
+      referenceSites={[{ name: '优衣库中国官网（结构参考）', url: 'https://www.uniqlo.cn/' }]}
+      layoutModules={[
+        {
+          title: '新品与主题系列区',
+          desc: '采用电商首页结构展示「春夏新品、联名系列、基础款」模块。',
+          image: fashionFlagship.themeLeft,
+        },
+        {
+          title: '男女童分类入口',
+          desc: '按男装、女装、童装、配件快速跳转，当前为示例分类。',
+          image: fashionFlagship.mens,
+        },
+        {
+          title: '尺码与版型助手',
+          desc: '预留在线尺码建议和版型推荐组件，后续可接入算法。',
+          image: fashionFlagship.womens,
+        },
+        {
+          title: '材质与功能标签',
+          desc: '展示「速干、抗皱、保暖」等标签，辅助用户快速筛选。',
+          image: fashionFlagship.themeRight,
+        },
+        {
+          title: '定制套装推荐',
+          desc: '以场景穿搭为核心提供虚拟套装组合和价格示例。',
+          image: fashionFlagship.pick1,
+        },
+        {
+          title: '会员权益与售后',
+          desc: '预留积分、改衣服务、退换规则等信息模块。',
+          image: fashionFlagship.kids,
+        },
+      ]}
+      marketStats={[
+        { label: '月度定制单量', value: '1,180' },
+        { label: '一次试穿通过率', value: '84%' },
+        { label: '复购用户占比', value: '46%' },
+        { label: '平均客单价', value: '¥799' },
+      ]}
+      sampleCases={[
+        { title: '企业工装升级', data: '30天交付 860 套', desc: '建立尺码档案和标准打版流程，提升团体订单交付效率。' },
+        { title: '商务西服定制季', data: '客单提升 31%', desc: '通过面料分层和版型推荐，提升中高客单转化。' },
+        { title: '活动主题服装', data: '满意度 98%', desc: '结合活动主题快速出样，支持小批量多款式生产。' },
+      ]}
+      mockServices={[
+        {
+          name: '商务轻定制衬衫',
+          price: 399,
+          description: '支持领型、袖长、版型微调，7-10天交付。',
+          image: fashionFlagship.pick2,
+        },
+        {
+          name: '高端西服全定制',
+          price: 2680,
+          description: '量体建档 + 面料挑选 + 两次试衣修改。',
+          image: fashionFlagship.pick3,
+        },
+        {
+          name: '企业团体工装方案',
+          price: 699,
+          description: '按人数分级报价，支持logo刺绣与统一风格管理。',
+          image: fashionFlagship.hero,
+        },
+      ]}
+      showcaseItems={[
+        {
+          title: '轻商务通勤系列',
+          tag: '日常通勤',
+          summary: '简洁版型与易打理面料结合，适合高频穿着场景。',
+          image: fashionFlagship.pick1,
+        },
+        {
+          title: '高定礼仪套装',
+          tag: '商务活动',
+          summary: '强化正式场合质感表达，兼顾舒适与挺阔。',
+          image: fashionFlagship.womens,
+        },
+        {
+          title: '品牌团体工装',
+          tag: '企业定制',
+          summary: '统一品牌视觉与岗位差异，提升团队形象一致性。',
+          image: fashionFlagship.mens,
+        },
+      ]}
+      capabilityMatrix={[
+        { name: '版型数据库', detail: '积累不同体型版型模板，提升首版合身率和交付效率。' },
+        { name: '柔性供应链', detail: '支持小单快反与大批量稳定生产的双模式交付。' },
+        { name: '面料管理', detail: '按季节和场景建立面料推荐策略，控制成本与体验平衡。' },
+        { name: '会员运营', detail: '通过穿搭建议和换季推荐提升复购与客单结构。' },
+      ]}
+      insights={[
+        '服装定制正在从“礼服场景”扩展到通勤与企业形象场景。',
+        '数字化量体与版型推荐可显著降低修改率和交付周期。',
+        '标准款 + 微定制是当前兼顾规模化和个性化的主流路径。',
+      ]}
+      faqs={[
+        { q: '定制周期多久？', a: '常规 7-15 天，复杂工艺款会根据排期延长。' },
+        { q: '支持团体定制吗？', a: '支持，可按企业人数、预算和岗位场景定制。' },
+        { q: '尺码不合适怎么办？', a: '支持一次免费修改，确保成衣合体与舒适度。' },
+      ]}
+    />
+  </>
 )
 
 export default 服装定制

@@ -9,7 +9,12 @@ from .auth import get_current_user
 router = APIRouter()
 
 
-@router.post("/", response_model=UserSchema)
+@router.post(
+    "/",
+    response_model=UserSchema,
+    summary="注册新用户",
+    description="提交用户名、邮箱、密码。若用户名或邮箱已被占用，会返回中文提示。",
+)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     """创建新用户"""
     # 检查用户名是否已存在
@@ -17,14 +22,14 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     if db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Username already registered"
+            detail="该用户名已被注册",
         )
     # 检查邮箱是否已存在
     db_user = db.query(User).filter(User.email == user.email).first()
     if db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+            detail="该邮箱已被注册",
         )
     # 创建新用户
     hashed_password = get_password_hash(user.password)
@@ -39,13 +44,23 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     return db_user
 
 
-@router.get("/me", response_model=UserSchema)
+@router.get(
+    "/me",
+    response_model=UserSchema,
+    summary="查看当前登录用户",
+    description="需要在请求头携带有效令牌。",
+)
 def get_current_user_info(current_user: User = Depends(get_current_user)):
     """获取当前用户信息"""
     return current_user
 
 
-@router.put("/me", response_model=UserSchema)
+@router.put(
+    "/me",
+    response_model=UserSchema,
+    summary="修改当前用户资料",
+    description="可只改邮箱或密码，未填写的项保持不变。",
+)
 def update_current_user(user_update: UserUpdate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """更新当前用户信息"""
     if user_update.email:
