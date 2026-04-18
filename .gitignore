@@ -34,6 +34,12 @@ Thumbs.db
 logs/
 *.log
 
+# Local dev command output (do not commit)
+/build-log.txt
+/vite-out.txt
+/vite-dev-log.txt
+/uvicorn-test.txt
+
 # Temporary files
 *.tmp
 *.temp
