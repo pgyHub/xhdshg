@@ -8,7 +8,7 @@ const 美发 = () => (
     subtitle="结合脸型与职业场景进行发型设计，支持剪、染、烫、护理全链路服务。"
     heroMedia={{ src: H.hero, alt: '潮流发型主视觉（已裁切底部字标）', kind: 'image' }}
     venueSectionTitle="环境与作品区"
-    venueSectionSubtitle="下列为已裁切底部字标的造型示意；横滑三图与首图各不相同，可与婚摄/彩妆等模块并存。"
+    venueSectionSubtitle="下列为已裁切底部字标的造型示意；横滑三图与首图各不相同，可与彩妆、婚摄等模块并存。"
     venueGallery={[
       { src: H.g1, caption: '横滑位一：门店造型咨询与工位氛围' },
       { src: H.g2, caption: '横滑位二：中长卷发与质感呈现' },

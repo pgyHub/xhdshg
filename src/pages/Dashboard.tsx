@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import * as echarts from 'echarts'
+import { BUSINESS_MODULES } from '../data/businessNav'
 
 const Dashboard = () => {
   const [currentTime, setCurrentTime] = useState('')
@@ -146,15 +147,10 @@ const Dashboard = () => {
             type: 'pie',
             radius: ['45%', '70%'],
             label: { color: '#9db5ff', fontSize: 10 },
-            data: [
-              { value: 21, name: '婚纱摄影' },
-              { value: 13, name: '彩妆' },
-              { value: 11, name: '美发' },
-              { value: 17, name: '全屋定制' },
-              { value: 15, name: '短视频制作' },
-              { value: 12, name: '中餐馆' },
-              { value: 11, name: '服装定制' }
-            ]
+            data: BUSINESS_MODULES.map((m, i) => ({
+              value: [11, 13, 21, 11, 17, 12, 15][i],
+              name: m.navLabel
+            }))
           }
         ]
       })
@@ -169,7 +165,7 @@ const Dashboard = () => {
         yAxis: {
           type: 'category',
           axisLabel: { color: '#9db5ff' },
-          data: ['婚纱摄影', '全屋定制', '短视频制作', '中餐馆', '彩妆']
+          data: BUSINESS_MODULES.slice(0, 5).map((m) => m.navLabel)
         },
         series: [
           {
@@ -246,7 +242,7 @@ const Dashboard = () => {
             itemStyle: { borderWidth: 0 },
             label: { color: '#d4e3ff', fontSize: 10 },
             data: [
-              { value: 100, name: '短视频引流' },
+              { value: 100, name: '美发咨询' },
               { value: 78, name: '彩妆试妆' },
               { value: 61, name: '婚纱摄影转化' }
             ]

@@ -61,7 +61,11 @@ OPENAPI_TAGS = [
     },
     {
         "name": "文件",
-        "description": "上传、列表与下载（均需登录）。",
+        "description": "上传、列表与下载（需会员或管理员登录）。",
+    },
+    {
+        "name": "管理后台",
+        "description": "会员列表与维护（仅管理员）。",
     },
 ]
 

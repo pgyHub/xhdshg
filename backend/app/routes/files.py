@@ -4,7 +4,7 @@ from typing import Annotated, List
 import os
 from app.core.database import get_db
 from app.models.user import User
-from .auth import get_current_user
+from .auth import get_current_privileged_user
 
 router = APIRouter()
 
@@ -21,7 +21,7 @@ if not os.path.exists(UPLOAD_DIR):
 )
 async def upload_files(
     files: List[UploadFile] = File(..., description="要上传的一个或多个文件"),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_privileged_user),
     db: Session = Depends(get_db),
 ):
     """批量上传文件"""
@@ -47,7 +47,7 @@ async def upload_files(
 )
 def download_file(
     filename: Annotated[str, Path(description="服务器上的文件名")],
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_privileged_user),
     db: Session = Depends(get_db),
 ):
     """下载文件"""
@@ -70,7 +70,7 @@ def download_file(
     description="需要登录。列出上传目录中的文件名与大小。",
 )
 def list_files(
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_privileged_user),
     db: Session = Depends(get_db),
 ):
     """列出所有文件"""

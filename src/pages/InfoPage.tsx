@@ -9,7 +9,7 @@ type InfoBlock = {
 const infoMap: Record<string, InfoBlock> = {
   'brand-intro': {
     title: '品牌介绍',
-    intro: '小红点生活馆围绕“生活服务 + 数智经营”打造多业态协同平台，覆盖婚纱摄影、美妆、美发、家居、短视频与餐饮场景。',
+    intro: '小红点生活馆围绕“生活服务 + 数智经营”打造多业态协同平台，串联美发、彩妆、婚摄等形象服务，延伸至服装与全屋定制，并覆盖餐饮与短视频等场景。',
     sections: [
       { heading: '品牌定位', content: '以本地生活服务为基础，结合AI数据分析能力，帮助门店实现流量获取、会员运营与服务升级。' },
       { heading: '服务优势', content: '统一中台、统一数据、统一策略，支持跨业务协同营销与经营复盘。' },
@@ -65,7 +65,7 @@ const infoMap: Record<string, InfoBlock> = {
     title: '预约到店',
     intro: '在线提交预约信息后，门店顾问会在最短时间内与你确认到店安排。',
     sections: [
-      { heading: '预约范围', content: '支持婚纱摄影、彩妆、美发、全屋定制、短视频制作、中餐馆与服装定制。' },
+      { heading: '预约范围', content: '支持美发、彩妆、婚纱摄影、服装定制、全屋定制、中餐馆与短视频制作。' },
       { heading: '预约流程', content: '提交意向 -> 顾问回访 -> 确认时间 -> 到店体验。' },
       { heading: '温馨提示', content: '节假日高峰建议至少提前1-3天预约，以便安排专属服务档期。' }
     ]
@@ -92,7 +92,7 @@ const infoMap: Record<string, InfoBlock> = {
     title: '供应链合作',
     intro: '与优质供应链伙伴共建稳定、高效、可追踪的服务交付体系。',
     sections: [
-      { heading: '合作方向', content: '婚摄物料、美妆个护、家居定制、餐饮食材与短视频设备等。' },
+      { heading: '合作方向', content: '美发个护、彩妆婚摄物料、服装与家居定制、餐饮食材与短视频设备等。' },
       { heading: '合作机制', content: '采用标准采购流程与质量评估体系，支持区域化协同履约。' },
       { heading: '对接方式', content: '请将企业资料发送至 supply@xiaohongdian.example。' }
     ]
@@ -128,7 +128,7 @@ const infoMap: Record<string, InfoBlock> = {
     title: '跨业务联动套餐',
     intro: '打通多业务模块，形成“高频带低频”的组合增长方案。',
     sections: [
-      { heading: '套餐设计', content: '婚摄+彩妆、餐饮+短视频、家居+服装等联动方案。' },
+      { heading: '套餐设计', content: '美发+彩妆+婚摄、服装+家居、餐饮+短视频等联动方案。' },
       { heading: '价格策略', content: '以组合折扣和权益升级提升连带购买意愿。' },
       { heading: '执行方式', content: '统一活动页、统一客服话术和统一数据追踪。' }
     ]

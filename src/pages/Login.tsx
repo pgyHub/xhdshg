@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { authAPI } from '../services/api'
+import { authAPI, getApiErrorMessage, userAPI } from '../services/api'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
@@ -22,20 +22,31 @@ const Login = () => {
       localStorage.setItem('token', response.access_token)
       navigate('/member-backend')
     } catch (err) {
-      setError('登录失败，请检查用户名和密码')
+      setError(getApiErrorMessage(err))
       console.error('登录失败:', err)
     } finally {
       setLoading(false)
     }
   }
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!registerName || !registerPhone || !registerPassword) {
       setError('请完整填写注册信息')
       return
     }
-    setError('当前版本仅演示页面，注册接口可在后端扩展后接入。')
+    setLoading(true)
+    setError('')
+    try {
+      await userAPI.register(registerName, registerPhone, registerPassword)
+      setError('')
+      setActiveTab('login')
+      setUsername(registerName)
+    } catch (err) {
+      setError(getApiErrorMessage(err))
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -80,14 +91,16 @@ const Login = () => {
               <input type="text" value={registerName} onChange={(e) => setRegisterName(e.target.value)} required />
             </label>
             <label>
-              手机号
-              <input type="tel" value={registerPhone} onChange={(e) => setRegisterPhone(e.target.value)} required />
+              邮箱
+              <input type="email" value={registerPhone} onChange={(e) => setRegisterPhone(e.target.value)} required />
             </label>
             <label>
               设置密码
               <input type="password" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} required />
             </label>
-            <button type="submit" className="button button-primary">创建账号</button>
+            <button type="submit" className="button button-primary" disabled={loading}>
+              {loading ? '提交中...' : '创建账号'}
+            </button>
           </form>
         )}
       </section>

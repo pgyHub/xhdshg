@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'
+import { BUSINESS_MODULES } from '../data/businessNav'
+
+const businessPaths: Record<string, string> = {}
+BUSINESS_MODULES.forEach((m) => {
+  businessPaths[m.footerCoreLabel] = m.path
+  businessPaths[m.footerHotLabel] = m.path
+})
 
 const linkPathMap: Record<string, string> = {
-  婚纱摄影: '/wedding-photography',
-  彩妆服务: '/makeup',
-  彩妆跟妆: '/makeup',
-  美发造型: '/hairdressing',
-  全屋定制: '/home-customization',
-  短视频制作: '/short-video-production',
-  短视频代运营: '/short-video-production',
-  中餐馆运营: '/chinese-restaurant',
-  中餐馆私宴: '/chinese-restaurant',
-  服装定制: '/clothing-customization',
+  ...businessPaths,
   门店获客增长: '/info/store-growth',
   会员复购运营: '/info/member-retention',
   跨业务联动套餐: '/info/cross-business-package',
@@ -46,7 +44,7 @@ const linkPathMap: Record<string, string> = {
 const footerColumns = [
   {
     title: '核心业务',
-    links: ['婚纱摄影', '彩妆服务', '美发造型', '全屋定制', '短视频制作', '中餐馆运营', '服装定制']
+    links: BUSINESS_MODULES.map((m) => m.footerCoreLabel)
   },
   {
     title: '解决方案',
@@ -63,7 +61,7 @@ const footerColumns = [
 ]
 
 const hotRows = [
-  { label: '热门业务', items: ['婚纱摄影', '彩妆跟妆', '全屋定制', '短视频代运营', '中餐馆私宴', '服装定制'] },
+  { label: '热门业务', items: BUSINESS_MODULES.map((m) => m.footerHotLabel) },
   { label: '热门推荐', items: ['婚摄+彩妆套餐', '短视频引流方案', '会员增长计划', '门店活动策划', '品牌IP打造', '私域转化方案'] },
   { label: '更多服务', items: ['预约到店', '在线咨询', '商家入驻', '供应链合作', '培训课程', '运营工具'] }
 ]

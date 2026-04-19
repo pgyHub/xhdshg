@@ -1,6 +1,9 @@
 /**
  * 行业专题配图：每槽位独立 Picsum seed，全站不与服饰旗舰店等其它模块重复。
  * 详见 `mediaUtils.ts`。
+ *
+ * 说明：Picsum 为抽象占位，不保证与「婚摄 / 家居 / 视频」文案逐字对应；
+ * 上线建议替换为 `public/images/...` 行业实拍或与模块强相关的素材。
  */
 import { stockPic as p } from './mediaUtils'
 

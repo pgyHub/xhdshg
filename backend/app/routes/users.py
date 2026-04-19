@@ -1,10 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from datetime import date
+from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.security import get_password_hash
 from app.models.user import User
-from app.schemas.user import User as UserSchema, UserCreate, UserUpdate
-from .auth import get_current_user
+from app.schemas.user import User as UserSchema, UserCreate, UserUpdate, AdminUserPatch
+from app.core.roles import ADMIN_LOGIN, is_super_admin
+from .auth import get_current_user, get_current_admin_user
 
 router = APIRouter()
 
@@ -17,6 +22,11 @@ router = APIRouter()
 )
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     """创建新用户"""
+    if user.username.strip().lower() == ADMIN_LOGIN:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="该用户名为系统保留（管理员专用），请更换其他用户名",
+        )
     # 检查用户名是否已存在
     db_user = db.query(User).filter(User.username == user.username).first()
     if db_user:
@@ -70,3 +80,100 @@ def update_current_user(user_update: UserUpdate, current_user: User = Depends(ge
     db.commit()
     db.refresh(current_user)
     return current_user
+
+
+# --- 管理后台：挂在同一 `/users` 路由下（与 `/users/me` 同源注册，避免单独 `/admin` 前缀未生效时 404） ---
+
+
+@router.get(
+    "/admin/list",
+    summary="分页查询用户（管理员）",
+    description="支持用户名/邮箱模糊、性别、注册日期区间筛选。",
+    tags=["管理后台"],
+)
+def admin_list_users(
+    page: int = Query(1, ge=1),
+    limit: int = Query(10, ge=1, le=100),
+    keyword: str = Query("", description="用户名或邮箱模糊"),
+    sex: Optional[str] = Query(None, description="男 / 女 / 空为全部"),
+    start: Optional[date] = Query(None, description="注册起始日期"),
+    end: Optional[date] = Query(None, description="注册截止日期"),
+    _: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    q = db.query(User)
+    kw = keyword.strip()
+    if kw:
+        like = f"%{kw}%"
+        q = q.filter(or_(User.username.like(like), User.email.like(like)))
+    if sex == "男":
+        q = q.filter(User.sex == 1)
+    elif sex == "女":
+        q = q.filter(User.sex == 0)
+    if start is not None:
+        q = q.filter(func.date(User.created_at) >= start)
+    if end is not None:
+        q = q.filter(func.date(User.created_at) <= end)
+
+    total = q.count()
+    offset = (page - 1) * limit
+    rows = q.order_by(User.id.desc()).offset(offset).limit(limit).all()
+    return {
+        "total": total,
+        "page": page,
+        "page_size": limit,
+        "items": [UserSchema.model_validate(u) for u in rows],
+    }
+
+
+@router.patch(
+    "/admin/{user_id}",
+    response_model=UserSchema,
+    summary="更新用户（管理员）",
+    tags=["管理后台"],
+)
+def admin_patch_user(
+    user_id: int,
+    body: AdminUserPatch,
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    u = db.query(User).filter(User.id == user_id).first()
+    if not u:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="用户不存在")
+    if body.email is not None:
+        taken = db.query(User).filter(User.email == body.email, User.id != user_id).first()
+        if taken:
+            raise HTTPException(status_code=400, detail="该邮箱已被其他账号使用")
+        u.email = body.email
+    if body.is_member is not None:
+        u.is_member = body.is_member
+    if body.sex is not None:
+        u.sex = body.sex
+    if body.hobby is not None:
+        u.hobby = body.hobby
+    db.commit()
+    db.refresh(u)
+    return u
+
+
+@router.delete(
+    "/admin/{user_id}",
+    summary="删除用户（管理员）",
+    tags=["管理后台"],
+)
+def admin_delete_user(
+    user_id: int,
+    admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    if admin.id == user_id:
+        raise HTTPException(status_code=400, detail="不能删除当前登录账号")
+    u = db.query(User).filter(User.id == user_id).first()
+    if not u:
+        raise HTTPException(status_code=404, detail="用户不存在")
+    if is_super_admin(u):
+        raise HTTPException(status_code=400, detail="不能删除系统管理员账号（登录名 admin）")
+    db.delete(u)
+    db.commit()
+    return {"detail": "已删除"}

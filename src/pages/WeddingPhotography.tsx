@@ -19,8 +19,8 @@ const 婚纱摄影 = () => (
         src: '/images/wedding/wed-city-romance-01.png',
         caption: '横滑位一：夜景婚纱情绪片（无字版，可替换为本店同风格成片）'
       },
-      { src: weddingStock.g2, caption: '横滑位二：第二组样片（对应棚拍/礼服类套系入口）' },
-      { src: weddingStock.g3, caption: '横滑位三：第三组样片（对应仪式/纪实类套系入口）' }
+      { src: weddingStock.g2, caption: '横滑位二：版式占位（Picsum），请换棚拍/礼服类本店成片' },
+      { src: weddingStock.g3, caption: '横滑位三：版式占位（Picsum），请换仪式/纪实类本店成片' }
     ]}
     referenceSites={[
       { name: '聚婚网', url: 'http://www.jujiaonet.com/' },
@@ -91,7 +91,7 @@ const 婚纱摄影 = () => (
     capabilityMatrix={[
       { name: '拍摄统筹', detail: '提供档期、场景、服装、妆造、摄影团队统一排期与现场统筹。' },
       { name: '影像交付', detail: '支持精修、短视频快剪、相册设计和云端素材归档。' },
-      { name: '品牌联动', detail: '与彩妆、美发模块联动，打造跨模块套餐提升客单价。' },
+      { name: '品牌联动', detail: '与美发、彩妆模块联动，打造跨模块套餐提升客单价。' },
       { name: '客户运营', detail: '通过社媒二次传播和纪念日服务，持续增强客户复购与转介绍。' }
     ]}
     insights={[

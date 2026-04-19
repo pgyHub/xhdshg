@@ -1,25 +1,76 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { BUSINESS_MODULES } from '../data/businessNav'
+import { authAPI, getApiErrorMessage, userAPI } from '../services/api'
 
 const entryCards = [
   { title: '进入工作台', desc: '快速进入业务管理后台，统一查看模块数据。', path: '/member-backend' },
   { title: '浏览数据看板', desc: '查看经营分析、趋势图与关键指标监控。', path: '/dashboard' }
 ]
 
-const businessQuickItems = [
-  { name: '婚纱摄影', path: '/wedding-photography', imageTitle: '婚纱拍摄案例', imageHint: '主纱照 / 仪式跟拍 / 修图成片' },
-  { name: '彩妆', path: '/makeup', imageTitle: '妆容风格展示', imageHint: '新娘妆 / 日常妆 / 主题妆' },
-  { name: '美发', path: '/hairdressing', imageTitle: '发型设计展示', imageHint: '烫染造型 / 发质护理 / 头皮管理' },
-  { name: '全屋定制', path: '/home-customization', imageTitle: '空间效果展示', imageHint: '客餐厅 / 卧室 / 全屋收纳' },
-  { name: '短视频制作', path: '/short-video-production', imageTitle: '视频成片展示', imageHint: '脚本策划 / 拍摄剪辑 / 代运营' },
-  { name: '中餐馆', path: '/chinese-restaurant', imageTitle: '菜品门店展示', imageHint: '招牌菜 / 包厢场景 / 到店活动' },
-  { name: '服装定制', path: '/clothing-customization', imageTitle: '版型成衣展示', imageHint: '量体定制 / 面料挑选 / 套系搭配' }
-]
+const businessQuickItems = BUSINESS_MODULES.map((m) => ({
+  name: m.homeName,
+  path: m.path,
+  imageTitle: m.imageTitle,
+  imageHint: m.imageHint
+}))
 
 const Home = () => {
+  const navigate = useNavigate()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
-  const [authMethod, setAuthMethod] = useState<'account' | 'phone' | 'passkey'>('account')
+  const [modalUser, setModalUser] = useState('')
+  const [modalEmail, setModalEmail] = useState('')
+  const [modalPass, setModalPass] = useState('')
+  const [modalConfirm, setModalConfirm] = useState('')
+  const [modalError, setModalError] = useState('')
+  const [modalSuccess, setModalSuccess] = useState('')
+  const [modalLoading, setModalLoading] = useState(false)
+  const [agreedTerms, setAgreedTerms] = useState(false)
+
+  const handleModalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setModalError('')
+    setModalSuccess('')
+    if (authMode === 'register' && !agreedTerms) {
+      setModalError('请阅读并勾选同意用户协议与隐私说明')
+      return
+    }
+    if (!modalUser.trim() || !modalPass) {
+      setModalError('请填写账号与密码')
+      return
+    }
+    if (authMode === 'register') {
+      if (!modalEmail.trim()) {
+        setModalError('请填写邮箱（需为有效邮箱格式，如 name@example.com）')
+        return
+      }
+      if (modalPass !== modalConfirm) {
+        setModalError('两次输入的密码不一致')
+        return
+      }
+    }
+    setModalLoading(true)
+    try {
+      if (authMode === 'login') {
+        const res = await authAPI.login(modalUser.trim(), modalPass)
+        localStorage.setItem('token', res.access_token)
+        setShowLoginModal(false)
+        navigate('/member-backend')
+      } else {
+        await userAPI.register(modalUser.trim(), modalEmail.trim(), modalPass)
+        setModalSuccess('注册成功，请登录')
+        setAuthMode('login')
+        setAgreedTerms(false)
+        setModalPass('')
+        setModalConfirm('')
+      }
+    } catch (err) {
+      setModalError(getApiErrorMessage(err))
+    } finally {
+      setModalLoading(false)
+    }
+  }
 
   return (
     <div className="cloud-home">
@@ -31,7 +82,8 @@ const Home = () => {
               className="header-login-button"
               onClick={() => {
                 setAuthMode('login')
-                setAuthMethod('account')
+                setModalError('')
+                setModalSuccess('')
                 setShowLoginModal(true)
               }}
             >
@@ -42,7 +94,9 @@ const Home = () => {
               className="header-register-entry"
               onClick={() => {
                 setAuthMode('register')
-                setAuthMethod('account')
+                setModalError('')
+                setModalSuccess('')
+                setAgreedTerms(false)
                 setShowLoginModal(true)
               }}
             >
@@ -109,85 +163,140 @@ const Home = () => {
       </div>
 
       {showLoginModal && (
-        <div className="login-modal-mask" onClick={() => setShowLoginModal(false)}>
-          <div className="login-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="login-modal-close" onClick={() => setShowLoginModal(false)}>×</button>
-            <div className="login-modal-left">
-              <h3>{authMode === 'login' ? '登录' : '注册'}</h3>
-              <p>小红点APP/支付宝/钉钉</p>
-              <div className="mock-qr">
-                <div className="mock-qr-inner">二维码</div>
-              </div>
-              <span>其他方式：支付宝 / 淘宝 / 微博 / 飞书</span>
+        <div className="auth-split-mask" role="dialog" aria-modal="true" aria-labelledby="auth-split-title" onClick={() => setShowLoginModal(false)}>
+          <div className="auth-split-modal" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="auth-split-close" onClick={() => setShowLoginModal(false)} aria-label="关闭">
+              ×
+            </button>
+            <div className="auth-split-brand">
+              <div className="auth-split-logo">小红点生活馆</div>
+              <p className="auth-split-tagline">生活服务平台</p>
+              <p className="auth-split-slogan">
+                用数据与内容
+                <br />
+                让本地生活服务更简单
+              </p>
+              <footer className="auth-split-footer">
+                <Link to="/info/contact-us" onClick={() => setShowLoginModal(false)}>
+                  帮助中心
+                </Link>
+                <span>2026 © 小红点生活馆</span>
+              </footer>
             </div>
-            <div className="login-modal-right">
-              <div className="login-modal-tabs">
-                <button
-                  className={authMethod === 'account' ? 'active' : ''}
-                  onClick={() => setAuthMethod('account')}
-                >
-                  账号登录
-                </button>
-                <button
-                  className={authMethod === 'phone' ? 'active' : ''}
-                  onClick={() => setAuthMethod('phone')}
-                >
-                  手机号登录
-                </button>
-                <button
-                  className={authMethod === 'passkey' ? 'active' : ''}
-                  onClick={() => setAuthMethod('passkey')}
-                >
-                  通行密钥
-                </button>
-                <button
-                  className="go-register"
-                  onClick={() => {
-                    const nextMode = authMode === 'login' ? 'register' : 'login'
-                    setAuthMode(nextMode)
-                    setAuthMethod('account')
-                  }}
-                >
-                  {authMode === 'login' ? '前往注册' : '返回登录'}
-                </button>
-              </div>
-              <div className="login-modal-form">
-                {authMethod === 'account' && (
+            <div className="auth-split-card">
+              <h2 id="auth-split-title">{authMode === 'register' ? '欢迎注册' : '欢迎登录'}</h2>
+              <p className="auth-split-switch">
+                {authMode === 'register' ? (
                   <>
-                    <input placeholder={authMode === 'login' ? '账号名  请输入' : '注册账号  请输入'} />
-                    <input type="password" placeholder={authMode === 'login' ? '密码  请输入' : '设置密码  请输入'} />
-                    {authMode === 'register' && <input type="password" placeholder="确认密码  请输入" />}
+                    已有账号？
+                    <button
+                      type="button"
+                      className="auth-split-link-btn"
+                      onClick={() => {
+                        setAuthMode('login')
+                        setModalError('')
+                        setModalSuccess('')
+                      }}
+                    >
+                      登录
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    没有账号？
+                    <button
+                      type="button"
+                      className="auth-split-link-btn"
+                      onClick={() => {
+                        setAuthMode('register')
+                        setModalError('')
+                        setModalSuccess('')
+                        setAgreedTerms(false)
+                      }}
+                    >
+                      注册
+                    </button>
                   </>
                 )}
-                {authMethod === 'phone' && (
-                  <>
-                    <input placeholder="手机号  请输入" />
-                    <input placeholder="验证码  请输入" />
-                    {authMode === 'register' && <input type="password" placeholder="设置密码  请输入" />}
-                  </>
+              </p>
+              <form className="auth-split-form" onSubmit={handleModalSubmit}>
+                {modalError && <div className="status-error auth-split-status">{modalError}</div>}
+                {modalSuccess && <div className="login-modal-success auth-split-status">{modalSuccess}</div>}
+
+                <label className="auth-split-field">
+                  <span className="auth-split-label">用户名</span>
+                  <input
+                    value={modalUser}
+                    onChange={(e) => setModalUser(e.target.value)}
+                    placeholder="请设置用户名"
+                    autoComplete="username"
+                    title="用户名在系统内唯一，建议使用字母、数字或常用昵称"
+                  />
+                </label>
+
+                {authMode === 'register' && (
+                  <label className="auth-split-field">
+                    <span className="auth-split-label">邮箱</span>
+                    <input
+                      type="email"
+                      value={modalEmail}
+                      onChange={(e) => setModalEmail(e.target.value)}
+                      placeholder="可用于登录与找回密码"
+                      autoComplete="email"
+                    />
+                  </label>
                 )}
-                {authMethod === 'passkey' && (
-                  <>
-                    <input placeholder="设备标识  请输入" />
-                    <input type="password" placeholder="安全口令  请输入" />
-                  </>
+
+                <label className="auth-split-field">
+                  <span className="auth-split-label">密码</span>
+                  <input
+                    type="password"
+                    value={modalPass}
+                    onChange={(e) => setModalPass(e.target.value)}
+                    placeholder="请设置登录密码"
+                    autoComplete={authMode === 'login' ? 'current-password' : 'new-password'}
+                  />
+                </label>
+
+                {authMode === 'register' && (
+                  <label className="auth-split-field">
+                    <span className="auth-split-label">确认密码</span>
+                    <input
+                      type="password"
+                      value={modalConfirm}
+                      onChange={(e) => setModalConfirm(e.target.value)}
+                      placeholder="请再次输入密码"
+                      autoComplete="new-password"
+                    />
+                  </label>
                 )}
-                <button className="login-submit">{authMode === 'login' ? '立即登录' : '立即注册'}</button>
-                <div className="login-links">
-                  {authMode === 'login' ? (
-                    <>
-                      <span>忘记登录名</span>
-                      <span>忘记密码</span>
-                      <span>RAM登录</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>已有账号？请登录</span>
-                      <span>注册即视为同意用户协议</span>
-                    </>
-                  )}
+
+                {authMode === 'register' && (
+                  <label className="auth-split-agree">
+                    <input type="checkbox" checked={agreedTerms} onChange={(e) => setAgreedTerms(e.target.checked)} />
+                    <span>
+                      阅读并接受
+                      <Link to="/info/agreement" onClick={() => setShowLoginModal(false)}>
+                        《用户协议》
+                      </Link>
+                      及
+                      <Link to="/info/contact-us" onClick={() => setShowLoginModal(false)}>
+                        《隐私与联系说明》
+                      </Link>
+                    </span>
+                  </label>
+                )}
+
+                <button type="submit" className="auth-split-submit" disabled={modalLoading}>
+                  {modalLoading ? '处理中...' : authMode === 'login' ? '登录' : '注册'}
+                </button>
+
+                <div className="auth-split-footlink">
+                  <Link to="/login" onClick={() => setShowLoginModal(false)}>
+                    打开完整登录页
+                  </Link>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

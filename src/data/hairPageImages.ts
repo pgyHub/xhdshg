@@ -1,6 +1,6 @@
 /**
  * 美发专题：已裁掉底部品牌字样的实拍示意（本地 public/images/hair）。
- * 不足槽位用独立 Picsum seed 补齐，与 moduleStockImages / 服饰等 seed 不重复。
+ * 不足槽位用独立 Picsum seed 补齐（不保证为发型特写，上线建议换本店实拍）。
  */
 import { stockPic } from './mediaUtils'
 

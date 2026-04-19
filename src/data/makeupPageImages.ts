@@ -1,6 +1,6 @@
 /**
  * 彩妆专题：已裁掉底部/角标品牌字的实拍示意（本地 public/images/makeup）。
- * 不足槽位用独立 Picsum seed 补齐。
+ * 不足槽位用 Picsum 补齐（不保证为妆面特写，上线建议换本店妆面图）。
  */
 import { stockPic } from './mediaUtils'
 

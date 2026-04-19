@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BUSINESS_MODULES } from '../data/businessNav'
 import { serviceAPI } from '../services/api'
 
 type ServiceItem = {
@@ -592,6 +593,26 @@ const IndustryPage = ({
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="section industry-sibling-nav-section">
+        <div className="section-title-row">
+          <h3>全站业务导航</h3>
+          <span>顺序与顶部导航一致 · 当前：{category}</span>
+        </div>
+        <nav className="industry-sibling-nav" aria-label="全站业务模块">
+          {BUSINESS_MODULES.map((m) =>
+            m.category === category ? (
+              <span key={m.path} className="industry-sibling-nav-current">
+                {m.navLabel}
+              </span>
+            ) : (
+              <Link key={m.path} to={m.path}>
+                {m.navLabel}
+              </Link>
+            )
+          )}
+        </nav>
       </section>
 
     </div>
