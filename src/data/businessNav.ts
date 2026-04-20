@@ -14,8 +14,6 @@ export type BusinessModule = {
   imageHint: string
   /** 页脚「核心业务」列文案 */
   footerCoreLabel: string
-  /** 页脚「热门业务」行文案（可与核心业务用语不同） */
-  footerHotLabel: string
 }
 
 export const BUSINESS_MODULES: BusinessModule[] = [
@@ -26,8 +24,7 @@ export const BUSINESS_MODULES: BusinessModule[] = [
     homeName: '美发',
     imageTitle: '发型设计展示',
     imageHint: '烫染造型 / 发质护理 / 头皮管理',
-    footerCoreLabel: '美发造型',
-    footerHotLabel: '美发造型'
+    footerCoreLabel: '美发造型'
   },
   {
     category: '彩妆',
@@ -36,8 +33,7 @@ export const BUSINESS_MODULES: BusinessModule[] = [
     homeName: '彩妆',
     imageTitle: '妆容风格展示',
     imageHint: '新娘妆 / 日常妆 / 主题妆',
-    footerCoreLabel: '彩妆服务',
-    footerHotLabel: '彩妆跟妆'
+    footerCoreLabel: '彩妆服务'
   },
   {
     category: '婚纱摄影',
@@ -46,8 +42,7 @@ export const BUSINESS_MODULES: BusinessModule[] = [
     homeName: '婚纱摄影',
     imageTitle: '婚纱拍摄案例',
     imageHint: '主纱照 / 仪式跟拍 / 修图成片',
-    footerCoreLabel: '婚纱摄影',
-    footerHotLabel: '婚纱摄影'
+    footerCoreLabel: '婚纱摄影'
   },
   {
     category: '服装定制',
@@ -56,8 +51,7 @@ export const BUSINESS_MODULES: BusinessModule[] = [
     homeName: '服装定制',
     imageTitle: '版型成衣展示',
     imageHint: '量体定制 / 面料挑选 / 套系搭配',
-    footerCoreLabel: '服装定制',
-    footerHotLabel: '服装定制'
+    footerCoreLabel: '服装定制'
   },
   {
     category: '全屋定制',
@@ -66,8 +60,7 @@ export const BUSINESS_MODULES: BusinessModule[] = [
     homeName: '全屋定制',
     imageTitle: '空间效果展示',
     imageHint: '客餐厅 / 卧室 / 全屋收纳',
-    footerCoreLabel: '全屋定制',
-    footerHotLabel: '全屋定制'
+    footerCoreLabel: '全屋定制'
   },
   {
     category: '中餐馆',
@@ -76,8 +69,7 @@ export const BUSINESS_MODULES: BusinessModule[] = [
     homeName: '中餐馆',
     imageTitle: '菜品门店展示',
     imageHint: '招牌菜 / 包厢场景 / 到店活动',
-    footerCoreLabel: '中餐馆运营',
-    footerHotLabel: '中餐馆私宴'
+    footerCoreLabel: '中餐馆运营'
   },
   {
     category: '短视频制作',
@@ -86,8 +78,7 @@ export const BUSINESS_MODULES: BusinessModule[] = [
     homeName: '短视频制作',
     imageTitle: '视频成片展示',
     imageHint: '脚本策划 / 拍摄剪辑 / 代运营',
-    footerCoreLabel: '短视频制作',
-    footerHotLabel: '短视频代运营'
+    footerCoreLabel: '短视频制作'
   }
 ]
 

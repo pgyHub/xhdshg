@@ -4,7 +4,6 @@ import { BUSINESS_MODULES } from '../data/businessNav'
 const businessPaths: Record<string, string> = {}
 BUSINESS_MODULES.forEach((m) => {
   businessPaths[m.footerCoreLabel] = m.path
-  businessPaths[m.footerHotLabel] = m.path
 })
 
 const linkPathMap: Record<string, string> = {
@@ -26,19 +25,7 @@ const linkPathMap: Record<string, string> = {
   城市合伙人: '/info/city-partner',
   加入我们: '/info/join-us',
   联系我们: '/info/contact-us',
-  用户协议: '/info/agreement',
-  '婚摄+彩妆套餐': '/makeup',
-  短视频引流方案: '/short-video-production',
-  会员增长计划: '/info/member-growth-plan',
-  门店活动策划: '/info/store-event-planning',
-  品牌IP打造: '/info/brand-ip-building',
-  私域转化方案: '/info/private-domain-solution',
-  预约到店: '/info/booking-service',
-  在线咨询: '/info/online-consulting',
-  商家入驻: '/info/merchant-settlement',
-  供应链合作: '/info/supply-chain',
-  培训课程: '/info/training-course',
-  运营工具: '/info/operation-tools'
+  用户协议: '/info/agreement'
 }
 
 const footerColumns = [
@@ -60,12 +47,6 @@ const footerColumns = [
   }
 ]
 
-const hotRows = [
-  { label: '热门业务', items: BUSINESS_MODULES.map((m) => m.footerHotLabel) },
-  { label: '热门推荐', items: ['婚摄+彩妆套餐', '短视频引流方案', '会员增长计划', '门店活动策划', '品牌IP打造', '私域转化方案'] },
-  { label: '更多服务', items: ['预约到店', '在线咨询', '商家入驻', '供应链合作', '培训课程', '运营工具'] }
-]
-
 const BusinessFooter = () => {
   return (
     <footer className="business-footer">
@@ -84,30 +65,6 @@ const BusinessFooter = () => {
             </section>
           ))}
         </div>
-        <section className="business-footer-contact">
-          <h4>关注小红点生活馆</h4>
-          <p>获取业务活动、运营资讯与服务升级通知</p>
-          <div className="business-footer-qrs">
-            <div>公众号</div>
-            <div>服务号</div>
-          </div>
-          <span>咨询热线：400-801-3260</span>
-        </section>
-      </div>
-
-      <div className="business-footer-hot">
-        {hotRows.map((row) => (
-          <div key={row.label} className="business-footer-hot-row">
-            <strong>{row.label}</strong>
-            <div>
-              {row.items.map((item) => (
-                <Link key={item} to={linkPathMap[item] ?? '/'}>
-                  {item}
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
       </div>
 
       <div className="business-footer-bottom">

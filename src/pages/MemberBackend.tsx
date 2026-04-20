@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { adminAPI, fileAPI, userAPI, getApiErrorMessage, type AdminUserRow, type CurrentUser } from '../services/api'
+import { formatSystemDateTime } from '../utils/formatDateTime'
 
 function sexLabel(s: number | null | undefined): string {
   if (s === 1) return '男'
@@ -256,7 +257,7 @@ const MemberBackend: React.FC = () => {
                 </li>
                 <li>
                   <span>注册时间</span>
-                  <strong>{new Date(userInfo.created_at).toLocaleString('zh-CN')}</strong>
+                  <strong>{formatSystemDateTime(userInfo.created_at)}</strong>
                 </li>
               </ul>
             </section>
@@ -400,7 +401,7 @@ const MemberBackend: React.FC = () => {
                           {u.is_admin ? '是（登录名 admin）' : '—'}
                         </span>
                       </td>
-                      <td>{new Date(u.created_at).toLocaleString('zh-CN')}</td>
+                      <td>{formatSystemDateTime(u.created_at)}</td>
                       <td>
                         <button
                           type="button"
