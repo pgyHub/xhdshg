@@ -25,9 +25,16 @@ const linkPathMap: Record<string, string> = {
   城市合伙人: '/info/city-partner',
   加入我们: '/info/join-us',
   联系我们: '/info/contact-us',
-  用户协议: '/info/agreement'
+  用户协议: '/info/agreement',
+  预约到店: '/info/booking-service',
+  在线咨询: '/info/online-consulting',
+  商家入驻: '/info/merchant-settlement',
+  供应链合作: '/info/supply-chain',
+  培训课程: '/info/training-course',
+  运营工具: '/info/operation-tools'
 }
 
+/** 五列等宽：业务 → 方案 → 支持 → 关于 → 更多服务 */
 const footerColumns = [
   {
     title: '核心业务',
@@ -44,6 +51,10 @@ const footerColumns = [
   {
     title: '关于小红点',
     links: ['品牌介绍', '合作流程', '城市合伙人', '加入我们', '联系我们', '用户协议']
+  },
+  {
+    title: '更多服务',
+    links: ['预约到店', '在线咨询', '商家入驻', '供应链合作', '培训课程', '运营工具']
   }
 ]
 
@@ -64,6 +75,18 @@ const BusinessFooter = () => {
               </ul>
             </section>
           ))}
+        </div>
+      </div>
+
+      <div className="business-footer-follow">
+        <h4>关注小红点生活馆</h4>
+        <p>获取业务活动、运营资讯与服务升级通知</p>
+        <div className="business-footer-follow-inner">
+          <div className="business-footer-qrs">
+            <div>公众号</div>
+            <div>服务号</div>
+          </div>
+          <span>咨询热线：400-801-3260</span>
         </div>
       </div>
 
