@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.security import get_password_hash
 from app.models.user import User
+from app.models.business_record import BusinessRecord
 from app.schemas.user import User as UserSchema, UserCreate, UserUpdate, AdminUserPatch
 from app.core.roles import ADMIN_LOGIN, is_super_admin
 from .auth import get_current_user, get_current_admin_user
@@ -105,7 +106,7 @@ def admin_list_users(
     kw = keyword.strip()
     if kw:
         like = f"%{kw}%"
-        q = q.filter(or_(User.username.like(like), User.email.like(like)))
+        q = q.filter(or_(User.username.like(like), User.email.like(like), User.hobby.like(like)))
     if sex == "男":
         q = q.filter(User.sex == 1)
     elif sex == "女":
@@ -177,3 +178,44 @@ def admin_delete_user(
     db.delete(u)
     db.commit()
     return {"detail": "已删除"}
+
+
+@router.get(
+    "/admin/{user_id}/details",
+    summary="查看用户业务明细（管理员）",
+    tags=["管理后台"],
+)
+def admin_user_details(
+    user_id: int,
+    _: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db),
+):
+    u = db.query(User).filter(User.id == user_id).first()
+    if not u:
+        raise HTTPException(status_code=404, detail="用户不存在")
+    records = (
+        db.query(BusinessRecord)
+        .filter(BusinessRecord.user_id == user_id)
+        .order_by(BusinessRecord.id.desc())
+        .all()
+    )
+    return {
+        "user": UserSchema.model_validate(u),
+        "records": [
+            {
+                "id": r.id,
+                "module": r.module,
+                "project": r.project,
+                "unit_price": r.unit_price,
+                "quantity": r.quantity,
+                "subtotal": r.subtotal,
+                "customer_name": r.customer_name,
+                "contact": r.contact,
+                "appointment_time": r.appointment_time,
+                "notes": r.notes,
+                "source_file": r.source_file,
+                "created_at": r.created_at.isoformat() if r.created_at else None,
+            }
+            for r in records
+        ],
+    }

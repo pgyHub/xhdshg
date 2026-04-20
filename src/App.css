@@ -2382,11 +2382,53 @@
   color: #2563eb;
 }
 
+.member-console-upload-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 4px;
+}
+
+.member-console-upload-template,
+.member-console-upload-input {
+  margin: 0;
+}
+
+.member-console-upload-template {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.member-console-upload-template-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.member-console-upload-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #475569;
+  font-size: 16px;
+}
+
 .member-console-admin {
   background: #fff;
   border: 1px solid #e8edf6;
   border-radius: 14px;
   padding: 20px;
+}
+
+.member-console-admin .member-console-card {
+  margin-bottom: 16px;
+}
+
+.member-console-detail-card {
+  margin-top: 16px;
 }
 
 .member-console-devhint {
@@ -2457,6 +2499,17 @@
   margin-top: 16px;
 }
 
+.member-console-page-numbers {
+  display: flex;
+  gap: 8px;
+}
+
+.member-console-page-numbers .is-active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
 @media (max-width: 900px) {
   .member-console-grid {
     grid-template-columns: 1fr;
@@ -2465,5 +2518,15 @@
   .member-console-filters {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .member-console-upload-toolbar {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .member-console-upload-input {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

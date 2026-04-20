@@ -40,6 +40,8 @@ class User(UserBase):
 
     model_config = ConfigDict(from_attributes=True, title="用户信息")
 
+    # 导入历史数据中可能含有非严格 EmailStr 的占位邮箱；返回时用 str 避免列表序列化失败
+    email: str = Field(..., title="邮箱", description="用于登录与通知的电子邮箱")
     id: int = Field(..., title="用户编号", description="数据库中的用户 ID")
     is_active: bool = Field(..., title="是否启用", description="账号是否可用")
     is_member: bool = Field(..., title="是否会员", description="会员标识")

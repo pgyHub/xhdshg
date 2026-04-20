@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { adminAPI, fileAPI, userAPI, getApiErrorMessage, type AdminUserRow, type CurrentUser } from '../services/api'
+import { adminAPI, fileAPI, userAPI, getApiErrorMessage, type AdminUserRow, type CurrentUser, type BusinessRecordRow } from '../services/api'
 import { formatSystemDateTime } from '../utils/formatDateTime'
 
 function sexLabel(s: number | null | undefined): string {
@@ -27,20 +27,28 @@ const MemberBackend: React.FC = () => {
   const [userInfo, setUserInfo] = useState<CurrentUser | null>(null)
   const [accessDenied, setAccessDenied] = useState(false)
   const [error, setError] = useState('')
+  const [uploadResult, setUploadResult] = useState('')
+  const [uploadReport, setUploadReport] = useState<{
+    importedUsers: number
+    createdUsernames: string[]
+    fileReports: Array<{ filename: string; imported_users: number }>
+  } | null>(null)
   const [files, setFiles] = useState<Array<{ filename: string; size: number }>>([])
   const [uploading, setUploading] = useState(false)
   const [tab, setTab] = useState<'workspace' | 'admin'>('workspace')
+  const [detailUser, setDetailUser] = useState<AdminUserRow | null>(null)
+  const [detailRecords, setDetailRecords] = useState<BusinessRecordRow[]>([])
+  const [detailLoading, setDetailLoading] = useState(false)
 
   const [adminLoading, setAdminLoading] = useState(false)
   const [adminTotal, setAdminTotal] = useState(0)
   const [adminPage, setAdminPage] = useState(1)
+  const [adminPageSize, setAdminPageSize] = useState(10)
   const [adminRows, setAdminRows] = useState<AdminUserRow[]>([])
   const [kw, setKw] = useState('')
   const [sexFilter, setSexFilter] = useState('')
   const [start, setStart] = useState('')
   const [end, setEnd] = useState('')
-  const pageSize = 10
-
   const loadUser = useCallback(async () => {
     const data = await userAPI.getCurrentUser()
     setUserInfo(data)
@@ -87,7 +95,7 @@ const MemberBackend: React.FC = () => {
       try {
         const res = await adminAPI.listUsers({
           page: pageNum,
-          limit: pageSize,
+          limit: adminPageSize,
           keyword: keyword || undefined,
           sex: sx || undefined,
           start: st || undefined,
@@ -101,7 +109,7 @@ const MemberBackend: React.FC = () => {
         setAdminLoading(false)
       }
     },
-    [userInfo?.username, kw, sexFilter, start, end]
+    [userInfo?.username, kw, sexFilter, start, end, adminPageSize]
   )
 
   useEffect(() => {
@@ -120,16 +128,32 @@ const MemberBackend: React.FC = () => {
     if (!selected?.length) return
     setUploading(true)
     setError('')
+    setUploadResult('')
+    setUploadReport(null)
     const formData = new FormData()
     for (let i = 0; i < selected.length; i++) {
       formData.append('files', selected[i])
     }
     try {
-      await fileAPI.uploadFiles(formData)
+      const res = await fileAPI.uploadFiles(formData)
       const list = await fileAPI.listFiles()
       setFiles(list.files ?? [])
-    } catch {
-      setError('文件上传失败')
+      setUploadResult(res.message || '上传完成')
+      setUploadReport({
+        importedUsers: res.imported_users || 0,
+        createdUsernames: res.created_usernames || [],
+        fileReports: (res.file_import_reports || []).map((x) => ({ filename: x.filename, imported_users: x.imported_users }))
+      })
+      if (userInfo && isSuperAdminUsername(userInfo.username)) {
+        setKw('')
+        setSexFilter('')
+        setStart('')
+        setEnd('')
+        setAdminPage(1)
+        await fetchAdminList(1, { keyword: '', sex: '', start: '', end: '' })
+      }
+    } catch (err) {
+      setError(getApiErrorMessage(err))
     } finally {
       setUploading(false)
     }
@@ -159,7 +183,53 @@ const MemberBackend: React.FC = () => {
     }
   }
 
-  const totalPages = Math.max(1, Math.ceil(adminTotal / pageSize))
+  const handleViewDetails = async (u: AdminUserRow) => {
+    if (detailUser?.id === u.id) {
+      setDetailUser(null)
+      setDetailRecords([])
+      return
+    }
+    setDetailLoading(true)
+    setError('')
+    try {
+      const res = await adminAPI.getUserDetails(u.id)
+      setDetailUser(res.user)
+      setDetailRecords(res.records || [])
+    } catch (err) {
+      setError(getApiErrorMessage(err))
+    } finally {
+      setDetailLoading(false)
+    }
+  }
+
+  const handleDeleteFile = async (filename: string) => {
+    if (!window.confirm(`确定删除文件「${filename}」？`)) return
+    setError('')
+    try {
+      const res = await fileAPI.deleteFile(filename)
+      const list = await fileAPI.listFiles()
+      setFiles(list.files ?? [])
+      const removedUsers = res.deleted_users || 0
+      const removedRecords = res.deleted_business_records || 0
+      const usersText = removedUsers > 0 ? `，同步删除账号 ${removedUsers} 个` : ''
+      const recordsText = removedRecords > 0 ? `，同步删除业务明细 ${removedRecords} 条` : ''
+      setUploadResult(`文件已删除：${filename}${usersText}${recordsText}`)
+      if (userInfo && isSuperAdminUsername(userInfo.username)) {
+        setAdminPage(1)
+        await fetchAdminList(1)
+      }
+    } catch (err) {
+      setError(getApiErrorMessage(err))
+    }
+  }
+
+  const totalPages = Math.max(1, Math.ceil(adminTotal / adminPageSize))
+  const pageNumbers = (() => {
+    const maxVisible = 5
+    if (totalPages <= maxVisible) return Array.from({ length: totalPages }, (_, i) => i + 1)
+    const startPage = Math.max(1, Math.min(adminPage - 2, totalPages - maxVisible + 1))
+    return Array.from({ length: maxVisible }, (_, i) => startPage + i)
+  })()
 
   if (loading) {
     return (
@@ -217,13 +287,55 @@ const MemberBackend: React.FC = () => {
       </header>
 
       {error && <div className="status-error member-console-error">{error}</div>}
+      {uploadResult && <div className="status-info member-console-error">{uploadResult}</div>}
+      {uploadReport && (
+        <section className="member-console-card member-console-upload-report">
+          <h3>导入结果明细</h3>
+          <p className="member-console-muted">本次新增可登录账号：{uploadReport.importedUsers} 个</p>
+          {uploadReport.fileReports.length > 0 && (
+            <table className="member-console-table">
+              <thead>
+                <tr>
+                  <th>文件名</th>
+                  <th>新增账号数</th>
+                </tr>
+              </thead>
+              <tbody>
+                {uploadReport.fileReports.map((x) => (
+                  <tr key={x.filename}>
+                    <td>{x.filename}</td>
+                    <td>{x.imported_users}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          {uploadReport.createdUsernames.length > 0 && (
+            <p className="member-console-muted">
+              新增登录账号：{uploadReport.createdUsernames.join('、')}
+            </p>
+          )}
+        </section>
+      )}
 
       <div className="member-console-tabs">
         <button type="button" className={tab === 'workspace' ? 'is-active' : ''} onClick={() => setTab('workspace')}>
           工作台
         </button>
         {isSuperAdminUsername(userInfo.username) && (
-          <button type="button" className={tab === 'admin' ? 'is-active' : ''} onClick={() => setTab('admin')}>
+          <button
+            type="button"
+            className={tab === 'admin' ? 'is-active' : ''}
+            onClick={() => {
+              setTab('admin')
+              setKw('')
+              setSexFilter('')
+              setStart('')
+              setEnd('')
+              setAdminPage(1)
+              void fetchAdminList(1, { keyword: '', sex: '', start: '', end: '' })
+            }}
+          >
             会员管理
           </button>
         )}
@@ -265,7 +377,29 @@ const MemberBackend: React.FC = () => {
             <section className="member-console-card">
               <h3>业务资料上传</h3>
               <p className="member-console-muted">文件存储在服务端上传目录，便于顾问与您同步资料（需会员或管理员）。</p>
-              <input type="file" multiple onChange={handleFileUpload} disabled={uploading} />
+              <p className="member-console-muted">上传 CSV 模板用于记录业务订单信息（需包含“用户名”以关联到对应账号，便于管理员查看详情）。</p>
+              <div className="member-console-upload-toolbar">
+                <p className="member-console-muted member-console-upload-template">
+                  模板下载（仅业务信息）：
+                  <a className="member-console-link" href="/templates/business-material-template.csv" download>
+                    点击此处
+                  </a>
+                </p>
+                <p className="member-console-muted member-console-upload-template-list">
+                  详细模板：
+                  <a className="member-console-link" href="/templates/template-hairdressing-detail.csv" download>美发</a>
+                  <a className="member-console-link" href="/templates/template-makeup-detail.csv" download>彩妆</a>
+                  <a className="member-console-link" href="/templates/template-chinese-restaurant-detail.csv" download>中餐馆</a>
+                  <a className="member-console-link" href="/templates/template-short-video-detail.csv" download>短视频</a>
+                  <a className="member-console-link" href="/templates/template-wedding-photography-detail.csv" download>婚纱摄影</a>
+                  <a className="member-console-link" href="/templates/template-clothing-customization-detail.csv" download>服装定制</a>
+                  <a className="member-console-link" href="/templates/template-wholehouse-customization-detail.csv" download>全屋定制</a>
+                </p>
+                <label className="member-console-upload-input">
+                  <span>文件上传：</span>
+                  <input type="file" multiple onChange={handleFileUpload} disabled={uploading} />
+                </label>
+              </div>
               {uploading && <p className="member-console-muted">上传中…</p>}
             </section>
           </div>
@@ -297,6 +431,14 @@ const MemberBackend: React.FC = () => {
                         >
                           下载
                         </a>
+                        {' · '}
+                        <button
+                          type="button"
+                          className="button button-light member-console-mini danger"
+                          onClick={() => handleDeleteFile(f.filename)}
+                        >
+                          删除
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -312,6 +454,77 @@ const MemberBackend: React.FC = () => {
           <p className="member-console-devhint">
             系统管理员固定为登录名 <code>admin</code>（不区分大小写），不可通过此处授予或取消；生产环境请配合强密码与 HTTPS。
           </p>
+
+          <section className="member-console-card">
+            <h3>会员资料导入</h3>
+            <p className="member-console-muted">上传 CSV 模板用于记录业务订单信息（需包含“用户名”以关联到对应账号，便于管理员查看详情）。</p>
+            <div className="member-console-upload-toolbar">
+              <p className="member-console-muted member-console-upload-template">
+                模板下载（仅业务信息）：
+                <a className="member-console-link" href="/templates/business-material-template.csv" download>
+                  点击此处
+                </a>
+              </p>
+              <p className="member-console-muted member-console-upload-template-list">
+                详细模板：
+                <a className="member-console-link" href="/templates/template-hairdressing-detail.csv" download>美发</a>
+                <a className="member-console-link" href="/templates/template-makeup-detail.csv" download>彩妆</a>
+                <a className="member-console-link" href="/templates/template-chinese-restaurant-detail.csv" download>中餐馆</a>
+                <a className="member-console-link" href="/templates/template-short-video-detail.csv" download>短视频</a>
+                <a className="member-console-link" href="/templates/template-wedding-photography-detail.csv" download>婚纱摄影</a>
+                <a className="member-console-link" href="/templates/template-clothing-customization-detail.csv" download>服装定制</a>
+                <a className="member-console-link" href="/templates/template-wholehouse-customization-detail.csv" download>全屋定制</a>
+              </p>
+              <label className="member-console-upload-input">
+                <span>文件上传：</span>
+                <input type="file" multiple onChange={handleFileUpload} disabled={uploading} />
+              </label>
+            </div>
+            {uploading && <p className="member-console-muted">上传中…</p>}
+          </section>
+
+          <section className="member-console-card">
+            <h3>已上传资料</h3>
+            {files.length === 0 ? (
+              <p className="member-console-muted">暂无文件</p>
+            ) : (
+              <table className="member-console-table">
+                <thead>
+                  <tr>
+                    <th>文件名</th>
+                    <th>大小</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {files.map((f) => (
+                    <tr key={f.filename}>
+                      <td>{f.filename}</td>
+                      <td>{(f.size / 1024).toFixed(1)} KB</td>
+                      <td>
+                        <a
+                          className="member-console-link"
+                          href={`/api/files/download/${encodeURIComponent(f.filename)}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          下载
+                        </a>
+                        {' · '}
+                        <button
+                          type="button"
+                          className="button button-light member-console-mini danger"
+                          onClick={() => handleDeleteFile(f.filename)}
+                        >
+                          删除
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </section>
 
           <form
             className="member-console-filters"
@@ -358,6 +571,30 @@ const MemberBackend: React.FC = () => {
             >
               清除
             </button>
+            <button
+              type="button"
+              className="button button-light"
+              onClick={() => {
+                fetchAdminList(adminPage)
+              }}
+            >
+              刷新列表
+            </button>
+            <label>
+              每页
+              <select
+                value={adminPageSize}
+                onChange={(e) => {
+                  const size = Number(e.target.value)
+                  setAdminPageSize(size)
+                  setAdminPage(1)
+                }}
+              >
+                <option value={10}>10 条</option>
+                <option value={20}>20 条</option>
+                <option value={50}>50 条</option>
+              </select>
+            </label>
           </form>
 
           {adminLoading ? (
@@ -365,7 +602,7 @@ const MemberBackend: React.FC = () => {
           ) : (
             <>
               <p className="member-console-count">
-                共 <strong>{adminTotal}</strong> 位用户（第 {adminPage} / {totalPages} 页）
+                共 <strong>{adminTotal}</strong> 位用户（每页 {adminPageSize} 条，第 {adminPage} / {totalPages} 页）
               </p>
               <table className="member-console-table member-console-table--admin">
                 <thead>
@@ -374,6 +611,7 @@ const MemberBackend: React.FC = () => {
                     <th>用户名</th>
                     <th>邮箱</th>
                     <th>性别</th>
+                    <th>爱好/需求</th>
                     <th>会员</th>
                     <th>系统管理员</th>
                     <th>注册时间</th>
@@ -387,6 +625,7 @@ const MemberBackend: React.FC = () => {
                       <td>{u.username}</td>
                       <td>{u.email}</td>
                       <td>{sexLabel(u.sex)}</td>
+                      <td>{u.hobby || '—'}</td>
                       <td>
                         <button
                           type="button"
@@ -398,11 +637,19 @@ const MemberBackend: React.FC = () => {
                       </td>
                       <td>
                         <span className="member-console-muted">
-                          {u.is_admin ? '是（登录名 admin）' : '—'}
+                          {u.is_admin ? '是' : '否'}
                         </span>
                       </td>
                       <td>{formatSystemDateTime(u.created_at)}</td>
                       <td>
+                        <button
+                          type="button"
+                          className="button button-light member-console-mini"
+                          onClick={() => handleViewDetails(u)}
+                        >
+                          {detailUser?.id === u.id ? '收起详情' : '详情'}
+                        </button>
+                        {' '}
                         <button
                           type="button"
                           className="button button-light member-console-mini danger"
@@ -417,6 +664,48 @@ const MemberBackend: React.FC = () => {
                 </tbody>
               </table>
 
+              {(detailLoading || detailUser) && (
+                <section className="member-console-card member-console-detail-card">
+                  <h3>账号业务详情{detailUser ? ` · ${detailUser.username}` : ''}</h3>
+                  {detailLoading ? (
+                    <p className="member-console-muted">加载详情中…</p>
+                  ) : detailRecords.length === 0 ? (
+                    <p className="member-console-muted">暂无业务明细</p>
+                  ) : (
+                    <table className="member-console-table">
+                      <thead>
+                        <tr>
+                          <th>业务模块</th>
+                          <th>订单项目</th>
+                          <th>单价</th>
+                          <th>数量</th>
+                          <th>小计</th>
+                          <th>客户</th>
+                          <th>联系方式</th>
+                          <th>预约时间</th>
+                          <th>来源文件</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {detailRecords.map((r) => (
+                          <tr key={r.id}>
+                            <td>{r.module}</td>
+                            <td>{r.project}</td>
+                            <td>{r.unit_price ?? '—'}</td>
+                            <td>{r.quantity ?? '—'}</td>
+                            <td>{r.subtotal ?? '—'}</td>
+                            <td>{r.customer_name || '—'}</td>
+                            <td>{r.contact || '—'}</td>
+                            <td>{r.appointment_time || '—'}</td>
+                            <td>{r.source_file || '—'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </section>
+              )}
+
               <div className="member-console-pagination">
                 <button
                   type="button"
@@ -426,9 +715,18 @@ const MemberBackend: React.FC = () => {
                 >
                   上一页
                 </button>
-                <span>
-                  {adminPage} / {totalPages}
-                </span>
+                <div className="member-console-page-numbers">
+                  {pageNumbers.map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      className={`button button-light member-console-mini ${p === adminPage ? 'is-active' : ''}`}
+                      onClick={() => setAdminPage(p)}
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
                 <button
                   type="button"
                   className="button button-light"

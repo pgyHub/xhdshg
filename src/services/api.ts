@@ -106,6 +106,20 @@ export type CurrentUser = {
 }
 
 export type AdminUserRow = CurrentUser
+export type BusinessRecordRow = {
+  id: number
+  module: string
+  project: string
+  unit_price: number | null
+  quantity: number | null
+  subtotal: number | null
+  customer_name: string | null
+  contact: string | null
+  appointment_time: string | null
+  notes: string | null
+  source_file: string | null
+  created_at: string | null
+}
 
 // 用户相关API
 export const userAPI = {
@@ -144,6 +158,9 @@ export const adminAPI = {
   },
   deleteUser: (id: number) => {
     return unwrap<{ detail: string }>(api.delete(`/users/admin/${id}`))
+  },
+  getUserDetails: (id: number) => {
+    return unwrap<{ user: AdminUserRow; records: BusinessRecordRow[] }>(api.get(`/users/admin/${id}/details`))
   }
 }
 
@@ -163,7 +180,14 @@ export const serviceAPI = {
 // 文件相关API
 export const fileAPI = {
   uploadFiles: (files: FormData) => {
-    return unwrap(
+    return unwrap<{
+      message: string
+      uploaded_files: Array<{ filename: string; path: string }>
+      imported_users: number
+      skipped_import_files?: string[]
+      created_usernames?: string[]
+      file_import_reports?: Array<{ filename: string; imported_users: number; created_usernames: string[] }>
+    }>(
       api.post('/files/upload', files, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -173,6 +197,17 @@ export const fileAPI = {
   },
   listFiles: () => {
     return unwrap<{ files: Array<{ filename: string; size: number }> }>(api.get('/files/list'))
+  },
+  deleteFile: (filename: string) => {
+    return unwrap<{
+      message: string
+      filename: string
+      deleted_users?: number
+      deleted_usernames?: string[]
+      deleted_business_records?: number
+    }>(
+      api.delete(`/files/${encodeURIComponent(filename)}`)
+    )
   },
   downloadFile: (filename: string) => {
     return unwrap(api.get(`/files/download/${filename}`))

@@ -6,6 +6,10 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from app.routes import auth, users, services, files
 from app.core.config import settings
 from app.core.locale_zh import translate_http_detail, validation_issues_zh
+from app.core.database import Base, engine
+from app.models import user as _user_model  # noqa: F401
+from app.models import service as _service_model  # noqa: F401
+from app.models import business_record as _business_record_model  # noqa: F401
 
 # RapiDoc：与默认 Swagger 不同组件；用 jsDelivr 加载，国内往往比 unpkg 更稳
 RAPIDOC_VERSION = "9.3.8"
@@ -94,6 +98,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+def _ensure_tables():
+    """开发环境自动补齐表结构（含 business_records）。"""
+    Base.metadata.create_all(bind=engine)
 
 
 @app.exception_handler(RequestValidationError)
