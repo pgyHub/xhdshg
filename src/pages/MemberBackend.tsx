@@ -377,7 +377,9 @@ const MemberBackend: React.FC = () => {
             <section className="member-console-card">
               <h3>业务资料上传</h3>
               <p className="member-console-muted">文件存储在服务端上传目录，便于顾问与您同步资料（需会员或管理员）。</p>
-              <p className="member-console-muted">上传 CSV 模板用于记录业务订单信息（需包含“用户名”以关联到对应账号，便于管理员查看详情）。</p>
+              <p className="member-console-muted">
+                上传 CSV 用于登记业务订单：明细默认归属当前登录会员，无需填写用户名；多行可表示同一客户在不同预约时段的订单。
+              </p>
               <div className="member-console-upload-toolbar">
                 <p className="member-console-muted member-console-upload-template">
                   模板下载（仅业务信息）：
@@ -457,7 +459,9 @@ const MemberBackend: React.FC = () => {
 
           <section className="member-console-card">
             <h3>会员资料导入</h3>
-            <p className="member-console-muted">上传 CSV 模板用于记录业务订单信息（需包含“用户名”以关联到对应账号，便于管理员查看详情）。</p>
+            <p className="member-console-muted">
+              上传 CSV 登记业务订单：默认归属当前登录账号。若文件中仍含「用户名」列，则按该列关联已有会员账号。
+            </p>
             <div className="member-console-upload-toolbar">
               <p className="member-console-muted member-console-upload-template">
                 模板下载（仅业务信息）：

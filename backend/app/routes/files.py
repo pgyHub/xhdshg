@@ -98,13 +98,16 @@ def _to_float(v: str | None) -> float | None:
 def _check_csv_duplicates(
     headers: list[str], rows: list[dict[str, str]], filename: str, db: Session
 ) -> None:
-    """校验文件内重复（仅当包含账号列时生效）。"""
+    """校验文件内重复（仅「批量建账号」模板：同时含登录列与初始密码列时生效）。
+
+    业务明细 CSV 可能含「用户名」列或客户联系方式多行相同，不应按建号规则拦截。
+    """
     login_field = _pick_first_header(headers, CSV_LOGIN_FIELDS)
     password_field = _pick_first_header(headers, CSV_PASSWORD_FIELDS)
     phone_field = next((f for f in CSV_PHONE_FIELDS if f in headers), None)
 
-    # 纯业务资料模板（无账号密码列）直接放行
-    if login_field is None and password_field is None:
+    # 无批量建账号列时，不按登录/密码规则校验（业务预约多行可同会员、同电话）
+    if login_field is None or password_field is None:
         return
 
     login_rows: Dict[str, List[int]] = defaultdict(list)
@@ -253,9 +256,13 @@ def _import_csv_accounts(headers: list[str], rows: list[dict[str, str]], db: Ses
 
 
 def _import_business_records(
-    headers: list[str], rows: list[dict[str, str]], filename: str, db: Session
+    headers: list[str],
+    rows: list[dict[str, str]],
+    filename: str,
+    db: Session,
+    current_user: User,
 ) -> dict:
-    """按用户名将业务明细导入到 business_records。"""
+    """将业务明细导入 business_records；无用户名列时归属当前登录会员。"""
     username_field = _pick_first_header(headers, CSV_BIZ_USERNAME_FIELDS)
     module_field = _pick_first_header(headers, CSV_BIZ_MODULE_FIELDS)
     project_field = _pick_first_header(headers, CSV_BIZ_PROJECT_FIELDS)
@@ -267,33 +274,40 @@ def _import_business_records(
     appointment_field = _pick_first_header(headers, CSV_BIZ_APPOINTMENT_FIELDS)
     note_field = _pick_first_header(headers, CSV_BIZ_NOTE_FIELDS)
 
-    if username_field is None or module_field is None or project_field is None:
+    if module_field is None or project_field is None:
         return {"imported_records": 0, "skipped_unknown_users": []}
 
-    usernames = sorted(
-        {
-            (row.get(username_field) or "").strip().lower()
-            for row in rows
-            if (row.get(username_field) or "").strip()
-        }
-    )
+    use_session_owner = username_field is None
     user_map: Dict[str, User] = {}
-    if usernames:
-        users = db.query(User).filter(func.lower(User.username).in_(usernames)).all()
-        user_map = {u.username.lower(): u for u in users}
+    if not use_session_owner:
+        usernames = sorted(
+            {
+                (row.get(username_field or "") or "").strip().lower()
+                for row in rows
+                if (row.get(username_field or "") or "").strip()
+            }
+        )
+        if usernames:
+            users = db.query(User).filter(func.lower(User.username).in_(usernames)).all()
+            user_map = {u.username.lower(): u for u in users}
 
     imported = 0
     skipped_unknown_users: List[str] = []
     for row in rows:
-        username = (row.get(username_field) or "").strip()
         module = (row.get(module_field) or "").strip()
         project = (row.get(project_field) or "").strip()
-        if not username or not module or not project:
+        if not module or not project:
             continue
-        user = user_map.get(username.lower())
-        if user is None:
-            skipped_unknown_users.append(username)
-            continue
+        if use_session_owner:
+            user = current_user
+        else:
+            username = (row.get(username_field or "") or "").strip()
+            if not username:
+                continue
+            user = user_map.get(username.lower())
+            if user is None:
+                skipped_unknown_users.append(username)
+                continue
 
         record = BusinessRecord(
             user_id=user.id,
@@ -342,7 +356,7 @@ async def upload_files(
             headers, rows = _parse_csv_rows(raw, file.filename)
             _check_csv_duplicates(headers, rows, file.filename, db)
             import_result = _import_csv_accounts(headers, rows, db)
-            biz_result = _import_business_records(headers, rows, file.filename, db)
+            biz_result = _import_business_records(headers, rows, file.filename, db, current_user)
             created_in_file = import_result["created_usernames"]
             imported_users += len(created_in_file)
             created_usernames.extend(created_in_file)
