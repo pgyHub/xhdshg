@@ -21,6 +21,100 @@ function isSuperAdminUsername(username: string): boolean {
   return username.trim().toLowerCase() === 'admin'
 }
 
+function parseSizeDetailsFromNotes(raw: string | null | undefined): {
+  plainNote: string
+  sizeItems: Array<{ label: string; value: string }>
+} {
+  const text = (raw || '').trim()
+  if (!text) return { plainNote: '', sizeItems: [] }
+
+  const marker = '尺寸:'
+  const markerIdx = text.indexOf(marker)
+  if (markerIdx < 0) return { plainNote: text, sizeItems: [] }
+
+  const before = text.slice(0, markerIdx).replace(/[；\s]+$/, '').trim()
+  const after = text.slice(markerIdx + marker.length).trim()
+  const parts = after.split('，').map((s) => s.trim()).filter(Boolean)
+  const sizeItems = parts.map((part) => {
+    const idx = part.indexOf(':')
+    if (idx < 0) return { label: part, value: '' }
+    return { label: part.slice(0, idx).trim(), value: part.slice(idx + 1).trim() }
+  })
+  return { plainNote: before, sizeItems }
+}
+
+function classifySizeLabel(label: string): '上衣' | '裤子' | '其他' {
+  const t = label.toLowerCase()
+  if (
+    t.includes('裤') ||
+    t.includes('立裆') ||
+    t.includes('总裆') ||
+    t.includes('横裆') ||
+    t.includes('前腰高') ||
+    t.includes('膝围') ||
+    t.includes('小腿围')
+  ) {
+    return '裤子'
+  }
+  if (
+    t.includes('肩') ||
+    t.includes('胸') ||
+    t.includes('领') ||
+    t.includes('衣') ||
+    t.includes('袖') ||
+    t.includes('背宽') ||
+    t.includes('腰节长') ||
+    t.includes('臂根')
+  ) {
+    return '上衣'
+  }
+  return '其他'
+}
+
+function groupSizeItems(items: Array<{ label: string; value: string }>): Record<'上衣' | '裤子' | '其他', Array<{ label: string; value: string }>> {
+  const grouped: Record<'上衣' | '裤子' | '其他', Array<{ label: string; value: string }>> = {
+    上衣: [],
+    裤子: [],
+    其他: []
+  }
+  items.forEach((item) => grouped[classifySizeLabel(item.label)].push(item))
+  return grouped
+}
+
+type SizeRow = { part: string; net: string; garment: string; value: string }
+
+function normalizePartLabel(label: string): string {
+  return label.replace(/\((净|成衣)\)\(cm\)$/i, '(cm)').trim()
+}
+
+function buildSizeRows(items: Array<{ label: string; value: string }>): SizeRow[] {
+  const map = new Map<string, SizeRow>()
+  items.forEach((item) => {
+    const key = normalizePartLabel(item.label)
+    const row = map.get(key) ?? { part: key, net: '', garment: '', value: '' }
+    if (item.label.includes('(净)')) row.net = item.value
+    else if (item.label.includes('(成衣)')) row.garment = item.value
+    else row.value = item.value
+    map.set(key, row)
+  })
+  return Array.from(map.values())
+}
+
+function chunkRows(rows: SizeRow[], size = 6): SizeRow[][] {
+  const out: SizeRow[][] = []
+  for (let i = 0; i < rows.length; i += size) out.push(rows.slice(i, i + size))
+  return out
+}
+
+function escapeHtml(s: string): string {
+  return s
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+}
+
 /** 业务 CSV 模板：文件名用简短拼音，下载后从文件名即可辨认板块（与全站业态顺序一致） */
 const MEMBER_CSV_TEMPLATES = [
   { label: '美发', file: 'meifa.csv' },
@@ -51,6 +145,96 @@ const MemberBackend: React.FC = () => {
   const [detailUser, setDetailUser] = useState<AdminUserRow | null>(null)
   const [detailRecords, setDetailRecords] = useState<BusinessRecordRow[]>([])
   const [detailLoading, setDetailLoading] = useState(false)
+  const [memberFileDetailName, setMemberFileDetailName] = useState<string | null>(null)
+  const [memberFileDetailLoading, setMemberFileDetailLoading] = useState(false)
+  const [memberFileDetailRecords, setMemberFileDetailRecords] = useState<BusinessRecordRow[]>([])
+  const [sourceDetailRecord, setSourceDetailRecord] = useState<BusinessRecordRow | null>(null)
+  const sourceDetailParsed = parseSizeDetailsFromNotes(sourceDetailRecord?.notes)
+  const sourceDetailGrouped = groupSizeItems(sourceDetailParsed.sizeItems)
+  const topRows = buildSizeRows(sourceDetailGrouped['上衣'])
+  const pantsRows = buildSizeRows(sourceDetailGrouped['裤子'])
+  const otherRows = buildSizeRows(sourceDetailGrouped['其他'])
+  const orderedSizeRows = [...topRows, ...pantsRows, ...otherRows]
+  const orderedSizeChunks = chunkRows(orderedSizeRows)
+
+  const handlePrintSourceDetail = () => {
+    if (!sourceDetailRecord) return
+    const buildHorizontal = (rows: SizeRow[]) =>
+      rows.length
+        ? `${chunkRows(rows)
+            .map((chunk) => {
+              const hasNet = chunk.some((x) => x.net)
+              const hasGarment = chunk.some((x) => x.garment)
+              const hasValue = chunk.some((x) => x.value)
+              return `<table class="size-horizontal"><thead><tr>${chunk
+                .map((item) => `<th>${escapeHtml(item.part)}</th>`)
+                .join('')}</tr></thead><tbody>${
+                hasNet
+                  ? `<tr>${chunk.map((item) => `<td>${escapeHtml(item.net || '—')}</td>`).join('')}</tr>`
+                  : ''
+              }${
+                hasGarment
+                  ? `<tr>${chunk.map((item) => `<td>${escapeHtml(item.garment || '—')}</td>`).join('')}</tr>`
+                  : ''
+              }${
+                hasValue
+                  ? `<tr>${chunk.map((item) => `<td>${escapeHtml(item.value || '—')}</td>`).join('')}</tr>`
+                  : ''
+              }</tbody></table>`
+            })
+            .join('')}`
+        : ''
+    const sizeTable = sourceDetailParsed.sizeItems.length
+      ? `<h3>尺寸明细</h3>${buildHorizontal(orderedSizeRows)}`
+      : ''
+    const html = `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>来源文件详情</title>
+  <style>
+    body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; padding: 24px; color: #1f2937; }
+    h2 { margin: 0 0 12px; font-size: 24px; }
+    p { margin: 6px 0; font-size: 16px; line-height: 1.6; }
+    h3 { margin: 16px 0 8px; font-size: 18px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+    th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; font-size: 15px; }
+    th { background: #f8fafc; }
+  </style>
+</head>
+<body>
+  <h2>来源文件详情</h2>
+  <p><strong>来源文件：</strong>${escapeHtml(sourceDetailRecord.source_file || '—')}</p>
+  <p><strong>业务模块：</strong>${escapeHtml(sourceDetailRecord.module || '—')}</p>
+  <p><strong>订单项目：</strong>${escapeHtml(sourceDetailRecord.project || '—')}</p>
+  <p><strong>客户姓名：</strong>${escapeHtml(sourceDetailRecord.customer_name || '—')}</p>
+  <p><strong>联系方式：</strong>${escapeHtml(sourceDetailRecord.contact || '—')}</p>
+  <p><strong>预约时间：</strong>${escapeHtml(sourceDetailRecord.appointment_time || '—')}</p>
+  <p><strong>单价/数量/小计：</strong>${escapeHtml(`${sourceDetailRecord.unit_price ?? '—'} / ${sourceDetailRecord.quantity ?? '—'} / ${sourceDetailRecord.subtotal ?? '—'}`)}</p>
+  <p><strong>备注：</strong>${escapeHtml(sourceDetailParsed.plainNote || '—')}</p>
+  ${sizeTable}
+</body>
+</html>`
+    const frame = document.createElement('iframe')
+    frame.style.position = 'fixed'
+    frame.style.right = '0'
+    frame.style.bottom = '0'
+    frame.style.width = '0'
+    frame.style.height = '0'
+    frame.style.border = '0'
+    frame.setAttribute('aria-hidden', 'true')
+    frame.srcdoc = html
+    frame.onload = () => {
+      const w = frame.contentWindow
+      if (!w) return
+      w.focus()
+      w.print()
+      window.setTimeout(() => {
+        frame.remove()
+      }, 800)
+    }
+    document.body.appendChild(frame)
+  }
 
   const [adminLoading, setAdminLoading] = useState(false)
   const [adminTotal, setAdminTotal] = useState(0)
@@ -237,6 +421,25 @@ const MemberBackend: React.FC = () => {
       }
     } catch (err) {
       setError(getApiErrorMessage(err))
+    }
+  }
+
+  const handleViewMyFileDetails = async (filename: string) => {
+    if (memberFileDetailName === filename) {
+      setMemberFileDetailName(null)
+      setMemberFileDetailRecords([])
+      return
+    }
+    setMemberFileDetailLoading(true)
+    setError('')
+    try {
+      const res = await userAPI.getMyDetails(filename)
+      setMemberFileDetailName(filename)
+      setMemberFileDetailRecords(res.records || [])
+    } catch (err) {
+      setError(getApiErrorMessage(err))
+    } finally {
+      setMemberFileDetailLoading(false)
     }
   }
 
@@ -448,6 +651,14 @@ const MemberBackend: React.FC = () => {
                         {' · '}
                         <button
                           type="button"
+                          className="button button-light member-console-mini"
+                          onClick={() => handleViewMyFileDetails(f.filename)}
+                        >
+                          {memberFileDetailName === f.filename ? '收起详情' : '详情'}
+                        </button>
+                        {' · '}
+                        <button
+                          type="button"
                           className="button button-light member-console-mini danger"
                           onClick={() => handleDeleteFile(f.filename)}
                         >
@@ -460,6 +671,60 @@ const MemberBackend: React.FC = () => {
               </table>
             )}
           </section>
+
+          {(memberFileDetailLoading || memberFileDetailName) && (
+            <section className="member-console-card member-console-detail-card">
+              <h3>账号业务详情{memberFileDetailName ? ` · ${memberFileDetailName}` : ''}</h3>
+              {memberFileDetailLoading ? (
+                <p className="member-console-muted">加载详情中…</p>
+              ) : memberFileDetailRecords.length === 0 ? (
+                <p className="member-console-muted">暂无业务明细</p>
+              ) : (
+                <table className="member-console-table">
+                  <thead>
+                    <tr>
+                      <th>业务模块</th>
+                      <th>订单项目</th>
+                      <th>单价</th>
+                      <th>数量</th>
+                      <th>小计</th>
+                      <th>客户</th>
+                      <th>联系方式</th>
+                      <th>预约时间</th>
+                      <th>来源文件</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {memberFileDetailRecords.map((r) => (
+                      <tr key={`member-${r.id}`}>
+                        <td>{r.module}</td>
+                        <td>{r.project}</td>
+                        <td>{r.unit_price ?? '—'}</td>
+                        <td>{r.quantity ?? '—'}</td>
+                        <td>{r.subtotal ?? '—'}</td>
+                        <td>{r.customer_name || '—'}</td>
+                        <td>{r.contact || '—'}</td>
+                        <td>{r.appointment_time || '—'}</td>
+                        <td>
+                          {r.source_file ? (
+                            <button
+                              type="button"
+                              className="member-console-link member-console-source-trigger"
+                              onClick={() => setSourceDetailRecord(r)}
+                            >
+                              {r.source_file}
+                            </button>
+                          ) : (
+                            '—'
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </section>
+          )}
         </>
       )}
 
@@ -708,13 +973,85 @@ const MemberBackend: React.FC = () => {
                             <td>{r.customer_name || '—'}</td>
                             <td>{r.contact || '—'}</td>
                             <td>{r.appointment_time || '—'}</td>
-                            <td>{r.source_file || '—'}</td>
+                            <td>
+                              {r.source_file ? (
+                                <button
+                                  type="button"
+                                  className="member-console-link member-console-source-trigger"
+                                  onClick={() => setSourceDetailRecord(r)}
+                                >
+                                  {r.source_file}
+                                </button>
+                              ) : (
+                                '—'
+                              )}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   )}
                 </section>
+              )}
+
+              {sourceDetailRecord && (
+                <div className="member-console-modal-mask" onClick={() => setSourceDetailRecord(null)}>
+                  <section
+                    className="member-console-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="来源文件详情"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <header className="member-console-modal-head">
+                      <h4>来源文件详情</h4>
+                      <div className="member-console-modal-actions">
+                        <button type="button" className="button button-light member-console-mini" onClick={handlePrintSourceDetail}>
+                          打印
+                        </button>
+                        <button type="button" className="member-console-modal-close" onClick={() => setSourceDetailRecord(null)}>
+                          ×
+                        </button>
+                      </div>
+                    </header>
+                    <div className="member-console-modal-body">
+                      <p><strong>来源文件：</strong>{sourceDetailRecord.source_file || '—'}</p>
+                      <p><strong>业务模块：</strong>{sourceDetailRecord.module || '—'}</p>
+                      <p><strong>订单项目：</strong>{sourceDetailRecord.project || '—'}</p>
+                      <p><strong>客户姓名：</strong>{sourceDetailRecord.customer_name || '—'}</p>
+                      <p><strong>联系方式：</strong>{sourceDetailRecord.contact || '—'}</p>
+                      <p><strong>预约时间：</strong>{sourceDetailRecord.appointment_time || '—'}</p>
+                      <p><strong>单价/数量/小计：</strong>
+                        {`${sourceDetailRecord.unit_price ?? '—'} / ${sourceDetailRecord.quantity ?? '—'} / ${sourceDetailRecord.subtotal ?? '—'}`}
+                      </p>
+                      <p><strong>备注：</strong>{sourceDetailParsed.plainNote || '—'}</p>
+                      {sourceDetailParsed.sizeItems.length > 0 && (
+                        <div>
+                          <p><strong>尺寸明细：</strong></p>
+                          <section>
+                            {orderedSizeChunks.map((chunk, idx) => {
+                              const hasNet = chunk.some((x) => x.net)
+                              const hasGarment = chunk.some((x) => x.garment)
+                              const hasValue = chunk.some((x) => x.value)
+                              return (
+                                <table key={`size-chunk-${idx}`} className="member-console-table member-console-size-table member-console-size-horizontal">
+                                  <thead>
+                                    <tr>{chunk.map((item) => <th key={`size-head-${idx}-${item.part}`}>{item.part}</th>)}</tr>
+                                  </thead>
+                                  <tbody>
+                                    {hasNet && <tr>{chunk.map((item) => <td key={`size-net-${idx}-${item.part}`}>{item.net || '—'}</td>)}</tr>}
+                                    {hasGarment && <tr>{chunk.map((item) => <td key={`size-gar-${idx}-${item.part}`}>{item.garment || '—'}</td>)}</tr>}
+                                    {hasValue && <tr>{chunk.map((item) => <td key={`size-val-${idx}-${item.part}`}>{item.value || '—'}</td>)}</tr>}
+                                  </tbody>
+                                </table>
+                              )
+                            })}
+                          </section>
+                        </div>
+                      )}
+                    </div>
+                  </section>
+                </div>
               )}
 
               <div className="member-console-pagination">

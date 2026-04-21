@@ -112,8 +112,8 @@ const Home = () => {
           </p>
           <div className="cloud-hero-actions">
             <Link to="/dashboard" className="button button-primary">创建我的报表大屏</Link>
-            <Link to="/dashboard" className="button cloud-secondary-button">帮助文档</Link>
-            <Link to="/dashboard" className="button cloud-secondary-button">视频教程</Link>
+            <Link to="/info/operation-tools" className="button cloud-secondary-button">帮助文档</Link>
+            <Link to="/info/training-course" className="button cloud-secondary-button">视频教程</Link>
           </div>
         </div>
         <div className="cloud-hero-right">
@@ -157,9 +157,9 @@ const Home = () => {
       </section>
 
       <div className="right-floating-tools">
-        <button>评</button>
-        <button>改</button>
-        <button>询</button>
+        <Link to="/info/strategy-review" aria-label="查看策略复盘">评</Link>
+        <Link to="/info/operation-tools" aria-label="查看运营工具">改</Link>
+        <Link to="/info/online-consulting" aria-label="在线咨询">询</Link>
       </div>
 
       {showLoginModal && (

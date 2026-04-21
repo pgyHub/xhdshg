@@ -552,7 +552,7 @@ const IndustryPage = ({
                     <strong>¥{service.price.toLocaleString()}</strong>
                   </div>
                   <p>{service.description}</p>
-                  <button className="button button-primary">咨询方案</button>
+                  <Link to="/info/online-consulting" className="button button-primary">咨询方案</Link>
                 </article>
               ))
             }

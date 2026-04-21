@@ -27,8 +27,6 @@ const navItems = [
 function CursorParallax() {
   useEffect(() => {
     const root = document.documentElement
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion) return
 
     let targetX = 0
     let targetY = 0

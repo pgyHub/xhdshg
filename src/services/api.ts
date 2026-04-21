@@ -131,6 +131,11 @@ export const userAPI = {
   },
   updateUser: (data: Record<string, unknown>) => {
     return unwrap<CurrentUser>(api.put('/users/me', data))
+  },
+  getMyDetails: (sourceFile?: string) => {
+    return unwrap<{ user: AdminUserRow; records: BusinessRecordRow[] }>(
+      api.get('/users/me/details', { params: sourceFile ? { source_file: sourceFile } : undefined })
+    )
   }
 }
 

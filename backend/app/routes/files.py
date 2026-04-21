@@ -48,6 +48,60 @@ CSV_BIZ_CUSTOMER_FIELDS = ("客户姓名",)
 CSV_BIZ_CONTACT_FIELDS = ("联系方式", "手机号", "手机号码")
 CSV_BIZ_APPOINTMENT_FIELDS = ("预约时间", "预约档期", "量房时间")
 CSV_BIZ_NOTE_FIELDS = ("备注",)
+CSV_CLOTH_MATERIAL_FIELDS = ("面料",)
+CSV_CLOTH_CATEGORY_FIELDS = ("定制品类",)
+CSV_CLOTH_SIZE_FIELDS = (
+    "头围(cm)",
+    "领围(cm)",
+    "肩宽(cm)",
+    "胸围(cm)",
+    "胸围(净)(cm)",
+    "胸围(成衣)(cm)",
+    "腰围(cm)",
+    "腰围(净)(cm)",
+    "腰围(成衣)(cm)",
+    "臀围(cm)",
+    "臀围(净)(cm)",
+    "臀围(成衣)(cm)",
+    "衣长(cm)",
+    "衣长(净)(cm)",
+    "衣长(成衣)(cm)",
+    "前长(cm)",
+    "后长(cm)",
+    "中腰(cm)",
+    "下摆(cm)",
+    "腰节长(cm)",
+    "背宽(cm)",
+    "袖长(cm)",
+    "左袖长(cm)",
+    "右袖长(cm)",
+    "袖长(净)(cm)",
+    "袖长(成衣)(cm)",
+    "臂根围(cm)",
+    "袖笼围(cm)",
+    "袖肥(cm)",
+    "袖口围(cm)",
+    "裤长(cm)",
+    "裤长(净)(cm)",
+    "裤长(成衣)(cm)",
+    "总裆(cm)",
+    "横裆(cm)",
+    "立裆(cm)",
+    "前腰高(cm)",
+    "大腿围(cm)",
+    "大腿围(净)(cm)",
+    "大腿围(成衣)(cm)",
+    "膝围(cm)",
+    "膝围(净)(cm)",
+    "膝围(成衣)(cm)",
+    "小腿围(cm)",
+    "小腿围(净)(cm)",
+    "小腿围(成衣)(cm)",
+    "裤脚围(cm)",
+    "裤脚围(净)(cm)",
+    "裤脚围(成衣)(cm)",
+    "尺码信息",
+)
 
 
 def _parse_csv_rows(raw: bytes, filename: str) -> tuple[list[str], list[dict[str, str]]]:
@@ -105,6 +159,39 @@ def _to_float(v: str | None) -> float | None:
         return float(t)
     except ValueError:
         return None
+
+
+def _compose_business_notes(row: dict[str, str], note_field: str | None) -> str | None:
+    """合并备注与服装尺寸信息，确保详情页可见关键量体数据。"""
+    note_parts: List[str] = []
+    plain_note = (row.get(note_field or "") or "").strip()
+    if plain_note:
+        note_parts.append(plain_note)
+
+    cloth_category = next(
+        ((row.get(f) or "").strip() for f in CSV_CLOTH_CATEGORY_FIELDS if (row.get(f) or "").strip()),
+        "",
+    )
+    cloth_material = next(
+        ((row.get(f) or "").strip() for f in CSV_CLOTH_MATERIAL_FIELDS if (row.get(f) or "").strip()),
+        "",
+    )
+    size_parts: List[str] = []
+    for f in CSV_CLOTH_SIZE_FIELDS:
+        v = (row.get(f) or "").strip()
+        if v:
+            size_parts.append(f"{f}:{v}")
+
+    if cloth_category or cloth_material or size_parts:
+        note_parts.append(
+            "服装定制信息 - "
+            + "，".join(
+                [p for p in [f"品类:{cloth_category}" if cloth_category else "", f"面料:{cloth_material}" if cloth_material else ""] if p]
+            )
+            + ("；" if size_parts else "")
+            + ("尺寸: " + "，".join(size_parts) if size_parts else "")
+        )
+    return "；".join([p for p in note_parts if p]) or None
 
 
 def _check_csv_duplicates(
@@ -346,7 +433,7 @@ def _import_business_records(
             customer_name=(row.get(customer_field or "") or "").strip() or None,
             contact=(row.get(contact_field or "") or "").strip() or None,
             appointment_time=(row.get(appointment_field or "") or "").strip() or None,
-            notes=(row.get(note_field or "") or "").strip() or None,
+            notes=_compose_business_notes(row, note_field),
             source_file=filename,
         )
         db.add(record)

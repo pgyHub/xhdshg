@@ -15,6 +15,26 @@ from .auth import get_current_user, get_current_admin_user
 router = APIRouter()
 
 
+def _serialize_business_records(records: list[BusinessRecord]) -> list[dict]:
+    return [
+        {
+            "id": r.id,
+            "module": r.module,
+            "project": r.project,
+            "unit_price": r.unit_price,
+            "quantity": r.quantity,
+            "subtotal": r.subtotal,
+            "customer_name": r.customer_name,
+            "contact": r.contact,
+            "appointment_time": r.appointment_time,
+            "notes": r.notes,
+            "source_file": r.source_file,
+            "created_at": r.created_at.isoformat() if r.created_at else None,
+        }
+        for r in records
+    ]
+
+
 @router.post(
     "/",
     response_model=UserSchema,
@@ -81,6 +101,26 @@ def update_current_user(user_update: UserUpdate, current_user: User = Depends(ge
     db.commit()
     db.refresh(current_user)
     return current_user
+
+
+@router.get(
+    "/me/details",
+    summary="查看当前用户业务明细",
+    description="会员/管理员均可查看自己名下业务；可按来源文件筛选。",
+)
+def get_current_user_details(
+    source_file: Optional[str] = Query(None, description="按来源文件筛选（可选）"),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    q = db.query(BusinessRecord).filter(BusinessRecord.user_id == current_user.id)
+    if source_file:
+        q = q.filter(BusinessRecord.source_file == source_file.strip())
+    records = q.order_by(BusinessRecord.id.desc()).all()
+    return {
+        "user": UserSchema.model_validate(current_user),
+        "records": _serialize_business_records(records),
+    }
 
 
 # --- 管理后台：挂在同一 `/users` 路由下（与 `/users/me` 同源注册，避免单独 `/admin` 前缀未生效时 404） ---
@@ -201,21 +241,5 @@ def admin_user_details(
     )
     return {
         "user": UserSchema.model_validate(u),
-        "records": [
-            {
-                "id": r.id,
-                "module": r.module,
-                "project": r.project,
-                "unit_price": r.unit_price,
-                "quantity": r.quantity,
-                "subtotal": r.subtotal,
-                "customer_name": r.customer_name,
-                "contact": r.contact,
-                "appointment_time": r.appointment_time,
-                "notes": r.notes,
-                "source_file": r.source_file,
-                "created_at": r.created_at.isoformat() if r.created_at else None,
-            }
-            for r in records
-        ],
+        "records": _serialize_business_records(records),
     }
