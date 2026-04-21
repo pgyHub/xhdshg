@@ -1,19 +1,44 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { BUSINESS_MODULES } from '../data/businessNav'
 import { authAPI, getApiErrorMessage, userAPI } from '../services/api'
 
-const entryCards = [
-  { title: '进入工作台', desc: '快速进入业务管理后台，统一查看模块数据。', path: '/member-backend' },
-  { title: '浏览数据看板', desc: '查看经营分析、趋势图与关键指标监控。', path: '/dashboard' }
-]
-
-const businessQuickItems = BUSINESS_MODULES.map((m) => ({
-  name: m.homeName,
-  path: m.path,
-  imageTitle: m.imageTitle,
-  imageHint: m.imageHint
-}))
+const CORE_BUSINESS_ITEMS = [
+  {
+    title: '时尚美发',
+    desc: '定制潮流发型，打造个人专属造型与气质表达。',
+    image: '/images/hair/hair-salon-longhair-11.png'
+  },
+  {
+    title: '精致彩妆',
+    desc: '覆盖日常妆、舞台妆、婚礼跟妆等多场景妆造服务。',
+    image: '/images/makeup/mk-halter-redlip-05.png'
+  },
+  {
+    title: '婚纱摄影',
+    desc: '婚纱写真、情侣旅拍与纪念摄影，记录人生高光时刻。',
+    image: '/images/wedding/wed-city-romance-01.png'
+  },
+  {
+    title: '高端服装定制',
+    desc: '私人成衣与礼服量身定制，兼顾审美、版型与穿着舒适度。',
+    image: '/images/hair/hair-editorial-bob-01.png'
+  },
+  {
+    title: '全屋定制',
+    desc: '家装设计、柜体定制与整体软装搭配，提升空间品质感。',
+    image: '/images/illustrations/home-living.svg'
+  },
+  {
+    title: '特色中餐馆',
+    desc: '家常风味与特色宴席并重，满足家庭聚餐与商务社交需求。',
+    image: '/images/restaurant/dish-13-jitang-hero.png'
+  },
+  {
+    title: '短视频制作',
+    desc: '短视频策划、拍摄、剪辑、文案与运营，助力品牌传播增长。',
+    image: '/images/illustrations/video-edit.svg'
+  }
+] as const
 
 const Home = () => {
   const navigate = useNavigate()
@@ -104,63 +129,78 @@ const Home = () => {
             </button>
           </div>
           <span className="cloud-badge">重磅升级</span>
-          <span className="cloud-sub-badge">数据可视化平台新版上线，首月免费试用</span>
-          <h2>智能数据可视化 Sugar BI</h2>
+          <span className="cloud-sub-badge">品牌焕新升级，多业态一站式生活美学服务平台</span>
+          <h2>小红点生活馆 品牌简介</h2>
           <p>
-            面向小红点生活馆多业务场景，提供图表分析、数据看板和可视化大屏能力。
-            无需复杂开发，分钟级完成数据呈现与经营汇报。
+            名称灵感源自德国红点设计奖。我们以设计审美、匠心品质与创新服务为品牌底色，覆盖个人形象、
+            婚嫁影像、空间定制、品质餐饮与新媒体运营，打造有质感、有温度的一站式生活馆。
           </p>
           <div className="cloud-hero-actions">
-            <Link to="/dashboard" className="button button-primary">创建我的报表大屏</Link>
-            <Link to="/info/operation-tools" className="button cloud-secondary-button">帮助文档</Link>
-            <Link to="/info/training-course" className="button cloud-secondary-button">视频教程</Link>
+            <Link to="/member-backend" className="button button-primary">进入会员中心</Link>
+            <Link to="/dashboard" className="button cloud-secondary-button">查看数据驾驶舱</Link>
           </div>
         </div>
         <div className="cloud-hero-right">
           <div className="planet-mock"></div>
-          <div className="floating-screen top">经营总览大屏</div>
-          <div className="floating-screen middle">销售趋势分析</div>
-          <div className="floating-screen bottom">业务洞察卡片</div>
+          <div className="floating-screen top">红点设计灵感</div>
+          <div className="floating-screen middle">生活美学空间</div>
+          <div className="floating-screen bottom">多业态融合服务</div>
         </div>
       </section>
 
-      <section className="cloud-entry-grid">
-        {entryCards.map((item) => (
-          <Link key={item.title} to={item.path} className="cloud-entry-card">
-            <h4>{item.title}</h4>
-            <p>{item.desc}</p>
-            <span>立即进入 ↗</span>
-          </Link>
-        ))}
+      <section className="section brand-intro-section">
+        <h3>一、名称由来</h3>
+        <p>
+          品牌名称“小红点”，灵感源自享誉全球的德国红点设计奖。红点奖被誉为设计界的奥斯卡，是卓越审美、
+          创新设计与高端品质的全球标杆。我们以此为初心，将精致设计与匠心美学融入每一项服务，以高品质标准
+          打造多元生活美学空间，传递时尚、高级与质感生活理念。
+        </p>
       </section>
 
-      <section className="section">
-        <div className="section-title-row">
-          <h3>业务模块快速入口</h3>
-          <span>按模块查看专题页面</span>
+      <section className="section brand-intro-section">
+        <h3>二、品牌发展历程</h3>
+        <div className="brand-timeline">
+          <article className="brand-timeline-item">
+            <h4>初期创立：丽时尚工作室</h4>
+            <p>深耕美业基础服务，奠定时尚美学根基。</p>
+          </article>
+          <article className="brand-timeline-item">
+            <h4>迭代升级：一米阳光时尚店</h4>
+            <p>拓展服务品类，打造温馨舒适的消费体验。</p>
+          </article>
+          <article className="brand-timeline-item">
+            <h4>全面升级：小红点生活馆</h4>
+            <p>打破单一服务模式，实现多业态融合发展，迈向综合化、品质化经营。</p>
+          </article>
         </div>
-        <div className="cards-grid business-quick-list">
-          {businessQuickItems.map((item) => (
-            <Link key={item.name} to={item.path} className="category-card">
-              <div className="business-quick-image">
-                <strong>{item.imageTitle}</strong>
-                <span>{item.imageHint}</span>
+      </section>
+
+      <section className="section brand-intro-section">
+        <h3>三、核心业务范围</h3>
+        <p>集合美学服务、定制设计、餐饮文旅、新媒体运营于一体，一站式满足多元需求：</p>
+        <div className="brand-business-grid">
+          {CORE_BUSINESS_ITEMS.map((item) => (
+            <article key={item.title} className="brand-business-card">
+              <div className="brand-business-image-wrap">
+                <img src={item.image} alt={item.title} className="brand-business-image" loading="lazy" />
               </div>
-              <div className="business-quick-copy">
-                <h4>{item.name}</h4>
-                <p>进入{item.name}专题页面，查看案例、套餐、运营洞察与参考站点。</p>
+              <div className="brand-business-copy">
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
               </div>
-              <span>查看详情</span>
-            </Link>
+            </article>
           ))}
         </div>
       </section>
 
-      <div className="right-floating-tools">
-        <Link to="/info/strategy-review" aria-label="查看策略复盘">评</Link>
-        <Link to="/info/operation-tools" aria-label="查看运营工具">改</Link>
-        <Link to="/info/online-consulting" aria-label="在线咨询">询</Link>
-      </div>
+      <section className="section brand-intro-section">
+        <h3>四、品牌理念</h3>
+        <p>
+          以红点设计美学为内核，兼顾颜值与实用、匠心与创新。从个人形象打造，到居家空间设计，再到休闲餐饮、
+          新媒体服务，全方位覆盖个人、婚嫁、居家、商业等场景。小红点生活馆坚持“设计驱动服务，品质定义体验”，
+          用心打造一站式美好生活体验馆。
+        </p>
+      </section>
 
       {showLoginModal && (
         <div className="auth-split-mask" role="dialog" aria-modal="true" aria-labelledby="auth-split-title" onClick={() => setShowLoginModal(false)}>

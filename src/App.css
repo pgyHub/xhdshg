@@ -139,6 +139,21 @@
   gap: 20px;
 }
 
+.cloud-home::before {
+  content: '';
+  position: absolute;
+  inset: -20px -10px auto -10px;
+  height: 320px;
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 8% 20%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 88% 14%, rgba(14, 165, 233, 0.18) 0%, transparent 52%),
+    radial-gradient(circle at 45% 86%, rgba(244, 114, 182, 0.14) 0%, transparent 56%);
+  filter: blur(8px);
+}
+
 .cloud-hero {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -356,6 +371,83 @@
   border: 1px solid #e8edf6;
   border-radius: 14px;
   padding: 24px;
+}
+
+.brand-intro-section {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 247, 255, 0.88) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.brand-intro-section h3 {
+  margin: 0 0 12px;
+  color: #102a52;
+  font-size: 28px;
+}
+
+.brand-intro-section p {
+  margin: 0;
+  color: #334155;
+  line-height: 1.85;
+}
+
+.brand-timeline {
+  display: grid;
+  gap: 12px;
+}
+
+.brand-timeline-item {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #dbe9ff;
+  border-left: 4px solid #2563eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.brand-timeline-item h4 {
+  margin: 0 0 6px;
+  color: #1e3a8a;
+}
+
+.brand-business-grid {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.brand-business-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  border: 1px solid #d9e7ff;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 14px 16px;
+}
+
+.brand-business-card h4 {
+  margin: 0 0 8px;
+  color: #1e3a8a;
+}
+
+.brand-business-image-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #eaf2ff;
+  border: 1px solid #d8e5ff;
+}
+
+.brand-business-image {
+  display: block;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.brand-business-copy p {
+  margin: 0;
 }
 
 .section-title-row {
@@ -1673,8 +1765,7 @@
   position: relative;
   padding: clamp(28px, 4vw, 44px);
   color: #fff;
-  background-image: linear-gradient(135deg, rgba(196, 30, 58, 0.88), rgba(30, 58, 95, 0.82)),
-    url('https://picsum.photos/seed/xhdsg-auth-bg/1400/1000');
+  background-image: linear-gradient(135deg, rgba(196, 30, 58, 0.88), rgba(30, 58, 95, 0.82));
   background-size: cover;
   background-position: center;
   display: flex;
@@ -2247,6 +2338,18 @@
 
   .business-quick-list .category-card {
     grid-template-columns: 1fr;
+  }
+
+  .brand-business-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-business-card {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-business-image {
+    height: 180px;
   }
 
   .site-header-top h1 {

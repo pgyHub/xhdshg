@@ -6,13 +6,13 @@ const 美发 = () => (
     category="美发"
     title="潮流美发与头皮护理"
     subtitle="结合脸型与职业场景进行发型设计，支持剪、染、烫、护理全链路服务。"
-    heroMedia={{ src: H.hero, alt: '潮流发型主视觉（已裁切底部字标）', kind: 'image' }}
+    heroMedia={{ src: H.hero, alt: '潮流发型主视觉（已裁切底部字标）', kind: 'image', imagePosition: 'center 24%' }}
     venueSectionTitle="环境与作品区"
     venueSectionSubtitle="下列为已裁切底部字标的造型示意；横滑三图与首图各不相同，可与彩妆、婚摄等模块并存。"
     venueGallery={[
-      { src: H.g1, caption: '横滑位一：门店造型咨询与工位氛围' },
-      { src: H.g2, caption: '横滑位二：中长卷发与质感呈现' },
-      { src: H.g3, caption: '横滑位三：短发造型与轮廓线条' }
+      { src: H.g1, caption: '横滑位一：门店造型咨询与工位氛围', imagePosition: 'center 40%' },
+      { src: H.g2, caption: '横滑位二：中长卷发与质感呈现', imagePosition: 'center 26%' },
+      { src: H.g3, caption: '横滑位三：短发造型与轮廓线条', imagePosition: 'center 24%' }
     ]}
     highlights={['发型顾问制服务', '进口护理产品', '造型趋势实时更新']}
     workflow={['风格测试', '发质诊断', '发型设计', '剪烫染执行', '日常打理指导']}
@@ -23,12 +23,12 @@ const 美发 = () => (
       { name: '美发站行业参考', url: 'https://www.meifazhan.com/' }
     ]}
     layoutModules={[
-      { title: '发型趋势头图区', desc: '首屏展示季度流行发型，当前为虚拟主题与示例标题。', image: H.l1 },
-      { title: '发型师推荐列表', desc: '展示“资深总监/高级造型师”卡片，后续可换真人信息。', image: H.l2 },
-      { title: '项目价格一览', desc: '按剪发、染发、烫发、护理拆分价格模块，便于快速决策。', image: H.l3 },
-      { title: '发质检测流程', desc: '通过步骤卡说明“检测-建议-执行-护理”服务闭环。', image: H.l4 },
-      { title: '顾客案例前后对比', desc: '占位展示改造前后效果，后续替换真实图片。', image: H.l5 },
-      { title: '预约与到店指引', desc: '预留门店位置、营业时间、预约入口等实用信息。', image: H.l6 }
+      { title: '发型趋势头图区', desc: '首屏展示季度流行发型，当前为虚拟主题与示例标题。', image: H.l1, imagePosition: 'center 28%' },
+      { title: '发型师推荐列表', desc: '展示“资深总监/高级造型师”卡片，后续可换真人信息。', image: H.l2, imagePosition: 'center 32%' },
+      { title: '项目价格一览', desc: '按剪发、染发、烫发、护理拆分价格模块，便于快速决策。', image: H.l3, imagePosition: 'center 30%' },
+      { title: '发质检测流程', desc: '通过步骤卡说明“检测-建议-执行-护理”服务闭环。', image: H.l4, imagePosition: 'center 25%' },
+      { title: '顾客案例前后对比', desc: '占位展示改造前后效果，后续替换真实图片。', image: H.l5, imagePosition: 'center 26%' },
+      { title: '预约与到店指引', desc: '预留门店位置、营业时间、预约入口等实用信息。', image: H.l6, imagePosition: 'center 28%' }
     ]}
     marketStats={[
       { label: '月服务人次', value: '2,460' },
@@ -46,19 +46,22 @@ const 美发 = () => (
         name: '形象设计剪裁',
         price: 268,
         description: '结合脸型/职业场景设计发型，含造型建议。配图为套餐卡片版式占位。',
-        image: H.p1
+        image: H.p1,
+        imagePosition: 'center 28%'
       },
       {
         name: '轻奢染烫套系',
         price: 1180,
         description: '含烫染+修护，支持潮流发色与质感卷度打造。配图为套餐卡片版式占位。',
-        image: H.p2
+        image: H.p2,
+        imagePosition: 'center 24%'
       },
       {
         name: '深层头皮护理',
         price: 399,
         description: '头皮清洁、舒缓导入与居家护理建议。配图为套餐卡片版式占位。',
-        image: H.p3
+        image: H.p3,
+        imagePosition: 'center 22%'
       }
     ]}
     showcaseItems={[
@@ -66,19 +69,22 @@ const 美发 = () => (
         title: '潮流剪裁案例位',
         tag: '潮流款',
         summary: '用于呈现层次剪裁与职场场景话术；配图为版式占位，请换本店发型前后对比。',
-        image: H.s1
+        image: H.s1,
+        imagePosition: 'center 24%'
       },
       {
         title: '染发护色案例位',
         tag: '发色',
         summary: '用于呈现冷棕/护色等服务卖点；配图为版式占位，请换本店发色实拍。',
-        image: H.s2
+        image: H.s2,
+        imagePosition: 'center 30%'
       },
       {
         title: '头皮护理案例位',
         tag: '护理',
         summary: '用于呈现分型护理与疗程组合；配图为版式占位，请换本店护理过程图。',
-        image: H.s3
+        image: H.s3,
+        imagePosition: 'center 23%'
       }
     ]}
     capabilityMatrix={[

@@ -13,14 +13,14 @@ const 婚纱摄影 = () => (
       crossfadeMs: 1000
     }}
     venueSectionTitle="样片与场景"
-    venueSectionSubtitle="首屏整区为两段样片视频背景轮播；下方三图为静帧横滑示意，可换成本店成片。"
+    venueSectionSubtitle="首屏为样片视频背景轮播；下方三图分别呈现夜景情绪、礼服肖像与纪实仪式风格。"
     venueGallery={[
       {
         src: '/images/wedding/wed-city-romance-01.png',
-        caption: '横滑位一：夜景婚纱情绪片（无字版，可替换为本店同风格成片）'
+        caption: '横滑位一：夜景婚纱情绪片'
       },
-      { src: weddingStock.g2, caption: '横滑位二：版式占位（Picsum），请换棚拍/礼服类本店成片' },
-      { src: weddingStock.g3, caption: '横滑位三：版式占位（Picsum），请换仪式/纪实类本店成片' }
+      { src: weddingStock.g2, caption: '横滑位二：棚拍礼服肖像风格' },
+      { src: weddingStock.g3, caption: '横滑位三：仪式纪实与互动抓拍' }
     ]}
     referenceSites={[
       { name: '聚婚网', url: 'http://www.jujiaonet.com/' },
@@ -38,19 +38,19 @@ const 婚纱摄影 = () => (
       {
         name: '城市轻旅拍套餐',
         price: 4299,
-        description: '含摄影/化妆/服装2套/精修35张/电子相册。配图为套餐卡片版式占位。',
+        description: '含摄影/化妆/服装2套/精修35张/电子相册。',
         image: weddingStock.p1
       },
       {
         name: '高定婚礼全天跟拍',
         price: 8999,
-        description: '双机位拍摄，含婚礼快剪、精修与短视频花絮。配图为套餐卡片版式占位。',
+        description: '双机位拍摄，含婚礼快剪、精修与短视频花絮。',
         image: weddingStock.p2
       },
       {
         name: '韩式棚拍经典套餐',
         price: 3599,
-        description: '棚拍场景4组，造型3套，支持亲友同框合拍。配图为套餐卡片版式占位。',
+        description: '棚拍场景4组，造型3套，支持亲友同框合拍。',
         image: weddingStock.p3
       }
     ]}
@@ -58,19 +58,19 @@ const 婚纱摄影 = () => (
       {
         title: '旅拍方向案例位',
         tag: '旅拍',
-        summary: '用于呈现黄金时段、自然光与动感抓拍等服务卖点；配图为版式占位，上线后请换本店旅拍成片。',
+        summary: '用于呈现黄金时段、自然光与动感抓拍等服务卖点。',
         image: weddingStock.s1
       },
       {
         title: '都市夜景案例位',
         tag: '城市风',
-        summary: '用于呈现夜景布光、电影感调色等服务说明；配图为版式占位，上线后请换本店城市风样片。',
+        summary: '用于呈现夜景布光、电影感调色等服务说明。',
         image: weddingStock.s2
       },
       {
         title: '国风礼服案例位',
         tag: '国风',
-        summary: '用于呈现中式礼服、场景道具与文化符号等服务组合；配图为版式占位，上线后请换本店国风样片。',
+        summary: '用于呈现中式礼服、场景道具与文化符号等服务组合。',
         image: weddingStock.s3
       }
     ]}

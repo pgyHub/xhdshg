@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#eef2ff"/>
+  <circle cx="260" cy="240" r="90" fill="#c4b5fd"/>
+  <rect x="160" y="320" width="220" height="180" rx="16" fill="#a78bfa"/>
+  <rect x="460" y="170" width="620" height="380" rx="20" fill="#ffffff" stroke="#c4b5fd"/>
+  <rect x="520" y="240" width="420" height="240" rx="14" fill="#ddd6fe"/>
+  <text x="600" y="610" fill="#5b21b6" font-size="52" text-anchor="middle" font-family="Microsoft YaHei, Arial">°:ÍD P¡</text>
+</svg>

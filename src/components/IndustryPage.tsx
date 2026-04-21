@@ -12,7 +12,7 @@ type ServiceItem = {
   description: string
 }
 
-export type HeroMediaItem = { src: string; alt: string; kind?: 'image' | 'video' }
+export type HeroMediaItem = { src: string; alt: string; kind?: 'image' | 'video'; imagePosition?: string }
 
 const isHeroVideo = (m: HeroMediaItem) =>
   m.kind === 'video' || /\.(mp4|webm|ogg)(\?|$)/i.test(m.src)
@@ -26,8 +26,8 @@ type IndustryPageProps = {
   scenarios: string[]
   marketStats: Array<{ label: string; value: string }>
   sampleCases: Array<{ title: string; data: string; desc: string }>
-  mockServices: Array<{ name: string; price: number; description: string; image?: string }>
-  showcaseItems: Array<{ title: string; tag: string; summary: string; image?: string }>
+  mockServices: Array<{ name: string; price: number; description: string; image?: string; imagePosition?: string }>
+  showcaseItems: Array<{ title: string; tag: string; summary: string; image?: string; imagePosition?: string }>
   capabilityMatrix: Array<{ name: string; detail: string }>
   insights: string[]
   faqs: Array<{ q: string; a: string }>
@@ -35,11 +35,11 @@ type IndustryPageProps = {
   productSystems?: Array<{ title: string; items: string[] }>
   sceneCases?: Array<{ scene: string; desc: string }>
   referenceSites?: Array<{ name: string; url: string }>
-  layoutModules?: Array<{ title: string; desc: string; image?: string }>
+  layoutModules?: Array<{ title: string; desc: string; image?: string; imagePosition?: string }>
   /** 右侧主视觉：传入则用实拍图 / 视频替换灰底占位（可传多条纵向排列） */
   heroMedia?: HeroMediaItem | HeroMediaItem[]
   /** 门店环境 / 明档等横图展示 */
-  venueGallery?: Array<{ src: string; caption: string }>
+  venueGallery?: Array<{ src: string; caption: string; imagePosition?: string }>
   /** 三图横滑区块标题（默认仅适用于餐饮） */
   venueSectionTitle?: string
   venueSectionSubtitle?: string
@@ -162,6 +162,9 @@ const IndustryPage = ({
     ? heroMediaList.filter((m) => !isHeroVideo(m))
     : heroMediaList
 
+  const imageStyle = (imagePosition?: string): CSSProperties | undefined =>
+    imagePosition ? { objectPosition: imagePosition } : undefined
+
   return (
     <div className={`page-wrap site-style-${siteStyle ?? 'beauty'}`}>
       {!skipDefaultHero && (
@@ -252,7 +255,7 @@ const IndustryPage = ({
                           aria-label={item.alt}
                         />
                       ) : (
-                        <img src={item.src} alt={item.alt} loading="lazy" />
+                        <img src={item.src} alt={item.alt} loading="lazy" style={imageStyle(item.imagePosition)} />
                       )}
                     </div>
                   ))}
@@ -279,7 +282,7 @@ const IndustryPage = ({
           <div className="venue-gallery">
             {venueGallery.map((v) => (
               <figure className="venue-gallery-item" key={v.src}>
-                <img src={v.src} alt={v.caption} loading="lazy" />
+                <img src={v.src} alt={v.caption} loading="lazy" style={imageStyle(v.imagePosition)} />
                 <figcaption>{v.caption}</figcaption>
               </figure>
             ))}
@@ -326,7 +329,7 @@ const IndustryPage = ({
             <article key={service.name} className={`showcase-card${service.image ? ' showcase-card-with-image' : ''}`}>
               {service.image && (
                 <div className="showcase-card-thumb">
-                  <img src={service.image} alt="" loading="lazy" />
+                  <img src={service.image} alt="" loading="lazy" style={imageStyle(service.imagePosition)} />
                 </div>
               )}
               <span className="showcase-tag">推荐</span>
@@ -428,7 +431,7 @@ const IndustryPage = ({
               <article className={`feature-card${item.image ? ' feature-card-with-image' : ''}`} key={item.title}>
                 {item.image && (
                   <div className="feature-card-thumb">
-                    <img src={item.image} alt="" loading="lazy" />
+                    <img src={item.image} alt="" loading="lazy" style={imageStyle(item.imagePosition)} />
                   </div>
                 )}
                 <h4>{item.title}</h4>
@@ -493,7 +496,7 @@ const IndustryPage = ({
             <article className={`showcase-card${item.image ? ' showcase-card-with-image' : ''}`} key={item.title}>
               {item.image && (
                 <div className="showcase-card-thumb">
-                  <img src={item.image} alt="" loading="lazy" />
+                  <img src={item.image} alt="" loading="lazy" style={imageStyle(item.imagePosition)} />
                 </div>
               )}
               <span className="showcase-tag">{item.tag}</span>

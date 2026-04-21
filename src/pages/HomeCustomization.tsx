@@ -8,7 +8,7 @@ const 全屋定制 = () => (
     subtitle="从户型测量到施工落地，提供设计、选材、生产、安装一体化的家居升级方案。"
     heroMedia={{ src: homeStock.hero, alt: '全屋定制空间示意', kind: 'image' }}
     venueSectionTitle="样板间与实景"
-    venueSectionSubtitle="三图为横滑展示位；每图独立占位，上线后请换案例实拍。与其他行业模块所用图互不重复。"
+    venueSectionSubtitle="三图分别展示客厅公区、卧室收纳与厨房功能分区，和页面文案一一对应。"
     venueGallery={[
       { src: homeStock.g1, caption: '横滑位一：公区/客厅套系示意（对应整柜与动线说明入口）' },
       { src: homeStock.g2, caption: '横滑位二：卧室收纳套系示意（对应柜体模块与配件入口）' },
@@ -67,19 +67,19 @@ const 全屋定制 = () => (
       {
         name: '全屋设计咨询包',
         price: 1999,
-        description: '含量房、平面规划、3D效果图与预算建议。配图为套餐卡片版式占位。',
+        description: '含量房、平面规划、3D效果图与预算建议。',
         image: homeStock.p1
       },
       {
         name: '整屋柜体定制',
         price: 68800,
-        description: '衣柜/橱柜/餐边柜/书柜一体化定制方案。配图为套餐卡片版式占位。',
+        description: '衣柜/橱柜/餐边柜/书柜一体化定制方案。',
         image: homeStock.p2
       },
       {
         name: '厨房焕新改造',
         price: 26800,
-        description: '动线优化、柜体升级与功能五金组合落地。配图为套餐卡片版式占位。',
+        description: '动线优化、柜体升级与功能五金组合落地。',
         image: homeStock.p3
       }
     ]}
@@ -87,19 +87,19 @@ const 全屋定制 = () => (
       {
         title: '收纳升级案例位',
         tag: '实用型',
-        summary: '用于呈现小户型垂直收纳与多功能柜体策略；配图为版式占位，请换本店实景前后对比。',
+        summary: '用于呈现小户型垂直收纳与多功能柜体策略。',
         image: homeStock.s1
       },
       {
         title: '轻奢整屋案例位',
         tag: '品质型',
-        summary: '用于呈现风格统一与材质升级卖点；配图为版式占位，请换本店整屋实景。',
+        summary: '用于呈现风格统一与材质升级卖点。',
         image: homeStock.s2
       },
       {
         title: '局改焕新案例位',
         tag: '改造型',
-        summary: '用于呈现局改范围、工期与预算控制；配图为版式占位，请换本店局改工地/完工图。',
+        summary: '用于呈现局改范围、工期与预算控制。',
         image: homeStock.s3
       }
     ]}

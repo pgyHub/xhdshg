@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, NavLink, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import 婚纱摄影 from './pages/WeddingPhotography'
@@ -22,52 +21,6 @@ const navItems = [
   { label: '会员中心', path: '/member-backend' },
   { label: '数据驾驶舱', path: '/dashboard' }
 ]
-
-/** 根据指针位置更新 html 上的 --mx/--my，驱动 index.css 中背景视差 */
-function CursorParallax() {
-  useEffect(() => {
-    const root = document.documentElement
-
-    let targetX = 0
-    let targetY = 0
-    let curX = 0
-    let curY = 0
-    let raf = 0
-
-    const tick = () => {
-      curX += (targetX - curX) * 0.07
-      curY += (targetY - curY) * 0.07
-      root.style.setProperty('--mx', curX.toFixed(5))
-      root.style.setProperty('--my', curY.toFixed(5))
-      if (Math.abs(targetX - curX) > 0.0008 || Math.abs(targetY - curY) > 0.0008) {
-        raf = requestAnimationFrame(tick)
-      } else {
-        raf = 0
-      }
-    }
-
-    const schedule = () => {
-      if (!raf) raf = requestAnimationFrame(tick)
-    }
-
-    const onMove = (e: PointerEvent) => {
-      const nx = (e.clientX / Math.max(window.innerWidth, 1)) * 2 - 1
-      const ny = (e.clientY / Math.max(window.innerHeight, 1)) * 2 - 1
-      targetX = Math.max(-1, Math.min(1, nx))
-      targetY = Math.max(-1, Math.min(1, ny))
-      schedule()
-    }
-
-    window.addEventListener('pointermove', onMove, { passive: true })
-    return () => {
-      window.removeEventListener('pointermove', onMove)
-      cancelAnimationFrame(raf)
-      root.style.setProperty('--mx', '0')
-      root.style.setProperty('--my', '0')
-    }
-  }, [])
-  return null
-}
 
 function AppLayout() {
   const location = useLocation()
@@ -117,7 +70,6 @@ function AppLayout() {
 function App() {
   return (
     <Router>
-      <CursorParallax />
       <AppLayout />
     </Router>
   )

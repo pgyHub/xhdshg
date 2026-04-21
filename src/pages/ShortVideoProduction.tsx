@@ -8,7 +8,7 @@ const 短视频制作 = () => (
     subtitle="围绕品牌增长目标提供脚本策划、拍摄执行、后期包装与投放建议。"
     heroMedia={{ src: videoStock.hero, alt: '剪辑与创作工作台示意', kind: 'image' }}
     venueSectionTitle="案例与创作流"
-    venueSectionSubtitle="三图为横滑展示位；每图独立占位，上线后请换项目截图或封面。与其他行业模块所用图互不重复。"
+    venueSectionSubtitle="三图分别对应脚本策划、拍摄执行与剪辑交付，确保图文语义一致。"
     venueGallery={[
       { src: videoStock.g1, caption: '横滑位一：脚本/分镜企划示意（对应选题与结构说明）' },
       { src: videoStock.g2, caption: '横滑位二：拍摄与素材管理示意（对应片场/素材库入口）' },
@@ -45,19 +45,19 @@ const 短视频制作 = () => (
       {
         name: '短视频代运营基础版',
         price: 5800,
-        description: '每月12条内容，含选题策划与基础剪辑包装。配图为套餐卡片版式占位。',
+        description: '每月12条内容，含选题策划与基础剪辑包装。',
         image: videoStock.p1
       },
       {
         name: '品牌增长专项',
         price: 19800,
-        description: '内容矩阵搭建 + 商业转化路径设计 + 数据复盘。配图为套餐卡片版式占位。',
+        description: '内容矩阵搭建 + 商业转化路径设计 + 数据复盘。',
         image: videoStock.p2
       },
       {
         name: '直播切片快反服务',
         price: 2600,
-        description: '重点片段二创分发，48小时内完成首批交付。配图为套餐卡片版式占位。',
+        description: '重点片段二创分发，48小时内完成首批交付。',
         image: videoStock.p3
       }
     ]}
@@ -65,19 +65,19 @@ const 短视频制作 = () => (
       {
         title: '门店获客案例位',
         tag: '门店增长',
-        summary: '用于呈现探店/菜品镜头与转化话术结构；配图为版式占位，请换对应行业成片封面。',
+        summary: '用于呈现探店/产品镜头与转化话术结构。',
         image: videoStock.s1
       },
       {
         title: '老板 IP 栏目案例位',
         tag: '品牌人设',
-        summary: '用于呈现人设口播与栏目化更新节奏；配图为版式占位，请换真实栏目头图。',
+        summary: '用于呈现人设口播与栏目化更新节奏。',
         image: videoStock.s2
       },
       {
         title: '测评种草案例位',
         tag: '种草转化',
-        summary: '用于呈现对比结构、卖点拆解与 CTA；配图为版式占位，请换测评类成片封面。',
+        summary: '用于呈现对比结构、卖点拆解与 CTA。',
         image: videoStock.s3
       }
     ]}
