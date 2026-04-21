@@ -34,6 +34,10 @@ Thumbs.db
 logs/
 *.log
 
+# Runtime uploads / generated files
+backend/uploads/
+backend/**/__pycache__/
+
 # Local dev command output (do not commit)
 /build-log.txt
 /vite-out.txt

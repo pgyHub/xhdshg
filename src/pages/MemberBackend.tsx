@@ -1088,6 +1088,66 @@ const MemberBackend: React.FC = () => {
           )}
         </div>
       )}
+
+      {sourceDetailRecord && tab !== 'admin' && (
+        <div className="member-console-modal-mask" onClick={() => setSourceDetailRecord(null)}>
+          <section
+            className="member-console-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="来源文件详情"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className="member-console-modal-head">
+              <h4>来源文件详情</h4>
+              <div className="member-console-modal-actions">
+                <button type="button" className="button button-light member-console-mini" onClick={handlePrintSourceDetail}>
+                  打印
+                </button>
+                <button type="button" className="member-console-modal-close" onClick={() => setSourceDetailRecord(null)}>
+                  ×
+                </button>
+              </div>
+            </header>
+            <div className="member-console-modal-body">
+              <p><strong>来源文件：</strong>{sourceDetailRecord.source_file || '—'}</p>
+              <p><strong>业务模块：</strong>{sourceDetailRecord.module || '—'}</p>
+              <p><strong>订单项目：</strong>{sourceDetailRecord.project || '—'}</p>
+              <p><strong>客户姓名：</strong>{sourceDetailRecord.customer_name || '—'}</p>
+              <p><strong>联系方式：</strong>{sourceDetailRecord.contact || '—'}</p>
+              <p><strong>预约时间：</strong>{sourceDetailRecord.appointment_time || '—'}</p>
+              <p><strong>单价/数量/小计：</strong>
+                {`${sourceDetailRecord.unit_price ?? '—'} / ${sourceDetailRecord.quantity ?? '—'} / ${sourceDetailRecord.subtotal ?? '—'}`}
+              </p>
+              <p><strong>备注：</strong>{sourceDetailParsed.plainNote || '—'}</p>
+              {sourceDetailParsed.sizeItems.length > 0 && (
+                <div>
+                  <p><strong>尺寸明细：</strong></p>
+                  <section>
+                    {orderedSizeChunks.map((chunk, idx) => {
+                      const hasNet = chunk.some((x) => x.net)
+                      const hasGarment = chunk.some((x) => x.garment)
+                      const hasValue = chunk.some((x) => x.value)
+                      return (
+                        <table key={`size-chunk-workspace-${idx}`} className="member-console-table member-console-size-table member-console-size-horizontal">
+                          <thead>
+                            <tr>{chunk.map((item) => <th key={`size-head-workspace-${idx}-${item.part}`}>{item.part}</th>)}</tr>
+                          </thead>
+                          <tbody>
+                            {hasNet && <tr>{chunk.map((item) => <td key={`size-net-workspace-${idx}-${item.part}`}>{item.net || '—'}</td>)}</tr>}
+                            {hasGarment && <tr>{chunk.map((item) => <td key={`size-gar-workspace-${idx}-${item.part}`}>{item.garment || '—'}</td>)}</tr>}
+                            {hasValue && <tr>{chunk.map((item) => <td key={`size-val-workspace-${idx}-${item.part}`}>{item.value || '—'}</td>)}</tr>}
+                          </tbody>
+                        </table>
+                      )
+                    })}
+                  </section>
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
+      )}
     </div>
   )
 }
