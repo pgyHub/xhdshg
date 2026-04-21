@@ -21,6 +21,18 @@ function isSuperAdminUsername(username: string): boolean {
   return username.trim().toLowerCase() === 'admin'
 }
 
+/** 业务 CSV 模板：文件名用简短拼音，下载后从文件名即可辨认板块（与全站业态顺序一致） */
+const MEMBER_CSV_COMBINED = 'yewu-tongyong-muban.csv'
+const MEMBER_CSV_TEMPLATES = [
+  { label: '美发', file: 'meifa.csv' },
+  { label: '彩妆', file: 'caizhuang.csv' },
+  { label: '婚纱摄影', file: 'hunsha.csv' },
+  { label: '服装定制', file: 'fuzhuang-dingzhi.csv' },
+  { label: '全屋定制', file: 'quanwu-dingzhi.csv' },
+  { label: '中餐馆', file: 'zhongcanting.csv' },
+  { label: '短视频制作', file: 'duanshipin-zhizuo.csv' }
+] as const
+
 const MemberBackend: React.FC = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
@@ -382,20 +394,26 @@ const MemberBackend: React.FC = () => {
               </p>
               <div className="member-console-upload-toolbar">
                 <p className="member-console-muted member-console-upload-template">
-                  模板下载（仅业务信息）：
-                  <a className="member-console-link" href="/templates/business-material-template.csv" download>
+                  模板下载（多行业汇总表，文件名 {MEMBER_CSV_COMBINED}）：
+                  <a
+                    className="member-console-link"
+                    href={`/templates/${MEMBER_CSV_COMBINED}`}
+                    download={MEMBER_CSV_COMBINED}
+                    title="一行一类业务，可混合多模块"
+                  >
                     点击此处
                   </a>
                 </p>
                 <p className="member-console-muted member-console-upload-template-list">
-                  详细模板：
-                  <a className="member-console-link" href="/templates/template-hairdressing-detail.csv" download>美发</a>
-                  <a className="member-console-link" href="/templates/template-makeup-detail.csv" download>彩妆</a>
-                  <a className="member-console-link" href="/templates/template-chinese-restaurant-detail.csv" download>中餐馆</a>
-                  <a className="member-console-link" href="/templates/template-short-video-detail.csv" download>短视频</a>
-                  <a className="member-console-link" href="/templates/template-wedding-photography-detail.csv" download>婚纱摄影</a>
-                  <a className="member-console-link" href="/templates/template-clothing-customization-detail.csv" download>服装定制</a>
-                  <a className="member-console-link" href="/templates/template-wholehouse-customization-detail.csv" download>全屋定制</a>
+                  分业态详细模板（下载文件名即业务标识）：
+                  {MEMBER_CSV_TEMPLATES.map((t, i) => (
+                    <React.Fragment key={t.file}>
+                      {i > 0 ? ' · ' : ' '}
+                      <a className="member-console-link" href={`/templates/${t.file}`} download={t.file}>
+                        {t.label}
+                      </a>
+                    </React.Fragment>
+                  ))}
                 </p>
                 <label className="member-console-upload-input">
                   <span>文件上传：</span>
@@ -464,20 +482,26 @@ const MemberBackend: React.FC = () => {
             </p>
             <div className="member-console-upload-toolbar">
               <p className="member-console-muted member-console-upload-template">
-                模板下载（仅业务信息）：
-                <a className="member-console-link" href="/templates/business-material-template.csv" download>
+                模板下载（多行业汇总表，文件名 {MEMBER_CSV_COMBINED}）：
+                <a
+                  className="member-console-link"
+                  href={`/templates/${MEMBER_CSV_COMBINED}`}
+                  download={MEMBER_CSV_COMBINED}
+                  title="一行一类业务，可混合多模块"
+                >
                   点击此处
                 </a>
               </p>
               <p className="member-console-muted member-console-upload-template-list">
-                详细模板：
-                <a className="member-console-link" href="/templates/template-hairdressing-detail.csv" download>美发</a>
-                <a className="member-console-link" href="/templates/template-makeup-detail.csv" download>彩妆</a>
-                <a className="member-console-link" href="/templates/template-chinese-restaurant-detail.csv" download>中餐馆</a>
-                <a className="member-console-link" href="/templates/template-short-video-detail.csv" download>短视频</a>
-                <a className="member-console-link" href="/templates/template-wedding-photography-detail.csv" download>婚纱摄影</a>
-                <a className="member-console-link" href="/templates/template-clothing-customization-detail.csv" download>服装定制</a>
-                <a className="member-console-link" href="/templates/template-wholehouse-customization-detail.csv" download>全屋定制</a>
+                分业态详细模板（下载文件名即业务标识）：
+                {MEMBER_CSV_TEMPLATES.map((t, i) => (
+                  <React.Fragment key={t.file}>
+                    {i > 0 ? ' · ' : ' '}
+                    <a className="member-console-link" href={`/templates/${t.file}`} download={t.file}>
+                      {t.label}
+                    </a>
+                  </React.Fragment>
+                ))}
               </p>
               <label className="member-console-upload-input">
                 <span>文件上传：</span>
