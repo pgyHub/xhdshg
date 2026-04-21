@@ -7,7 +7,9 @@ import csv
 import io
 import os
 from app.core.database import get_db
+from app.core.config import settings
 from app.core.security import get_password_hash
+from app.core.roles import is_super_admin
 from app.models.user import User
 from app.models.business_record import BusinessRecord
 from .auth import get_current_privileged_user
@@ -18,6 +20,16 @@ router = APIRouter()
 UPLOAD_DIR = "uploads"
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
+
+
+def _safe_client_filename(name: str | None) -> str:
+    """仅保留 basename，避免路径穿越；拒绝空名与异常控制字符。"""
+    base = os.path.basename((name or "").strip())
+    if not base or base in (".", ".."):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="文件名无效")
+    if any(ord(c) < 32 for c in base):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="文件名包含非法字符")
+    return base
 
 CSV_PHONE_FIELDS = ("手机号码", "手机号", "联系方式")
 CSV_LOGIN_FIELDS = ("登录账号", "用户名")
@@ -262,7 +274,11 @@ def _import_business_records(
     db: Session,
     current_user: User,
 ) -> dict:
-    """将业务明细导入 business_records；无用户名列时归属当前登录会员。"""
+    """将业务明细导入 business_records。
+
+    - 会员上传：无用户名列时，默认归属当前登录会员；
+    - 管理员上传：必须提供用户名列，避免明细误归属到管理员账号。
+    """
     username_field = _pick_first_header(headers, CSV_BIZ_USERNAME_FIELDS)
     module_field = _pick_first_header(headers, CSV_BIZ_MODULE_FIELDS)
     project_field = _pick_first_header(headers, CSV_BIZ_PROJECT_FIELDS)
@@ -275,9 +291,19 @@ def _import_business_records(
     note_field = _pick_first_header(headers, CSV_BIZ_NOTE_FIELDS)
 
     if module_field is None or project_field is None:
-        return {"imported_records": 0, "skipped_unknown_users": []}
+        return {
+            "imported_records": 0,
+            "skipped_unknown_users": [],
+            "skipped_missing_username_column": False,
+        }
 
     use_session_owner = username_field is None
+    if use_session_owner and is_super_admin(current_user):
+        return {
+            "imported_records": 0,
+            "skipped_unknown_users": [],
+            "skipped_missing_username_column": True,
+        }
     user_map: Dict[str, User] = {}
     if not use_session_owner:
         usernames = sorted(
@@ -329,7 +355,11 @@ def _import_business_records(
     if imported > 0:
         db.commit()
 
-    return {"imported_records": imported, "skipped_unknown_users": sorted(set(skipped_unknown_users))}
+    return {
+        "imported_records": imported,
+        "skipped_unknown_users": sorted(set(skipped_unknown_users)),
+        "skipped_missing_username_column": False,
+    }
 
 
 @router.post(
@@ -350,48 +380,60 @@ async def upload_files(
     created_usernames: List[str] = []
     imported_business_records = 0
     skipped_unknown_business_users: List[str] = []
+    missing_username_column_files: List[str] = []
     for file in files:
+        safe_name = _safe_client_filename(file.filename)
         raw = await file.read()
-        if file.filename.lower().endswith(".csv"):
-            headers, rows = _parse_csv_rows(raw, file.filename)
-            _check_csv_duplicates(headers, rows, file.filename, db)
+        if len(raw) > settings.MAX_UPLOAD_BYTES:
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail=f"文件 {safe_name} 超过大小上限（{settings.MAX_UPLOAD_BYTES // (1024 * 1024)}MB）",
+            )
+        if safe_name.lower().endswith(".csv"):
+            headers, rows = _parse_csv_rows(raw, safe_name)
+            _check_csv_duplicates(headers, rows, safe_name, db)
             import_result = _import_csv_accounts(headers, rows, db)
-            biz_result = _import_business_records(headers, rows, file.filename, db, current_user)
+            biz_result = _import_business_records(headers, rows, safe_name, db, current_user)
             created_in_file = import_result["created_usernames"]
             imported_users += len(created_in_file)
             created_usernames.extend(created_in_file)
             imported_business_records += biz_result["imported_records"]
             skipped_unknown_business_users.extend(biz_result["skipped_unknown_users"])
+            if biz_result.get("skipped_missing_username_column"):
+                missing_username_column_files.append(safe_name)
             file_import_reports.append(
                 {
-                    "filename": file.filename,
+                    "filename": safe_name,
                     "imported_users": len(created_in_file),
                     "imported_business_records": biz_result["imported_records"],
                     "created_usernames": created_in_file,
                     "skipped_existing_logins": import_result["skipped_existing_logins"],
                     "skipped_existing_emails": import_result["skipped_existing_emails"],
                     "skipped_unknown_business_users": biz_result["skipped_unknown_users"],
+                    "skipped_missing_username_column": bool(
+                        biz_result.get("skipped_missing_username_column")
+                    ),
                 }
             )
         else:
-            skipped_import_files.append(file.filename)
+            skipped_import_files.append(safe_name)
             file_import_reports.append(
                 {
-                    "filename": file.filename,
+                    "filename": safe_name,
                     "imported_users": 0,
                     "imported_business_records": 0,
                     "created_usernames": [],
                     "skipped_existing_logins": [],
                     "skipped_existing_emails": [],
                     "skipped_unknown_business_users": [],
+                    "skipped_missing_username_column": False,
                 }
             )
-        file_path = os.path.join(UPLOAD_DIR, file.filename)
+        file_path = os.path.join(UPLOAD_DIR, safe_name)
         with open(file_path, "wb") as buffer:
             buffer.write(raw)
         uploaded_files.append({
-            "filename": file.filename,
-            "path": file_path
+            "filename": safe_name,
         })
     msg = f"上传完成（新增可登录账号 {imported_users} 个）"
     total_skipped_logins = sorted(
@@ -417,6 +459,11 @@ async def upload_files(
     unknown_users = sorted(set(skipped_unknown_business_users))
     if unknown_users:
         msg += f"；以下用户名未找到对应账号，业务明细未入库：{', '.join(unknown_users)}"
+    if missing_username_column_files:
+        msg += (
+            "；以下文件缺少“用户名”列，且当前为管理员上传，"
+            f"为避免归属错误未导入业务明细：{', '.join(sorted(set(missing_username_column_files)))}"
+        )
     if imported_users == 0 and not total_skipped_logins and not total_skipped_emails:
         msg = "上传完成（仅业务资料，未导入账号）"
     if skipped_import_files:
@@ -444,7 +491,8 @@ def download_file(
     db: Session = Depends(get_db),
 ):
     """下载文件"""
-    file_path = os.path.join(UPLOAD_DIR, filename)
+    safe_name = _safe_client_filename(filename)
+    file_path = os.path.join(UPLOAD_DIR, safe_name)
     if not os.path.exists(file_path):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -452,8 +500,7 @@ def download_file(
         )
     return {
         "message": "文件存在",
-        "file_path": file_path,
-        "filename": filename,
+        "filename": safe_name,
     }
 
 

@@ -182,11 +182,17 @@ export const fileAPI = {
   uploadFiles: (files: FormData) => {
     return unwrap<{
       message: string
-      uploaded_files: Array<{ filename: string; path: string }>
+      uploaded_files: Array<{ filename: string; path?: string }>
       imported_users: number
+      imported_business_records?: number
       skipped_import_files?: string[]
       created_usernames?: string[]
-      file_import_reports?: Array<{ filename: string; imported_users: number; created_usernames: string[] }>
+      file_import_reports?: Array<{
+        filename: string
+        imported_users: number
+        imported_business_records?: number
+        created_usernames: string[]
+      }>
     }>(
       api.post('/files/upload', files, {
         headers: {

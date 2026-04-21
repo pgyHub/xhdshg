@@ -27,6 +27,11 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "your-secret-key-here"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    # 生产示例：CORS_ORIGINS=https://你的域名.com,https://www.你的域名.com
+    # 为 * 或未配置时：允许任意来源但不携带 Cookie 凭证（与浏览器规范一致）
+    CORS_ORIGINS: str = "*"
+    # 单次上传单文件最大体积（字节），防止恶意大包占满内存
+    MAX_UPLOAD_BYTES: int = 10 * 1024 * 1024
 
     # 应用配置
     APP_NAME: str = "小红点生活馆"

@@ -22,7 +22,6 @@ function isSuperAdminUsername(username: string): boolean {
 }
 
 /** 业务 CSV 模板：文件名用简短拼音，下载后从文件名即可辨认板块（与全站业态顺序一致） */
-const MEMBER_CSV_COMBINED = 'yewu-tongyong-muban.csv'
 const MEMBER_CSV_TEMPLATES = [
   { label: '美发', file: 'meifa.csv' },
   { label: '彩妆', file: 'caizhuang.csv' },
@@ -42,8 +41,9 @@ const MemberBackend: React.FC = () => {
   const [uploadResult, setUploadResult] = useState('')
   const [uploadReport, setUploadReport] = useState<{
     importedUsers: number
+    importedBusinessRecords: number
     createdUsernames: string[]
-    fileReports: Array<{ filename: string; imported_users: number }>
+    fileReports: Array<{ filename: string; imported_users: number; imported_business_records: number }>
   } | null>(null)
   const [files, setFiles] = useState<Array<{ filename: string; size: number }>>([])
   const [uploading, setUploading] = useState(false)
@@ -153,8 +153,13 @@ const MemberBackend: React.FC = () => {
       setUploadResult(res.message || '上传完成')
       setUploadReport({
         importedUsers: res.imported_users || 0,
+        importedBusinessRecords: res.imported_business_records || 0,
         createdUsernames: res.created_usernames || [],
-        fileReports: (res.file_import_reports || []).map((x) => ({ filename: x.filename, imported_users: x.imported_users }))
+        fileReports: (res.file_import_reports || []).map((x) => ({
+          filename: x.filename,
+          imported_users: x.imported_users,
+          imported_business_records: x.imported_business_records || 0
+        }))
       })
       if (userInfo && isSuperAdminUsername(userInfo.username)) {
         setKw('')
@@ -303,20 +308,20 @@ const MemberBackend: React.FC = () => {
       {uploadReport && (
         <section className="member-console-card member-console-upload-report">
           <h3>导入结果明细</h3>
-          <p className="member-console-muted">本次新增可登录账号：{uploadReport.importedUsers} 个</p>
+          <p className="member-console-muted">本次新增业务明细：{uploadReport.importedBusinessRecords} 条</p>
           {uploadReport.fileReports.length > 0 && (
             <table className="member-console-table">
               <thead>
                 <tr>
                   <th>文件名</th>
-                  <th>新增账号数</th>
+                  <th>新增业务明细</th>
                 </tr>
               </thead>
               <tbody>
                 {uploadReport.fileReports.map((x) => (
                   <tr key={x.filename}>
                     <td>{x.filename}</td>
-                    <td>{x.imported_users}</td>
+                    <td>{x.imported_business_records}</td>
                   </tr>
                 ))}
               </tbody>
@@ -393,17 +398,6 @@ const MemberBackend: React.FC = () => {
                 上传 CSV 用于登记业务订单：明细默认归属当前登录会员，无需填写用户名；多行可表示同一客户在不同预约时段的订单。
               </p>
               <div className="member-console-upload-toolbar">
-                <p className="member-console-muted member-console-upload-template">
-                  模板下载（多行业汇总表，文件名 {MEMBER_CSV_COMBINED}）：
-                  <a
-                    className="member-console-link"
-                    href={`/templates/${MEMBER_CSV_COMBINED}`}
-                    download={MEMBER_CSV_COMBINED}
-                    title="一行一类业务，可混合多模块"
-                  >
-                    点击此处
-                  </a>
-                </p>
                 <p className="member-console-muted member-console-upload-template-list">
                   分业态详细模板（下载文件名即业务标识）：
                   {MEMBER_CSV_TEMPLATES.map((t, i) => (
@@ -481,17 +475,6 @@ const MemberBackend: React.FC = () => {
               上传 CSV 登记业务订单：默认归属当前登录账号。若文件中仍含「用户名」列，则按该列关联已有会员账号。
             </p>
             <div className="member-console-upload-toolbar">
-              <p className="member-console-muted member-console-upload-template">
-                模板下载（多行业汇总表，文件名 {MEMBER_CSV_COMBINED}）：
-                <a
-                  className="member-console-link"
-                  href={`/templates/${MEMBER_CSV_COMBINED}`}
-                  download={MEMBER_CSV_COMBINED}
-                  title="一行一类业务，可混合多模块"
-                >
-                  点击此处
-                </a>
-              </p>
               <p className="member-console-muted member-console-upload-template-list">
                 分业态详细模板（下载文件名即业务标识）：
                 {MEMBER_CSV_TEMPLATES.map((t, i) => (

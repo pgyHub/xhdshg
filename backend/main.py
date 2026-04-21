@@ -90,11 +90,19 @@ app = FastAPI(
     },
 )
 
-# 配置CORS
+# CORS：生产请在环境变量 CORS_ORIGINS 中配置逗号分隔的前端域名
+_cors_raw = (settings.CORS_ORIGINS or "").strip()
+if _cors_raw == "*" or _cors_raw == "":
+    _cors_origins = ["*"]
+    _cors_credentials = False
+else:
+    _cors_origins = [o.strip() for o in _cors_raw.split(",") if o.strip()]
+    _cors_credentials = True
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 在生产环境中应该设置具体的前端域名
-    allow_credentials=True,
+    allow_origins=_cors_origins,
+    allow_credentials=_cors_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
