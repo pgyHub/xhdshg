@@ -1989,6 +1989,74 @@
   cursor: not-allowed;
 }
 
+.auth-third-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.auth-third-login-title {
+  text-align: center;
+  font-size: 13px;
+  color: #64748b;
+  position: relative;
+}
+
+.auth-third-login-title::before,
+.auth-third-login-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 34%;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.auth-third-login-title::before {
+  left: 0;
+}
+
+.auth-third-login-title::after {
+  right: 0;
+}
+
+.auth-third-login-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.auth-third-login-btn {
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.auth-third-login-btn:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.auth-third-login-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.auth-third-login p {
+  margin: 0;
+  text-align: center;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
 .auth-split-footlink {
   text-align: center;
   margin-top: 8px;

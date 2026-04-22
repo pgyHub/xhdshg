@@ -55,6 +55,28 @@ const Home = () => {
   const [modalLoading, setModalLoading] = useState(false)
   const [agreedTerms, setAgreedTerms] = useState(false)
 
+  const oauthEntryMap: Record<'wechat' | 'alipay' | 'douyin', string | undefined> = {
+    wechat: import.meta.env.VITE_OAUTH_WECHAT_URL,
+    alipay: import.meta.env.VITE_OAUTH_ALIPAY_URL,
+    douyin: import.meta.env.VITE_OAUTH_DOUYIN_URL
+  }
+
+  const handleThirdPartyLogin = (provider: 'wechat' | 'alipay' | 'douyin') => {
+    setModalError('')
+    setModalSuccess('')
+    const oauthUrl = oauthEntryMap[provider]
+    if (oauthUrl && /^https?:\/\/|^\//i.test(oauthUrl)) {
+      window.location.href = oauthUrl
+      return
+    }
+    const providerNameMap = {
+      wechat: '微信',
+      alipay: '支付宝',
+      douyin: '抖音'
+    } as const
+    setModalSuccess(`${providerNameMap[provider]}登录正在接入中，请先使用账号密码登录。`)
+  }
+
   const handleModalSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setModalError('')
@@ -332,6 +354,39 @@ const Home = () => {
                 <button type="submit" className="auth-split-submit" disabled={modalLoading}>
                   {modalLoading ? '处理中...' : authMode === 'login' ? '登录' : '注册'}
                 </button>
+
+                {authMode === 'login' && (
+                  <div className="auth-third-login">
+                    <div className="auth-third-login-title">其他方式登录</div>
+                    <div className="auth-third-login-actions">
+                      <button
+                        type="button"
+                        className="auth-third-login-btn"
+                        aria-label="微信登录"
+                        onClick={() => handleThirdPartyLogin('wechat')}
+                      >
+                        <PublicImg src="/images/contact/icon-wechat.png" alt="微信登录" loading="lazy" />
+                      </button>
+                      <button
+                        type="button"
+                        className="auth-third-login-btn"
+                        aria-label="支付宝登录"
+                        onClick={() => handleThirdPartyLogin('alipay')}
+                      >
+                        <PublicImg src="/images/contact/icon-alipay.png" alt="支付宝登录" loading="lazy" />
+                      </button>
+                      <button
+                        type="button"
+                        className="auth-third-login-btn"
+                        aria-label="抖音登录"
+                        onClick={() => handleThirdPartyLogin('douyin')}
+                      >
+                        <PublicImg src="/images/contact/icon-douyin.png" alt="抖音登录" loading="lazy" />
+                      </button>
+                    </div>
+                    <p>首次登录将自动创建账号并同意《用户协议》</p>
+                  </div>
+                )}
 
                 <div className="auth-split-footlink">
                   <Link to="/login" onClick={() => setShowLoginModal(false)}>
