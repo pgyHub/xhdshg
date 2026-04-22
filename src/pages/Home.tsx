@@ -1,42 +1,44 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { authAPI, getApiErrorMessage, userAPI } from '../services/api'
+import { PublicImg } from '../components/PublicImg'
+import { homePageCardImages } from '../data/stockRealPhotos'
 
 const CORE_BUSINESS_ITEMS = [
   {
     title: '时尚美发',
     desc: '定制潮流发型，打造个人专属造型与气质表达。',
-    image: '/images/hair/hair-salon-longhair-11.png'
+    image: homePageCardImages.hair
   },
   {
     title: '精致彩妆',
     desc: '覆盖日常妆、舞台妆、婚礼跟妆等多场景妆造服务。',
-    image: '/images/makeup/mk-halter-redlip-05.png'
+    image: homePageCardImages.makeup
   },
   {
     title: '婚纱摄影',
     desc: '婚纱写真、情侣旅拍与纪念摄影，记录人生高光时刻。',
-    image: '/images/wedding/wed-city-romance-01.png'
+    image: homePageCardImages.wedding
   },
   {
     title: '高端服装定制',
     desc: '私人成衣与礼服量身定制，兼顾审美、版型与穿着舒适度。',
-    image: '/images/hair/hair-editorial-bob-01.png'
+    image: homePageCardImages.fashion
   },
   {
     title: '全屋定制',
     desc: '家装设计、柜体定制与整体软装搭配，提升空间品质感。',
-    image: '/images/illustrations/home-living.svg'
+    image: homePageCardImages.home
   },
   {
     title: '特色中餐馆',
     desc: '家常风味与特色宴席并重，满足家庭聚餐与商务社交需求。',
-    image: '/images/restaurant/dish-13-jitang-hero.png'
+    image: homePageCardImages.restaurant
   },
   {
     title: '短视频制作',
     desc: '短视频策划、拍摄、剪辑、文案与运营，助力品牌传播增长。',
-    image: '/images/illustrations/video-edit.svg'
+    image: homePageCardImages.video
   }
 ] as const
 
@@ -182,7 +184,7 @@ const Home = () => {
           {CORE_BUSINESS_ITEMS.map((item) => (
             <article key={item.title} className="brand-business-card">
               <div className="brand-business-image-wrap">
-                <img src={item.image} alt={item.title} className="brand-business-image" loading="lazy" />
+                <PublicImg src={item.image} alt={item.title} className="brand-business-image" loading="lazy" />
               </div>
               <div className="brand-business-copy">
                 <h4>{item.title}</h4>

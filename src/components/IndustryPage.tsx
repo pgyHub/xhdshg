@@ -3,6 +3,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BUSINESS_MODULES } from '../data/businessNav'
 import { serviceAPI } from '../services/api'
+import { PublicImg } from './PublicImg'
+import { publicAsset } from '../utils/publicAsset'
 
 type ServiceItem = {
   id: number
@@ -181,12 +183,12 @@ const IndustryPage = ({
               <div className="industry-hero-backdrop" aria-hidden="true">
                 {backdropSources.map((src, i) => (
                   <video
-                    key={src}
+                    key={`${src}-${i}`}
                     ref={(el) => {
                       backdropVideoRefs.current[i] = el
                     }}
                     className={i === backdropIndex ? 'is-active' : ''}
-                    src={src}
+                    src={publicAsset(src)}
                     muted
                     playsInline
                     loop
@@ -245,7 +247,7 @@ const IndustryPage = ({
                     >
                       {isHeroVideo(item) ? (
                         <video
-                          src={item.src}
+                          src={publicAsset(item.src)}
                           controls
                           playsInline
                           muted
@@ -255,7 +257,7 @@ const IndustryPage = ({
                           aria-label={item.alt}
                         />
                       ) : (
-                        <img src={item.src} alt={item.alt} loading="lazy" style={imageStyle(item.imagePosition)} />
+                        <PublicImg src={item.src} alt={item.alt} loading="lazy" style={imageStyle(item.imagePosition)} />
                       )}
                     </div>
                   ))}
@@ -280,9 +282,9 @@ const IndustryPage = ({
             <span>{venueSectionSubtitle ?? '真实场景示意，增强信任感与代入感'}</span>
           </div>
           <div className="venue-gallery">
-            {venueGallery.map((v) => (
-              <figure className="venue-gallery-item" key={v.src}>
-                <img src={v.src} alt={v.caption} loading="lazy" style={imageStyle(v.imagePosition)} />
+            {venueGallery.map((v, vi) => (
+              <figure className="venue-gallery-item" key={`venue-${vi}-${v.caption}`}>
+                <PublicImg src={v.src} alt={v.caption} loading="lazy" style={imageStyle(v.imagePosition)} />
                 <figcaption>{v.caption}</figcaption>
               </figure>
             ))}
@@ -329,7 +331,7 @@ const IndustryPage = ({
             <article key={service.name} className={`showcase-card${service.image ? ' showcase-card-with-image' : ''}`}>
               {service.image && (
                 <div className="showcase-card-thumb">
-                  <img src={service.image} alt="" loading="lazy" style={imageStyle(service.imagePosition)} />
+                  <PublicImg src={service.image} alt="" loading="lazy" style={imageStyle(service.imagePosition)} />
                 </div>
               )}
               <span className="showcase-tag">推荐</span>
@@ -431,7 +433,7 @@ const IndustryPage = ({
               <article className={`feature-card${item.image ? ' feature-card-with-image' : ''}`} key={item.title}>
                 {item.image && (
                   <div className="feature-card-thumb">
-                    <img src={item.image} alt="" loading="lazy" style={imageStyle(item.imagePosition)} />
+                    <PublicImg src={item.image} alt="" loading="lazy" style={imageStyle(item.imagePosition)} />
                   </div>
                 )}
                 <h4>{item.title}</h4>
@@ -496,7 +498,7 @@ const IndustryPage = ({
             <article className={`showcase-card${item.image ? ' showcase-card-with-image' : ''}`} key={item.title}>
               {item.image && (
                 <div className="showcase-card-thumb">
-                  <img src={item.image} alt="" loading="lazy" style={imageStyle(item.imagePosition)} />
+                  <PublicImg src={item.image} alt="" loading="lazy" style={imageStyle(item.imagePosition)} />
                 </div>
               )}
               <span className="showcase-tag">{item.tag}</span>

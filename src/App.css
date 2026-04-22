@@ -812,6 +812,70 @@
   margin-top: 4px;
 }
 
+/* 美发页多为竖版人像，单独放宽裁切高度并上移取景 */
+.site-style-hair .hero-visual-photo img {
+  max-height: 320px;
+}
+
+.site-style-hair .venue-gallery-item img {
+  height: 220px;
+}
+
+.site-style-hair .showcase-card-thumb img,
+.site-style-hair .feature-card-thumb img {
+  height: 200px;
+}
+
+/* 彩妆页以竖版妆面图为主，单独提升展示高度 */
+.site-style-beauty .hero-visual-photo img {
+  max-height: 300px;
+}
+
+.site-style-beauty .venue-gallery-item img {
+  height: 210px;
+}
+
+.site-style-beauty .showcase-card-thumb img,
+.site-style-beauty .feature-card-thumb img {
+  height: 190px;
+}
+
+/* 服装定制门店图以空间与整套成衣为主，略增高度减少裁切 */
+.site-style-fashion .showcase-card-thumb img,
+.site-style-fashion .feature-card-thumb img {
+  height: 210px;
+}
+
+/* 全屋定制以空间整体画面为主，增加图高并微调取景 */
+.site-style-home .hero-visual-photo img {
+  max-height: 340px;
+}
+
+.site-style-home .venue-gallery-item img {
+  height: 220px;
+}
+
+.site-style-home .showcase-card-thumb img,
+.site-style-home .feature-card-thumb img {
+  height: 210px;
+}
+
+.ff-hero-media img {
+  object-position: center 42%;
+}
+
+.ff-category-img img {
+  object-position: center 38%;
+}
+
+.ff-dual-card img {
+  object-position: center 40%;
+}
+
+.ff-pick-img img {
+  object-position: center 36%;
+}
+
 .promo-strip {
   border: 1px solid #dbeafe;
   background: #eff6ff;

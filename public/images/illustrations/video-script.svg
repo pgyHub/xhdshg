@@ -5,5 +5,5 @@
   <rect x="740" y="190" width="300" height="70" rx="10" fill="#93c5fd"/>
   <rect x="740" y="290" width="300" height="70" rx="10" fill="#93c5fd"/>
   <rect x="740" y="390" width="300" height="70" rx="10" fill="#93c5fd"/>
-  <text x="600" y="580" fill="#1d4ed8" font-size="52" text-anchor="middle" font-family="Microsoft YaHei, Arial">,V\ӄ</text>
+  <text x="600" y="580" fill="#1d4ed8" font-size="44" text-anchor="middle" font-family="system-ui,Segoe UI,sans-serif">Script outline</text>
 </svg>

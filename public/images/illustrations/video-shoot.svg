@@ -4,5 +4,5 @@
   <rect x="160" y="320" width="220" height="180" rx="16" fill="#a78bfa"/>
   <rect x="460" y="170" width="620" height="380" rx="20" fill="#ffffff" stroke="#c4b5fd"/>
   <rect x="520" y="240" width="420" height="240" rx="14" fill="#ddd6fe"/>
-  <text x="600" y="610" fill="#5b21b6" font-size="52" text-anchor="middle" font-family="Microsoft YaHei, Arial">°:ÍD P¡</text>
+  <text x="600" y="610" fill="#5b21b6" font-size="44" text-anchor="middle" font-family="system-ui,Segoe UI,sans-serif">On set</text>
 </svg>

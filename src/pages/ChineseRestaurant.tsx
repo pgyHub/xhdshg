@@ -15,19 +15,23 @@ const 中餐馆 = () => (
     heroMedia={{
       src: restaurantImage('shaGuoJiTangHero'),
       alt: '砂锅鸡汤 — 金黄汤底现舀，热气腾腾（主视觉）',
+      imagePosition: 'center 40%',
     }}
     venueGallery={[
       {
         src: restaurantImage('diningHall'),
         caption: '明亮整洁的就餐大厅 · 适合家庭与简餐',
+        imagePosition: 'center 34%',
       },
       {
         src: restaurantImage('diningQr'),
         caption: '桌边扫码点餐 · 现代快餐动线',
+        imagePosition: 'center 42%',
       },
       {
         src: restaurantImage('mingDangWide'),
         caption: '明档菜品丰富陈列 · 引导自选与加购',
+        imagePosition: 'center 38%',
       },
     ]}
     highlights={['菜品标准化出品', '门店服务SOP', '线上线下联动营销']}
@@ -41,31 +45,37 @@ const 中餐馆 = () => (
         title: '门店主打菜品区',
         desc: '用「汤锅+硬菜」组合体现客单价与记忆点。',
         image: restaurantImage('shaGuoSoupClose'),
+        imagePosition: 'center 44%',
       },
       {
         title: '菜单分类导航',
         desc: '明档自选、小碟计价，贴近中式快餐/食堂模型。',
         image: restaurantImage('mingDangLine'),
+        imagePosition: 'center 40%',
       },
       {
         title: '套餐与宴会方案',
         desc: '商务与节庆适合大菜压桌，提升仪式感。',
         image: restaurantImage('meiCaiKouRou'),
+        imagePosition: 'center 42%',
       },
       {
         title: '新鲜食材展示',
         desc: '强调时蔬与供应链可视化，建立信任。',
         image: restaurantImage('storeFreshAndKitchen'),
+        imagePosition: 'center 36%',
       },
       {
         title: '评价与口碑模块',
         desc: '经典冷荤与粤式白切，适合作为口碑推荐位。',
         image: restaurantImage('baiQieJi'),
+        imagePosition: 'center 50%',
       },
       {
         title: '到店与外卖入口',
         desc: '档口丰富度展示，引导堂食与外带转化。',
         image: restaurantImage('mingDangWide'),
+        imagePosition: 'center 38%',
       },
     ]}
     marketStats={[
@@ -85,18 +95,21 @@ const 中餐馆 = () => (
         price: 168,
         description: '酸菜鱼+时蔬+米饭饮品组合，适合两人小聚。',
         image: restaurantImage('suanCaiYu'),
+        imagePosition: 'center 46%',
       },
       {
         name: '商务宴请包间',
         price: 1988,
         description: '梅菜扣肉等硬菜压桌，适合宴请与团餐场景。',
         image: restaurantImage('meiCaiKouRou'),
+        imagePosition: 'center 42%',
       },
       {
         name: '家庭欢聚套餐',
         price: 568,
         description: '家常菜组合，老少皆宜，提升家庭桌均。',
         image: restaurantImage('xiHongShiChaoJiDan'),
+        imagePosition: 'center 48%',
       },
     ]}
     showcaseItems={[
@@ -105,18 +118,21 @@ const 中餐馆 = () => (
         tag: '菜品策略',
         summary: '三杯鸡等招牌菜统一实拍风格，强化识别与转化。',
         image: restaurantImage('sanbeiji'),
+        imagePosition: 'center 44%',
       },
       {
         title: '周末家庭套餐',
         tag: '场景营销',
         summary: '西红柿炒蛋等家常菜带动周末家庭客流。',
         image: restaurantImage('xiHongShiChaoJiDan'),
+        imagePosition: 'center 48%',
       },
       {
         title: '门店口碑运营',
         tag: '会员复购',
         summary: '白切鸡等经典味型承载口碑与复购。',
         image: restaurantImage('baiQieJi'),
+        imagePosition: 'center 50%',
       },
     ]}
     capabilityMatrix={[

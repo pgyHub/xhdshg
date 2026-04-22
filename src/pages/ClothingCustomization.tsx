@@ -3,7 +3,7 @@ import FashionFlagshipHero from '../components/FashionFlagshipHero'
 import { fashionFlagship, fashionIndustryMedia } from '../data/fashionFlagshipImages'
 
 /**
- * 服装定制：顶部为「旗舰店式」首页（结构参考优衣库类电商，配图用 Unsplash 合法素材）。
+ * 服装定制：顶部为「旗舰店式」首页（结构参考优衣库类电商；配图为外链真实摄影示意）。
  * 下方保留 IndustryPage 业务模块；skipDefaultHero 避免双 Hero。
  */
 const 服装定制 = () => (
@@ -25,31 +25,37 @@ const 服装定制 = () => (
           title: '新品与主题系列区',
           desc: '采用电商首页结构展示「春夏新品、联名系列、基础款」模块。',
           image: fashionIndustryMedia.layoutNewTheme,
+          imagePosition: 'center 30%',
         },
         {
           title: '男女童分类入口',
           desc: '按男装、女装、童装、配件快速跳转，当前为示例分类。',
           image: fashionIndustryMedia.layoutCategoryMosaic,
+          imagePosition: 'center 36%',
         },
         {
           title: '尺码与版型助手',
           desc: '预留在线尺码建议和版型推荐组件，后续可接入算法。',
           image: fashionIndustryMedia.layoutSizingAssistant,
+          imagePosition: 'center 34%',
         },
         {
           title: '材质与功能标签',
           desc: '展示「速干、抗皱、保暖」等标签，辅助用户快速筛选。',
           image: fashionIndustryMedia.layoutMaterialTags,
+          imagePosition: 'center 42%',
         },
         {
           title: '定制套装推荐',
           desc: '以场景穿搭为核心提供虚拟套装组合和价格示例。',
           image: fashionIndustryMedia.layoutBundleRecommend,
+          imagePosition: 'center 38%',
         },
         {
           title: '会员权益与售后',
           desc: '预留积分、改衣服务、退换规则等信息模块。',
           image: fashionIndustryMedia.layoutMemberCare,
+          imagePosition: 'center 44%',
         },
       ]}
       marketStats={[
@@ -69,18 +75,21 @@ const 服装定制 = () => (
           price: 399,
           description: '支持领型、袖长、版型微调，7-10天交付。',
           image: fashionIndustryMedia.mockShirt,
+          imagePosition: 'center 34%',
         },
         {
           name: '高端西服全定制',
           price: 2680,
           description: '量体建档 + 面料挑选 + 两次试衣修改。',
           image: fashionIndustryMedia.mockSuit,
+          imagePosition: 'center 40%',
         },
         {
           name: '企业团体工装方案',
           price: 699,
           description: '按人数分级报价，支持logo刺绣与统一风格管理。',
           image: fashionIndustryMedia.mockEnterprise,
+          imagePosition: 'center 36%',
         },
       ]}
       showcaseItems={[
@@ -89,18 +98,21 @@ const 服装定制 = () => (
           tag: '日常通勤',
           summary: '简洁版型与易打理面料结合，适合高频穿着场景。',
           image: fashionIndustryMedia.showcaseCommute,
+          imagePosition: 'center 34%',
         },
         {
           title: '高定礼仪套装',
           tag: '商务活动',
           summary: '强化正式场合质感表达，兼顾舒适与挺阔。',
           image: fashionIndustryMedia.showcaseFormal,
+          imagePosition: 'center 42%',
         },
         {
           title: '品牌团体工装',
           tag: '企业定制',
           summary: '统一品牌视觉与岗位差异，提升团队形象一致性。',
           image: fashionIndustryMedia.showcaseTeam,
+          imagePosition: 'center 32%',
         },
       ]}
       capabilityMatrix={[

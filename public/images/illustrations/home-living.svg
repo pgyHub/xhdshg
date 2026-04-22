@@ -4,5 +4,5 @@
   <rect x="170" y="290" width="460" height="190" rx="18" fill="#e2e8f0"/>
   <rect x="710" y="250" width="300" height="240" rx="18" fill="#dbeafe"/>
   <circle cx="960" cy="300" r="32" fill="#93c5fd"/>
-  <text x="600" y="180" fill="#1e3a8a" font-size="54" text-anchor="middle" font-family="Microsoft YaHei, Arial">¢…l:zô¨¿</text>
+  <text x="600" y="180" fill="#1e3a8a" font-size="44" text-anchor="middle" font-family="system-ui,Segoe UI,sans-serif">Living room</text>
 </svg>
