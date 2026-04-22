@@ -1,5 +1,7 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BUSINESS_MODULES } from '../data/businessNav'
+import { PublicImg } from './PublicImg'
 
 const businessPaths: Record<string, string> = {}
 BUSINESS_MODULES.forEach((m) => {
@@ -59,6 +61,27 @@ const footerColumns = [
 ]
 
 const BusinessFooter = () => {
+  const [qrOpen, setQrOpen] = useState(false)
+  const qrWrapRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      if (!qrWrapRef.current) return
+      if (!qrWrapRef.current.contains(e.target as Node)) {
+        setQrOpen(false)
+      }
+    }
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setQrOpen(false)
+    }
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('keydown', onEsc)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('keydown', onEsc)
+    }
+  }, [])
+
   return (
     <footer className="business-footer">
       <div className="business-footer-top">
@@ -82,9 +105,27 @@ const BusinessFooter = () => {
         <h4>关注小红点生活馆</h4>
         <p>获取业务活动、运营资讯与服务升级通知</p>
         <div className="business-footer-follow-inner">
-          <div className="business-footer-qrs">
-            <div>公众号</div>
-            <div>服务号</div>
+          <div className="business-footer-socials">
+            <div ref={qrWrapRef} className={`business-footer-social-wrap${qrOpen ? ' is-open' : ''}`}>
+              <button
+                type="button"
+                className="business-footer-social"
+                aria-label="公众号"
+                onClick={() => setQrOpen((v) => !v)}
+              >
+                <PublicImg src="/images/contact/icon-wechat.png" alt="公众号图标" loading="lazy" />
+              </button>
+              <div className="business-footer-qr-pop">
+                <PublicImg src="/images/contact/wechat-official-qr.png" alt="小红点生活馆公众号二维码" loading="lazy" />
+                <span>公众号</span>
+              </div>
+            </div>
+            <button type="button" className="business-footer-social" aria-label="QQ">
+              <PublicImg src="/images/contact/icon-qq.png" alt="QQ图标" loading="lazy" />
+            </button>
+            <button type="button" className="business-footer-social" aria-label="抖音">
+              <PublicImg src="/images/contact/icon-douyin.png" alt="抖音图标" loading="lazy" />
+            </button>
           </div>
           <span>咨询热线：400-801-3260</span>
         </div>
