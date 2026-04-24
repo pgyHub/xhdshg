@@ -118,6 +118,22 @@ const IndustryPage = ({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [openFaqIndex, setOpenFaqIndex] = useState(0)
+  const safeHighlights = Array.isArray(highlights) ? highlights : []
+  const safeWorkflow = Array.isArray(workflow) ? workflow : []
+  const safeScenarios = Array.isArray(scenarios) ? scenarios : []
+  const safeMarketStats = Array.isArray(marketStats) ? marketStats : []
+  const safeSampleCases = Array.isArray(sampleCases) ? sampleCases : []
+  const safeMockServices = Array.isArray(mockServices) ? mockServices : []
+  const safeShowcaseItems = Array.isArray(showcaseItems) ? showcaseItems : []
+  const safeCapabilityMatrix = Array.isArray(capabilityMatrix) ? capabilityMatrix : []
+  const safeInsights = Array.isArray(insights) ? insights : []
+  const safeFaqs = Array.isArray(faqs) ? faqs : []
+  const safeQuickActions = Array.isArray(quickActions) ? quickActions : []
+  const safeProductSystems = Array.isArray(productSystems) ? productSystems : []
+  const safeSceneCases = Array.isArray(sceneCases) ? sceneCases : []
+  const safeReferenceSites = Array.isArray(referenceSites) ? referenceSites : []
+  const safeLayoutModules = Array.isArray(layoutModules) ? layoutModules : []
+  const displayServices = services.length > 0 ? services : safeMockServices
   const styleTitleMap = {
     beauty: '品牌电商首页结构',
     hair: '门店服务门户结构',
@@ -149,7 +165,9 @@ const IndustryPage = ({
       : [heroMedia]
     : []
 
-  const backdropSources = heroBackdropVideos?.sources?.filter(Boolean) ?? []
+  const backdropSources = Array.isArray(heroBackdropVideos?.sources)
+    ? heroBackdropVideos.sources.filter(Boolean)
+    : []
   const useBackdrop = backdropSources.length > 0
   const dwellMs = heroBackdropVideos?.dwellMs ?? 14000
   const crossfadeMs = heroBackdropVideos?.crossfadeMs ?? 900
@@ -237,7 +255,7 @@ const IndustryPage = ({
             <div className={`hero-side-card${useBackdrop ? ' hero-side-card--on-video' : ''}`}>
               <h4>热门场景</h4>
               <ul>
-                {scenarios.map((item) => (
+                {safeScenarios.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -306,7 +324,7 @@ const IndustryPage = ({
             <span>{venueSectionSubtitle ?? '真实场景示意，增强信任感与代入感'}</span>
           </div>
           <div className="venue-gallery">
-            {venueGallery.map((v, vi) => (
+            {(Array.isArray(venueGallery) ? venueGallery : []).map((v, vi) => (
               <figure className="venue-gallery-item" key={`venue-${vi}-${v.caption}`}>
                 <PublicImg src={v.src} alt={v.caption} loading="lazy" style={imageStyle(v.imagePosition)} />
                 <figcaption>{v.caption}</figcaption>
@@ -327,7 +345,9 @@ const IndustryPage = ({
           <span>按你提供的参考网站提炼页面骨架</span>
         </div>
         <div className="style-layout-bar">
-          {(styleSections && styleSections.length > 0 ? styleSections : ['主视觉', '分类导航', '核心推荐', '转化入口']).map((item) => (
+          {(Array.isArray(styleSections) && styleSections.length > 0
+            ? styleSections
+            : ['主视觉', '分类导航', '核心推荐', '转化入口']).map((item) => (
             <span key={item}>{item}</span>
           ))}
         </div>
@@ -339,7 +359,7 @@ const IndustryPage = ({
           <span>按业务常见服务分类快速浏览</span>
         </div>
         <div className="quick-action-row">
-          {highlights.map((item) => (
+          {safeHighlights.map((item) => (
             <button key={item} className="button quick-action-button">{item}</button>
           ))}
         </div>
@@ -351,7 +371,7 @@ const IndustryPage = ({
           <span>虚拟示例，可替换成真实套餐与图文</span>
         </div>
         <div className="cards-grid cards-grid-3">
-          {mockServices.slice(0, 3).map((service) => (
+          {safeMockServices.slice(0, 3).map((service) => (
             <article key={service.name} className={`showcase-card${service.image ? ' showcase-card-with-image' : ''}`}>
               {service.image && (
                 <div className="showcase-card-thumb">
@@ -378,32 +398,32 @@ const IndustryPage = ({
         </div>
       </section>
 
-      {quickActions && quickActions.length > 0 && (
+      {safeQuickActions.length > 0 && (
         <section className="section">
             <div className="section-title-row">
               <h3>快捷服务</h3>
               <span>参考头部全屋定制站点服务入口</span>
             </div>
             <div className="quick-action-row">
-              {quickActions.map((action) => (
+              {safeQuickActions.map((action) => (
                 <button key={action} className="button quick-action-button">{action}</button>
               ))}
             </div>
         </section>
       )}
 
-      {productSystems && productSystems.length > 0 && (
+      {safeProductSystems.length > 0 && (
         <section className="section">
           <div className="section-title-row">
             <h3>产品体系</h3>
             <span>全屋成品 + 全屋定制 + 细分系统</span>
           </div>
           <div className="cards-grid cards-grid-3">
-            {productSystems.map((group) => (
+            {safeProductSystems.map((group) => (
               <article className="feature-card" key={group.title}>
                 <h4>{group.title}</h4>
                 <ul className="plain-list">
-                  {group.items.map((item) => (
+                  {(Array.isArray(group.items) ? group.items : []).map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
@@ -413,14 +433,14 @@ const IndustryPage = ({
         </section>
       )}
 
-      {sceneCases && sceneCases.length > 0 && (
+      {safeSceneCases.length > 0 && (
         <section className="section">
           <div className="section-title-row">
             <h3>场景案例</h3>
             <span>住宅 / 公寓 / 商业空间多场景落地</span>
           </div>
           <div className="cards-grid cards-grid-2">
-            {sceneCases.map((item) => (
+            {safeSceneCases.map((item) => (
               <article className="showcase-card" key={item.scene}>
                 <h4>{item.scene}</h4>
                 <p>{item.desc}</p>
@@ -430,14 +450,14 @@ const IndustryPage = ({
         </section>
       )}
 
-      {referenceSites && referenceSites.length > 0 && (
+      {safeReferenceSites.length > 0 && (
         <section className="section">
           <div className="section-title-row">
             <h3>参考站点</h3>
             <span>按指定网站梳理页面结构</span>
           </div>
           <div className="reference-links">
-            {referenceSites.map((site) => (
+            {safeReferenceSites.map((site) => (
               <a key={site.url} href={site.url} target="_blank" rel="noreferrer">
                 {site.name}
               </a>
@@ -446,14 +466,14 @@ const IndustryPage = ({
         </section>
       )}
 
-      {layoutModules && layoutModules.length > 0 && (
+      {safeLayoutModules.length > 0 && (
         <section className="section">
           <div className="section-title-row">
             <h3>布局模块（虚拟示例）</h3>
             <span>后续可替换为真实图片与文案</span>
           </div>
           <div className="cards-grid cards-grid-3">
-            {layoutModules.map((item) => (
+            {safeLayoutModules.map((item) => (
               <article className={`feature-card${item.image ? ' feature-card-with-image' : ''}`} key={item.title}>
                 {item.image && (
                   <div className="feature-card-thumb">
@@ -474,7 +494,7 @@ const IndustryPage = ({
           <span>虚拟样例数据，用于页面展示</span>
         </div>
         <div className="dashboard-kpis">
-          {marketStats.map((stat) => (
+          {safeMarketStats.map((stat) => (
             <article key={stat.label}>
               <h4>{stat.label}</h4>
               <p>{stat.value}</p>
@@ -489,7 +509,7 @@ const IndustryPage = ({
           <span>对标行业主流服务标准</span>
         </div>
         <div className="cards-grid cards-grid-3">
-          {highlights.map((item) => (
+          {safeHighlights.map((item) => (
             <article className="feature-card" key={item}>
               <h4>{item}</h4>
               <p>围绕客户体验、交付效率和品质稳定性持续迭代，打造更可靠的服务交付链路。</p>
@@ -503,7 +523,7 @@ const IndustryPage = ({
           <h3>标准流程</h3>
         </div>
         <div className="workflow-grid">
-          {workflow.map((item, index) => (
+          {safeWorkflow.map((item, index) => (
             <div className="workflow-step" key={item}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <h4>{item}</h4>
@@ -518,7 +538,7 @@ const IndustryPage = ({
           <span>按头部站专题页结构呈现</span>
         </div>
         <div className="cards-grid cards-grid-3">
-          {showcaseItems.map((item) => (
+          {safeShowcaseItems.map((item) => (
             <article className={`showcase-card${item.image ? ' showcase-card-with-image' : ''}`} key={item.title}>
               {item.image && (
                 <div className="showcase-card-thumb">
@@ -539,7 +559,7 @@ const IndustryPage = ({
           <span>转化数据为模拟示例，可持续扩展</span>
         </div>
         <div className="cards-grid cards-grid-3">
-          {sampleCases.map((item) => (
+          {safeSampleCases.map((item) => (
             <article className="feature-card" key={item.title}>
               <h4>{item.title}</h4>
               <p>{item.desc}</p>
@@ -555,7 +575,7 @@ const IndustryPage = ({
           <span>覆盖咨询、执行、交付全链路</span>
         </div>
         <div className="cards-grid cards-grid-2">
-          {capabilityMatrix.map((item) => (
+          {safeCapabilityMatrix.map((item) => (
             <article className="feature-card" key={item.name}>
               <h4>{item.name}</h4>
               <p>{item.detail}</p>
@@ -574,7 +594,7 @@ const IndustryPage = ({
           <div className="status-info">正在加载服务内容...</div>
         ) : (
           <div className="cards-grid cards-grid-2">
-            {(services.length > 0 ? services : mockServices).map((service, index) => (
+            {displayServices.map((service, index) => (
                 <article key={`${service.name}-${index}`} className="service-card">
                   <div className="service-card-head">
                     <h4>{service.name}</h4>
@@ -595,7 +615,7 @@ const IndustryPage = ({
           <span>用于运营策略参考</span>
         </div>
         <div className="cards-grid">
-          {insights.map((item) => (
+          {safeInsights.map((item) => (
             <article className="feature-card" key={item}>
               <p>{item}</p>
             </article>
@@ -608,7 +628,7 @@ const IndustryPage = ({
           <h3>常见问题</h3>
         </div>
         <div className="faq-list">
-          {faqs.map((item, index) => (
+          {safeFaqs.map((item, index) => (
             <article key={item.q} className={`faq-item ${openFaqIndex === index ? 'open' : ''}`}>
               <button
                 type="button"
