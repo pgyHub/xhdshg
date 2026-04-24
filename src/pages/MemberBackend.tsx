@@ -108,11 +108,11 @@ function chunkRows(rows: SizeRow[], size = 6): SizeRow[][] {
 
 function escapeHtml(s: string): string {
   return s
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
 /** 业务 CSV 模板：文件名用简短拼音，下载后从文件名即可辨认板块（与全站业态顺序一致） */

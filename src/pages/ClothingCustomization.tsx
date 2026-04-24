@@ -1,6 +1,6 @@
 import IndustryPage from '../components/IndustryPage'
 import FashionFlagshipHero from '../components/FashionFlagshipHero'
-import { fashionFlagship, fashionIndustryMedia } from '../data/fashionFlagshipImages'
+import { fashionIndustryMedia } from '../data/fashionFlagshipImages'
 
 /**
  * 服装定制：顶部为「旗舰店式」首页（结构参考优衣库类电商；配图为外链真实摄影示意）。
