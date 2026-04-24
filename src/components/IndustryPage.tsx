@@ -14,6 +14,30 @@ type ServiceItem = {
   description: string
 }
 
+/** 避免接口/脏数据导致 price 非法时 toLocaleString 抛错、整页白屏 */
+function formatYuan(value: unknown): string {
+  const n = typeof value === 'number' ? value : Number(value)
+  if (!Number.isFinite(n)) return '—'
+  return n.toLocaleString('zh-CN')
+}
+
+function normalizeServiceRows(raw: unknown): ServiceItem[] {
+  if (!Array.isArray(raw)) return []
+  return raw.map((row, i) => {
+    const r = row as Record<string, unknown>
+    const priceRaw = r.price
+    const price = typeof priceRaw === 'number' ? priceRaw : Number(priceRaw)
+    const idNum = typeof r.id === 'number' ? r.id : Number(r.id)
+    return {
+      id: Number.isFinite(idNum) ? idNum : -(i + 1),
+      name: String(r.name ?? ''),
+      category: String(r.category ?? ''),
+      price: Number.isFinite(price) ? price : 0,
+      description: String(r.description ?? '')
+    }
+  })
+}
+
 export type HeroMediaItem = { src: string; alt: string; kind?: 'image' | 'video'; imagePosition?: string }
 
 const isHeroVideo = (m: HeroMediaItem) =>
@@ -107,7 +131,7 @@ const IndustryPage = ({
     const fetchServices = async () => {
       try {
         const data = await serviceAPI.getServices(category)
-        setServices(data as ServiceItem[])
+        setServices(normalizeServiceRows(data))
       } catch (err) {
         setError('获取服务数据失败，请稍后重试。')
         console.error('获取服务数据失败:', err)
@@ -337,7 +361,7 @@ const IndustryPage = ({
               <span className="showcase-tag">推荐</span>
               <h4>{service.name}</h4>
               <p>{service.description}</p>
-              <span className="case-data">参考价：¥{service.price.toLocaleString()}</span>
+              <span className="case-data">参考价：¥{formatYuan(service.price)}</span>
             </article>
           ))}
         </div>
@@ -554,7 +578,7 @@ const IndustryPage = ({
                 <article key={`${service.name}-${index}`} className="service-card">
                   <div className="service-card-head">
                     <h4>{service.name}</h4>
-                    <strong>¥{service.price.toLocaleString()}</strong>
+                    <strong>¥{formatYuan(service.price)}</strong>
                   </div>
                   <p>{service.description}</p>
                   <Link to="/info/online-consulting" className="button button-primary">咨询方案</Link>
