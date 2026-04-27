@@ -1,0 +1,335 @@
+diff --git a/src/components/IndustryPage.tsx b/src/components/IndustryPage.tsx
+index 0f2336b..b7e8774 100644
+--- a/src/components/IndustryPage.tsx
++++ b/src/components/IndustryPage.tsx
+@@ -94,6 +94,22 @@ const IndustryPage = ({
+   const [loading, setLoading] = useState(true)
+   const [error, setError] = useState('')
+   const [openFaqIndex, setOpenFaqIndex] = useState(0)
++  const safeHighlights = Array.isArray(highlights) ? highlights : []
++  const safeWorkflow = Array.isArray(workflow) ? workflow : []
++  const safeScenarios = Array.isArray(scenarios) ? scenarios : []
++  const safeMarketStats = Array.isArray(marketStats) ? marketStats : []
++  const safeSampleCases = Array.isArray(sampleCases) ? sampleCases : []
++  const safeMockServices = Array.isArray(mockServices) ? mockServices : []
++  const safeShowcaseItems = Array.isArray(showcaseItems) ? showcaseItems : []
++  const safeCapabilityMatrix = Array.isArray(capabilityMatrix) ? capabilityMatrix : []
++  const safeInsights = Array.isArray(insights) ? insights : []
++  const safeFaqs = Array.isArray(faqs) ? faqs : []
++  const safeQuickActions = Array.isArray(quickActions) ? quickActions : []
++  const safeProductSystems = Array.isArray(productSystems) ? productSystems : []
++  const safeSceneCases = Array.isArray(sceneCases) ? sceneCases : []
++  const safeReferenceSites = Array.isArray(referenceSites) ? referenceSites : []
++  const safeLayoutModules = Array.isArray(layoutModules) ? layoutModules : []
++  const displayServices = services.length > 0 ? services : safeMockServices
+   const styleTitleMap = {
+     beauty: '品牌电商首页结构',
+     hair: '门店服务门户结构',
+@@ -125,7 +141,9 @@ const IndustryPage = ({
+       : [heroMedia]
+     : []
+ 
+-  const backdropSources = heroBackdropVideos?.sources?.filter(Boolean) ?? []
++  const backdropSources = Array.isArray(heroBackdropVideos?.sources)
++    ? heroBackdropVideos.sources.filter(Boolean)
++    : []
+   const useBackdrop = backdropSources.length > 0
+   const dwellMs = heroBackdropVideos?.dwellMs ?? 14000
+   const crossfadeMs = heroBackdropVideos?.crossfadeMs ?? 900
+@@ -181,7 +199,7 @@ const IndustryPage = ({
+           {useBackdrop && (
+             <>
+               <div className="industry-hero-backdrop" aria-hidden="true">
+-                {backdropSources.map((src, i) => (
++                {(Array.isArray(backdropSources) ? backdropSources : []).map((src, i) => (
+                   <video
+                     key={`${src}-${i}`}
+                     ref={(el) => {
+@@ -213,13 +231,13 @@ const IndustryPage = ({
+             <div className={`hero-side-card${useBackdrop ? ' hero-side-card--on-video' : ''}`}>
+               <h4>热门场景</h4>
+               <ul>
+-                {scenarios.map((item) => (
++                {safeScenarios.map((item) => (
+                   <li key={item}>{item}</li>
+                 ))}
+               </ul>
+               {useBackdrop && backdropSources.length > 1 && (
+                 <div className="hero-backdrop-indicators" role="group" aria-label="背景样片轮播">
+-                  {backdropSources.map((_, i) => (
++                  {(Array.isArray(backdropSources) ? backdropSources : []).map((_, i) => (
+                     <button
+                       key={i}
+                       type="button"
+@@ -240,7 +258,7 @@ const IndustryPage = ({
+                     heroMediaForCard.some(isHeroVideo) ? ' hero-visual-stack--video' : ''
+                   }`}
+                 >
+-                  {heroMediaForCard.map((item, idx) => (
++                  {(Array.isArray(heroMediaForCard) ? heroMediaForCard : []).map((item, idx) => (
+                     <div
+                       key={`${item.src}-${idx}`}
+                       className={`hero-visual-photo${isHeroVideo(item) ? ' hero-visual-photo--video' : ''}`}
+@@ -282,7 +300,7 @@ const IndustryPage = ({
+             <span>{venueSectionSubtitle ?? '真实场景示意，增强信任感与代入感'}</span>
+           </div>
+           <div className="venue-gallery">
+-            {venueGallery.map((v, vi) => (
++            {(Array.isArray(venueGallery) ? venueGallery : []).map((v, vi) => (
+               <figure className="venue-gallery-item" key={`venue-${vi}-${v.caption}`}>
+                 <PublicImg src={v.src} alt={v.caption} loading="lazy" style={imageStyle(v.imagePosition)} />
+                 <figcaption>{v.caption}</figcaption>
+@@ -303,7 +321,9 @@ const IndustryPage = ({
+           <span>按你提供的参考网站提炼页面骨架</span>
+         </div>
+         <div className="style-layout-bar">
+-          {(styleSections && styleSections.length > 0 ? styleSections : ['主视觉', '分类导航', '核心推荐', '转化入口']).map((item) => (
++          {(Array.isArray(styleSections) && styleSections.length > 0
++            ? styleSections
++            : ['主视觉', '分类导航', '核心推荐', '转化入口']).map((item) => (
+             <span key={item}>{item}</span>
+           ))}
+         </div>
+@@ -315,7 +335,7 @@ const IndustryPage = ({
+           <span>按业务常见服务分类快速浏览</span>
+         </div>
+         <div className="quick-action-row">
+-          {highlights.map((item) => (
++          {safeHighlights.map((item) => (
+             <button key={item} className="button quick-action-button">{item}</button>
+           ))}
+         </div>
+@@ -327,7 +347,7 @@ const IndustryPage = ({
+           <span>虚拟示例，可替换成真实套餐与图文</span>
+         </div>
+         <div className="cards-grid cards-grid-3">
+-          {mockServices.slice(0, 3).map((service) => (
++          {safeMockServices.slice(0, 3).map((service) => (
+             <article key={service.name} className={`showcase-card${service.image ? ' showcase-card-with-image' : ''}`}>
+               {service.image && (
+                 <div className="showcase-card-thumb">
+@@ -354,32 +374,32 @@ const IndustryPage = ({
+         </div>
+       </section>
+ 
+-      {quickActions && quickActions.length > 0 && (
++      {safeQuickActions.length > 0 && (
+         <section className="section">
+             <div className="section-title-row">
+               <h3>快捷服务</h3>
+               <span>参考头部全屋定制站点服务入口</span>
+             </div>
+             <div className="quick-action-row">
+-              {quickActions.map((action) => (
++              {safeQuickActions.map((action) => (
+                 <button key={action} className="button quick-action-button">{action}</button>
+               ))}
+             </div>
+         </section>
+       )}
+ 
+-      {productSystems && productSystems.length > 0 && (
++      {safeProductSystems.length > 0 && (
+         <section className="section">
+           <div className="section-title-row">
+             <h3>产品体系</h3>
+             <span>全屋成品 + 全屋定制 + 细分系统</span>
+           </div>
+           <div className="cards-grid cards-grid-3">
+-            {productSystems.map((group) => (
++            {safeProductSystems.map((group) => (
+               <article className="feature-card" key={group.title}>
+                 <h4>{group.title}</h4>
+                 <ul className="plain-list">
+-                  {group.items.map((item) => (
++                  {(Array.isArray(group.items) ? group.items : []).map((item) => (
+                     <li key={item}>{item}</li>
+                   ))}
+                 </ul>
+@@ -389,14 +409,14 @@ const IndustryPage = ({
+         </section>
+       )}
+ 
+-      {sceneCases && sceneCases.length > 0 && (
++      {safeSceneCases.length > 0 && (
+         <section className="section">
+           <div className="section-title-row">
+             <h3>场景案例</h3>
+             <span>住宅 / 公寓 / 商业空间多场景落地</span>
+           </div>
+           <div className="cards-grid cards-grid-2">
+-            {sceneCases.map((item) => (
++            {safeSceneCases.map((item) => (
+               <article className="showcase-card" key={item.scene}>
+                 <h4>{item.scene}</h4>
+                 <p>{item.desc}</p>
+@@ -406,14 +426,14 @@ const IndustryPage = ({
+         </section>
+       )}
+ 
+-      {referenceSites && referenceSites.length > 0 && (
++      {safeReferenceSites.length > 0 && (
+         <section className="section">
+           <div className="section-title-row">
+             <h3>参考站点</h3>
+             <span>按指定网站梳理页面结构</span>
+           </div>
+           <div className="reference-links">
+-            {referenceSites.map((site) => (
++            {safeReferenceSites.map((site) => (
+               <a key={site.url} href={site.url} target="_blank" rel="noreferrer">
+                 {site.name}
+               </a>
+@@ -422,14 +442,14 @@ const IndustryPage = ({
+         </section>
+       )}
+ 
+-      {layoutModules && layoutModules.length > 0 && (
++      {safeLayoutModules.length > 0 && (
+         <section className="section">
+           <div className="section-title-row">
+             <h3>布局模块（虚拟示例）</h3>
+             <span>后续可替换为真实图片与文案</span>
+           </div>
+           <div className="cards-grid cards-grid-3">
+-            {layoutModules.map((item) => (
++            {safeLayoutModules.map((item) => (
+               <article className={`feature-card${item.image ? ' feature-card-with-image' : ''}`} key={item.title}>
+                 {item.image && (
+                   <div className="feature-card-thumb">
+@@ -450,7 +470,7 @@ const IndustryPage = ({
+           <span>虚拟样例数据，用于页面展示</span>
+         </div>
+         <div className="dashboard-kpis">
+-          {marketStats.map((stat) => (
++          {safeMarketStats.map((stat) => (
+             <article key={stat.label}>
+               <h4>{stat.label}</h4>
+               <p>{stat.value}</p>
+@@ -465,7 +485,7 @@ const IndustryPage = ({
+           <span>对标行业主流服务标准</span>
+         </div>
+         <div className="cards-grid cards-grid-3">
+-          {highlights.map((item) => (
++          {safeHighlights.map((item) => (
+             <article className="feature-card" key={item}>
+               <h4>{item}</h4>
+               <p>围绕客户体验、交付效率和品质稳定性持续迭代，打造更可靠的服务交付链路。</p>
+@@ -479,7 +499,7 @@ const IndustryPage = ({
+           <h3>标准流程</h3>
+         </div>
+         <div className="workflow-grid">
+-          {workflow.map((item, index) => (
++          {safeWorkflow.map((item, index) => (
+             <div className="workflow-step" key={item}>
+               <span>{String(index + 1).padStart(2, '0')}</span>
+               <h4>{item}</h4>
+@@ -494,7 +514,7 @@ const IndustryPage = ({
+           <span>按头部站专题页结构呈现</span>
+         </div>
+         <div className="cards-grid cards-grid-3">
+-          {showcaseItems.map((item) => (
++          {safeShowcaseItems.map((item) => (
+             <article className={`showcase-card${item.image ? ' showcase-card-with-image' : ''}`} key={item.title}>
+               {item.image && (
+                 <div className="showcase-card-thumb">
+@@ -515,7 +535,7 @@ const IndustryPage = ({
+           <span>转化数据为模拟示例，可持续扩展</span>
+         </div>
+         <div className="cards-grid cards-grid-3">
+-          {sampleCases.map((item) => (
++          {safeSampleCases.map((item) => (
+             <article className="feature-card" key={item.title}>
+               <h4>{item.title}</h4>
+               <p>{item.desc}</p>
+@@ -531,7 +551,7 @@ const IndustryPage = ({
+           <span>覆盖咨询、执行、交付全链路</span>
+         </div>
+         <div className="cards-grid cards-grid-2">
+-          {capabilityMatrix.map((item) => (
++          {safeCapabilityMatrix.map((item) => (
+             <article className="feature-card" key={item.name}>
+               <h4>{item.name}</h4>
+               <p>{item.detail}</p>
+@@ -550,7 +570,7 @@ const IndustryPage = ({
+           <div className="status-info">正在加载服务内容...</div>
+         ) : (
+           <div className="cards-grid cards-grid-2">
+-            {(services.length > 0 ? services : mockServices).map((service, index) => (
++            {displayServices.map((service, index) => (
+                 <article key={`${service.name}-${index}`} className="service-card">
+                   <div className="service-card-head">
+                     <h4>{service.name}</h4>
+@@ -571,7 +591,7 @@ const IndustryPage = ({
+           <span>用于运营策略参考</span>
+         </div>
+         <div className="cards-grid">
+-          {insights.map((item) => (
++          {safeInsights.map((item) => (
+             <article className="feature-card" key={item}>
+               <p>{item}</p>
+             </article>
+@@ -584,7 +604,7 @@ const IndustryPage = ({
+           <h3>常见问题</h3>
+         </div>
+         <div className="faq-list">
+-          {faqs.map((item, index) => (
++          {safeFaqs.map((item, index) => (
+             <article key={item.q} className={`faq-item ${openFaqIndex === index ? 'open' : ''}`}>
+               <button
+                 type="button"
+@@ -606,7 +626,7 @@ const IndustryPage = ({
+           <span>顺序与顶部导航一致 · 当前：{category}</span>
+         </div>
+         <nav className="industry-sibling-nav" aria-label="全站业务模块">
+-          {BUSINESS_MODULES.map((m) =>
++          {(Array.isArray(BUSINESS_MODULES) ? BUSINESS_MODULES : []).map((m) =>
+             m.category === category ? (
+               <span key={m.path} className="industry-sibling-nav-current">
+                 {m.navLabel}
+diff --git a/src/pages/ClothingCustomization.tsx b/src/pages/ClothingCustomization.tsx
+index a3063ff..6640b56 100644
+--- a/src/pages/ClothingCustomization.tsx
++++ b/src/pages/ClothingCustomization.tsx
+@@ -1,6 +1,6 @@
+ import IndustryPage from '../components/IndustryPage'
+ import FashionFlagshipHero from '../components/FashionFlagshipHero'
+-import { fashionFlagship, fashionIndustryMedia } from '../data/fashionFlagshipImages'
++import { fashionIndustryMedia } from '../data/fashionFlagshipImages'
+ 
+ /**
+  * 服装定制：顶部为「旗舰店式」首页（结构参考优衣库类电商；配图为外链真实摄影示意）。
+diff --git a/src/pages/MemberBackend.tsx b/src/pages/MemberBackend.tsx
+index 797b386..4d37f19 100644
+--- a/src/pages/MemberBackend.tsx
++++ b/src/pages/MemberBackend.tsx
+@@ -108,11 +108,11 @@ function chunkRows(rows: SizeRow[], size = 6): SizeRow[][] {
+ 
+ function escapeHtml(s: string): string {
+   return s
+-    .replaceAll('&', '&amp;')
+-    .replaceAll('<', '&lt;')
+-    .replaceAll('>', '&gt;')
+-    .replaceAll('"', '&quot;')
+-    .replaceAll("'", '&#39;')
++    .replace(/&/g, '&amp;')
++    .replace(/</g, '&lt;')
++    .replace(/>/g, '&gt;')
++    .replace(/"/g, '&quot;')
++    .replace(/'/g, '&#39;')
+ }
+ 
+ /** 业务 CSV 模板：文件名用简短拼音，下载后从文件名即可辨认板块（与全站业态顺序一致） */
+diff --git a/src/services/api.ts b/src/services/api.ts
+index e9b9d0b..7240d6f 100644
+--- a/src/services/api.ts
++++ b/src/services/api.ts
+@@ -174,7 +174,7 @@ export const serviceAPI = {
+   getServices: (category?: string) => {
+     const config: AxiosRequestConfig = category ? { params: { category } } : {}
+     return unwrap<Array<{ id: number; name: string; category: string; price: number; description: string }>>(
+-      api.get('/services', config)
++      api.get('/services/', config)
+     )
+   },
+   getService: (id: number) => {
