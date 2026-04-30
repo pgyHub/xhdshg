@@ -19,10 +19,6 @@ const 全屋定制 = () => (
     siteStyle="home"
     styleSections={['风格样板间首屏', '空间分区导航', '全屋套餐对比', '门店服务网络']}
     scenarios={['新房整屋定制', '旧房局改焕新', '收纳系统升级', '商住空间改造']}
-    referenceSites={[
-      { name: '好莱客家居', url: 'http://www.homekoo.com/' },
-      { name: '顶维e家定制参考', url: 'http://www.dwejia.com/jiaju/0/0/1.html' }
-    ]}
     layoutModules={[
       { title: '风格主视觉区', desc: '按现代、轻奢、原木等风格展示示例方案，后续替换实景图。', image: homeStock.l1, imagePosition: 'center 50%' },
       { title: '空间分区导航', desc: '客厅/卧室/厨房/书房分区入口，方便用户按空间浏览。', image: homeStock.l2, imagePosition: 'center 52%' },

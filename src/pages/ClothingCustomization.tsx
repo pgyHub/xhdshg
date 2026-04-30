@@ -19,7 +19,6 @@ const 服装定制 = () => (
       siteStyle="fashion"
       styleSections={['新品主题横幅', '男女童分类区', '穿搭推荐位', '尺码与售后入口']}
       scenarios={['企业团体定制', '商务通勤定制', '活动演出服定制', '情侣/家庭主题装']}
-      referenceSites={[{ name: '优衣库中国官网（结构参考）', url: 'https://www.uniqlo.cn/' }]}
       layoutModules={[
         {
           title: '新品与主题系列区',

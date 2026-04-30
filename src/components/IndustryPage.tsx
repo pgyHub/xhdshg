@@ -60,7 +60,6 @@ type IndustryPageProps = {
   quickActions?: string[]
   productSystems?: Array<{ title: string; items: string[] }>
   sceneCases?: Array<{ scene: string; desc: string }>
-  referenceSites?: Array<{ name: string; url: string }>
   layoutModules?: Array<{ title: string; desc: string; image?: string; imagePosition?: string }>
   /** 右侧主视觉：传入则用实拍图 / 视频替换灰底占位（可传多条纵向排列） */
   heroMedia?: HeroMediaItem | HeroMediaItem[]
@@ -103,7 +102,6 @@ const IndustryPage = ({
   quickActions,
   productSystems,
   sceneCases,
-  referenceSites,
   layoutModules,
   heroMedia,
   venueGallery,
@@ -131,7 +129,6 @@ const IndustryPage = ({
   const safeQuickActions = Array.isArray(quickActions) ? quickActions : []
   const safeProductSystems = Array.isArray(productSystems) ? productSystems : []
   const safeSceneCases = Array.isArray(sceneCases) ? sceneCases : []
-  const safeReferenceSites = Array.isArray(referenceSites) ? referenceSites : []
   const safeLayoutModules = Array.isArray(layoutModules) ? layoutModules : []
   const displayServices = services.length > 0 ? services : safeMockServices
   const styleTitleMap = {
@@ -445,22 +442,6 @@ const IndustryPage = ({
                 <h4>{item.scene}</h4>
                 <p>{item.desc}</p>
               </article>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {safeReferenceSites.length > 0 && (
-        <section className="section">
-          <div className="section-title-row">
-            <h3>参考站点</h3>
-            <span>按指定网站梳理页面结构</span>
-          </div>
-          <div className="reference-links">
-            {safeReferenceSites.map((site) => (
-              <a key={site.url} href={site.url} target="_blank" rel="noreferrer">
-                {site.name}
-              </a>
             ))}
           </div>
         </section>

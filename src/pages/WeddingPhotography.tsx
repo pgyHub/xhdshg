@@ -31,10 +31,6 @@ const 婚纱摄影 = () => (
         imagePosition: 'center 26%',
       },
     ]}
-    referenceSites={[
-      { name: '聚婚网', url: 'http://www.jujiaonet.com/' },
-      { name: '美婚网', url: 'http://www.mcmarry.com/#/' }
-    ]}
     layoutModules={[
       { title: '样片主视觉区', desc: '顶部大图 + 当季主题套系，引导咨询与档期预约。', image: weddingStock.l1, imagePosition: 'center 24%' },
       { title: '风格分类导航', desc: '旅拍、棚拍、中式、轻奢等入口，便于快速浏览。', image: weddingStock.l2, imagePosition: 'center 20%' },

@@ -19,9 +19,6 @@ const 短视频制作 = () => (
     siteStyle="video"
     styleSections={['产品能力Banner', '模板与案例中心', '创作流程看板', '立即试用入口']}
     scenarios={['门店获客视频', '产品测评种草', '老板IP打造', '活动传播短片']}
-    referenceSites={[
-      { name: '剪映创作平台', url: 'https://www.capcut.cn/' }
-    ]}
     layoutModules={[
       { title: '创作工具主Banner', desc: '突出脚本生成、智能剪辑、字幕包装等能力入口。', image: videoStock.l1 },
       { title: '模板中心', desc: '展示“探店、口播、产品种草”模板卡，当前使用示例数据。', image: videoStock.l2 },

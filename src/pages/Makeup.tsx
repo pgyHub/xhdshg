@@ -19,10 +19,6 @@ const 彩妆 = () => (
     siteStyle="beauty"
     styleSections={['品牌KV主视觉', '明星单品陈列', '妆容灵感栏目', '会员权益入口']}
     scenarios={['新娘妆容', '商务形象妆', '活动晚宴妆', '短视频上镜妆']}
-    referenceSites={[
-      { name: 'YSL Beauty 中国官网', url: 'https://www.yslbeautycn.com/' },
-      { name: '毛戈平美妆官网', url: 'https://www.maogepingbeauty.com/' }
-    ]}
     layoutModules={[
       { title: '明星单品主视觉', desc: '顶部使用大图Banner + 主打产品卖点，模拟品牌主推系列。', image: M.l1, imagePosition: 'center 44%' },
       { title: '底妆/彩妆分类导航', desc: '按“底妆、眼妆、唇妆、工具”拆分模块，支持后续接入真实SKU。', image: M.l2, imagePosition: 'center 42%' },

@@ -19,9 +19,6 @@ const 美发 = () => (
     siteStyle="hair"
     styleSections={['潮流发型头图', '发型师专栏', '项目报价区', '预约到店入口']}
     scenarios={['通勤精致造型', '约会氛围造型', '商务稳重造型', '舞台时尚造型']}
-    referenceSites={[
-      { name: '美发站行业参考', url: 'https://www.meifazhan.com/' }
-    ]}
     layoutModules={[
       { title: '发型趋势头图区', desc: '首屏展示季度流行发型，当前为虚拟主题与示例标题。', image: H.l1, imagePosition: 'center 40%' },
       { title: '发型师推荐列表', desc: '展示“资深总监/高级造型师”卡片，后续可换真人信息。', image: H.l2, imagePosition: 'center 46%' },

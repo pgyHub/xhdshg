@@ -39,7 +39,6 @@ const 中餐馆 = () => (
     siteStyle="restaurant"
     styleSections={['招牌菜主视觉', '菜单分类导航', '门店环境展示', '订座与外卖入口']}
     scenarios={['家庭聚餐', '商务宴请', '节庆套餐', '团建订餐']}
-    referenceSites={[{ name: '连锁中餐品牌参考', url: 'https://lxjchina.com.cn/' }]}
     layoutModules={[
       {
         title: '门店主打菜品区',
