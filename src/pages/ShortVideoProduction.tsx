@@ -6,9 +6,14 @@ const 短视频制作 = () => (
     category="短视频制作"
     title="短视频内容策划与制作"
     subtitle="围绕品牌增长目标提供脚本策划、拍摄执行、后期包装与投放建议。"
-    heroMedia={{ src: videoStock.hero, alt: '剪辑与创作工作台示意', kind: 'image' }}
+    siteStyle="video"
+    heroBackdropVideos={{
+      sources: ['/videos/short/1.mp4', '/videos/short/2.mp4', '/videos/short/3.mp4'],
+      dwellMs: 14000,
+      crossfadeMs: 900
+    }}
     venueSectionTitle="案例与创作流"
-    venueSectionSubtitle="三图分别对应脚本策划、拍摄执行与剪辑交付，确保图文语义一致。"
+    venueSectionSubtitle="首屏为三段创作样片视频背景轮播；下方横滑三图分别对应脚本策划、拍摄执行与剪辑交付示意。"
     venueGallery={[
       { src: videoStock.g1, caption: '横滑位一：脚本/分镜企划示意（对应选题与结构说明）' },
       { src: videoStock.g2, caption: '横滑位二：拍摄与素材管理示意（对应片场/素材库入口）' },
@@ -16,7 +21,6 @@ const 短视频制作 = () => (
     ]}
     highlights={['脚本与人设打造', '平台节奏化剪辑', '数据复盘优化']}
     workflow={['目标拆解', '选题脚本', '现场拍摄', '后期包装', '数据复盘']}
-    siteStyle="video"
     styleSections={['产品能力Banner', '模板与案例中心', '创作流程看板', '立即试用入口']}
     scenarios={['门店获客视频', '产品测评种草', '老板IP打造', '活动传播短片']}
     layoutModules={[
