@@ -15,6 +15,11 @@ RUN set -eux; \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /app/requirements.txt
+# 国内构建时 PyPI 官方源易超时，使用阿里云 PyPI 镜像
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=120 \
+    PIP_INDEX_URL=https://mirrors.aliyun.com/pypi/simple/ \
+    PIP_TRUSTED_HOST=mirrors.aliyun.com
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY . /app
