@@ -5,7 +5,11 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# 国内构建时 deb.debian.org 常超时，换阿里云 Debian 镜像后再装编译依赖
+RUN set -eux; \
+    find /etc/apt -type f \( -name '*.sources' -o -name '*.list' \) -exec \
+      sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' {} +; \
+    apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
