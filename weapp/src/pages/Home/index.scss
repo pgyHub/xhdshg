@@ -1,0 +1,16 @@
+.page-home {
+  padding: 32px;
+
+  &__title {
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  &__hint {
+    display: block;
+    font-size: 28px;
+    color: #666;
+  }
+}

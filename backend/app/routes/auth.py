@@ -8,7 +8,7 @@ from app.core.database import get_db
 from app.core.security import verify_password, create_access_token
 from app.core.config import settings
 from app.models.user import User
-from app.schemas.auth import Token, TokenData, UserLogin
+from app.schemas.auth import Token, TokenData, UserLogin, WechatMiniProgramLogin
 from app.core.roles import is_super_admin
 
 router = APIRouter()
@@ -84,3 +84,17 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.post(
+    "/wechat/miniprogram",
+    response_model=Token,
+    summary="小程序：微信 code 换本站令牌（占位）",
+    description="与 `wx.login` 配合；服务端需配置微信 AppSecret 后实现 code2session 与绑定用户。未配置时返回 501，客户端可提示改用账号密码登录。",
+)
+def wechat_miniprogram_login(_body: WechatMiniProgramLogin):
+    """预留接口：与客户端「微信登录」双轨并存，接入后返回与 /auth/login 相同结构的 JWT。"""
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="小程序微信登录尚未接入（需配置微信 AppId/AppSecret 与用户绑定逻辑），请暂时使用账号密码登录。",
+    )

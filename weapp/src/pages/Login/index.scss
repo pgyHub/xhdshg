@@ -1,0 +1,87 @@
+.page-login {
+  padding: 32px;
+
+  &__title {
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  &__sub {
+    display: block;
+    font-size: 26px;
+    color: #666;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  &__card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  &__label {
+    display: block;
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  &__input {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+
+  &__btn {
+    margin-top: 8px;
+    font-size: 28px;
+    background: #f0f0f0;
+    color: #333;
+
+    &--primary {
+      background: #c41e3a;
+      color: #fff;
+    }
+
+    &--wechat {
+      background: #07c160;
+      color: #fff;
+    }
+  }
+
+  &__hint {
+    display: block;
+    margin-top: 16px;
+    font-size: 24px;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  &__ok {
+    display: block;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__meta {
+    display: block;
+    font-size: 26px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  &__err {
+    display: block;
+    color: #c41e3a;
+    font-size: 26px;
+    margin-top: 16px;
+  }
+}

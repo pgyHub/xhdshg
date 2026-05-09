@@ -26,3 +26,11 @@ class TokenData(BaseModel):
     model_config = ConfigDict(title="令牌内嵌数据")
 
     username: Optional[str] = Field(None, title="用户名", description="当前用户登录名")
+
+
+class WechatMiniProgramLogin(BaseModel):
+    """微信小程序 wx.login 拿到的临时 code，用于换取本站 JWT（接入后生效）"""
+
+    model_config = ConfigDict(title="小程序微信登录")
+
+    code: str = Field(..., min_length=4, title="临时登录凭证", description="wx.login 返回的 code")

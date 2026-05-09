@@ -1,0 +1,47 @@
+{
+  "name": "xhdshg-weapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "小红点生活馆 · 微信小程序（Taro 3 + React）",
+  "scripts": {
+    "build:weapp": "taro build --type weapp",
+    "dev:weapp": "taro build --type weapp --watch"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.7",
+    "@tarojs/components": "3.6.23",
+    "@tarojs/helper": "3.6.23",
+    "@tarojs/plugin-platform-weapp": "3.6.23",
+    "@tarojs/react": "3.6.23",
+    "@tarojs/runtime": "3.6.23",
+    "@tarojs/shared": "3.6.23",
+    "@tarojs/taro": "3.6.23",
+    "react": "^18.2.0",
+    "react-redux": "^9.1.2"
+  },
+  "overrides": {
+    "webpack": "5.88.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "@tarojs/cli": "3.6.23",
+    "@tarojs/plugin-framework-react": "3.6.23",
+    "@tarojs/webpack5-runner": "3.6.23",
+    "@types/react": "^18.2.79",
+    "babel-preset-taro": "3.6.23",
+    "typescript": "~5.4.5",
+    "webpack": "5.88.2"
+  },
+  "babel": {
+    "presets": [
+      [
+        "taro",
+        {
+          "framework": "react",
+          "ts": true
+        }
+      ]
+    ]
+  }
+}

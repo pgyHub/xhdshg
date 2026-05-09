@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "小红点生活馆",
+    "slug": "xhdshg",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "xhdshg",
+    "platforms": ["ios", "android"],
+    "assetBundlePatterns": ["**/*"]
+  }
+}
