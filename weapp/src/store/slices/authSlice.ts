@@ -4,6 +4,18 @@ import * as authApi from '../../services/authApi'
 
 export type AuthChannel = 'password' | 'wechat'
 
+/** Taro 请求失败时常抛出带 errMsg 的普通对象，避免界面只显示笼统「登录失败」 */
+function thunkErrorMessage(e: unknown, fallback: string): string {
+  if (e instanceof Error) return e.message
+  if (typeof e === 'string' && e.trim()) return e
+  if (e && typeof e === 'object') {
+    const o = e as Record<string, unknown>
+    if (typeof o.errMsg === 'string') return o.errMsg
+    if (typeof o.message === 'string') return o.message
+  }
+  return fallback
+}
+
 export const loginWithPassword = createAsyncThunk(
   'auth/loginPassword',
   async (args: { username: string; password: string }, { rejectWithValue }) => {
@@ -11,7 +23,7 @@ export const loginWithPassword = createAsyncThunk(
       const data = await authApi.loginWithPassword(args.username, args.password)
       return { accessToken: data.access_token, channel: 'password' as const }
     } catch (e: unknown) {
-      return rejectWithValue(e instanceof Error ? e.message : '登录失败')
+      return rejectWithValue(thunkErrorMessage(e, '登录失败'))
     }
   },
 )
@@ -25,7 +37,7 @@ export const loginWithWechatMini = createAsyncThunk(
       const data = await authApi.exchangeWechatMiniCode(code)
       return { accessToken: data.access_token, channel: 'wechat' as const }
     } catch (e: unknown) {
-      return rejectWithValue(e instanceof Error ? e.message : '微信登录失败')
+      return rejectWithValue(thunkErrorMessage(e, '微信登录失败'))
     }
   },
 )
