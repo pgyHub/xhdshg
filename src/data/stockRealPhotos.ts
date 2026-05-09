@@ -107,9 +107,9 @@ export const homeStock = {
 
 export const videoStock = {
   hero: P(88),
-  g1: P(90),
-  g2: P(91),
-  g3: P(92),
+  g1: '/images/video/slide-3.png',
+  g2: '/images/video/slide-2.png',
+  g3: '/images/video/slide-1.png',
   l1: P(93),
   l2: P(94),
   l3: P(95),
