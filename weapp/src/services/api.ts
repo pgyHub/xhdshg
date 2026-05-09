@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'
 
-/** 与 Web 同源时可在构建环境变量中配置，例如 https://your-domain.com/api */
-const BASE_URL = process.env.TARO_APP_API_BASE || ''
+/** 与 Web 同源：在 `.env.production` / `.env.development` 中配置 TARO_APP_API_BASE，经 config defineConstants 注入 */
+const BASE_URL = typeof TARO_APP_REQUEST_BASE === 'string' ? TARO_APP_REQUEST_BASE : ''
 
 /** 请求用的 API 根路径（无末尾 /） */
 export function getApiBase(): string {

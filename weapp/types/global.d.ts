@@ -1,6 +1,2 @@
-declare namespace NodeJS {
-  interface ProcessEnv {
-    /** 后端 API 根地址，如 https://example.com */
-    TARO_APP_API_BASE?: string
-  }
-}
+/** 由 `config/index.ts` 的 defineConstants 在构建时注入为字符串字面量（小程序运行时无 process） */
+declare const TARO_APP_REQUEST_BASE: string

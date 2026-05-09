@@ -13,7 +13,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["@tarojs/taro", "webpack-env"]
+    "types": ["@tarojs/taro", "webpack-env", "node"]
   },
   "include": ["src", "config", "types"],
   "exclude": ["node_modules", "dist"]
