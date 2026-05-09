@@ -2,6 +2,7 @@ export default {
   pages: [
     'pages/Home/index',
     'pages/ServiceDetail/index',
+    'pages/ServiceCategory/index',
     'pages/Login/index',
     'pages/Register/index',
     'pages/Profile/index',

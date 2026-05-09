@@ -1,8 +1,48 @@
-.page {
+.page-sd {
   padding: 32px;
+  padding-bottom: 48px;
 
   &__title {
-    font-size: 36px;
+    display: block;
+    font-size: 40px;
     font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__sub {
+    display: block;
+    font-size: 26px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    border-left: 6px solid #c41e3a;
+  }
+
+  &__item-title {
+    display: block;
+    font-size: 30px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  &__item-desc {
+    display: block;
+    font-size: 26px;
+    color: #888;
   }
 }

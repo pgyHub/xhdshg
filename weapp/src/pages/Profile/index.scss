@@ -1,8 +1,80 @@
-.page {
+.page-profile {
   padding: 32px;
+  padding-bottom: 48px;
 
   &__title {
-    font-size: 36px;
+    display: block;
+    font-size: 40px;
     font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__sub {
+    display: block;
+    font-size: 26px;
+    color: #666;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  &__card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+  }
+
+  &__card-title {
+    display: block;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+  }
+
+  &__row {
+    display: block;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  &__link {
+    display: inline-block;
+    font-size: 28px;
+    color: #c41e3a;
+    margin-top: 8px;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(105deg, #c41e3a, #9e1830);
+    color: #fff;
+    font-size: 26px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  &__p {
+    display: block;
+    font-size: 26px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__li {
+    display: block;
+    font-size: 26px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 8px;
   }
 }

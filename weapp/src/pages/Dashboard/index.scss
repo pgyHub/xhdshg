@@ -1,8 +1,111 @@
-.page {
+.page-dash {
   padding: 32px;
+  padding-bottom: 48px;
 
   &__title {
-    font-size: 36px;
+    display: block;
+    font-size: 40px;
     font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__sub {
+    display: block;
+    font-size: 26px;
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  &__card {
+    width: calc(50% - 8px);
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+  }
+
+  &__label {
+    display: block;
+    font-size: 24px;
+    color: #888;
+    margin-bottom: 8px;
+  }
+
+  &__value {
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  &__trend {
+    display: block;
+    font-size: 22px;
+    color: #5d7a62;
+  }
+
+  &__section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+  }
+
+  &__section-title {
+    display: block;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+  }
+
+  &__bar-label {
+    display: block;
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 6px;
+    margin-top: 12px;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  &__bar-track {
+    height: 16px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  &__bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #c41e3a, #e85d75);
+
+    &--2 {
+      background: linear-gradient(90deg, #8b4513, #daa520);
+    }
+
+    &--3 {
+      background: linear-gradient(90deg, #5d7a62, #a8c090);
+    }
+
+    &--4 {
+      background: linear-gradient(90deg, #0f3460, #4a90d9);
+    }
   }
 }

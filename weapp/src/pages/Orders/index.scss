@@ -1,8 +1,93 @@
-.page {
+.page-orders {
   padding: 32px;
+  padding-bottom: 48px;
 
   &__title {
-    font-size: 36px;
+    display: block;
+    font-size: 40px;
     font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  &__sub {
+    display: block;
+    font-size: 26px;
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  &__card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+  }
+
+  &__head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 16px;
+  }
+
+  &__name {
+    font-size: 30px;
+    font-weight: 600;
+    color: #1a1a1a;
+    flex: 1;
+  }
+
+  &__status {
+    font-size: 24px;
+    color: #c41e3a;
+    flex-shrink: 0;
+  }
+
+  &__meta {
+    display: block;
+    font-size: 24px;
+    color: #888;
+    margin-bottom: 8px;
+  }
+
+  &__amount {
+    display: block;
+    font-size: 32px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__btn {
+    font-size: 26px;
+    color: #fff;
+    background: #c41e3a;
+    padding: 12px 28px;
+    border-radius: 8px;
+  }
+
+  &__btn--ghost {
+    background: #f5f5f5;
+    color: #333;
+  }
+
+  &__foot {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    color: #aaa;
+    margin-top: 16px;
   }
 }
