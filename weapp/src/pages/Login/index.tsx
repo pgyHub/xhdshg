@@ -13,6 +13,10 @@ export default function Login() {
 
   const busy = status === 'loading'
 
+  const goHome = () => {
+    void Taro.reLaunch({ url: '/pages/Home/index' })
+  }
+
   const onPasswordLogin = async () => {
     if (!username.trim() || !password) {
       await Taro.showToast({ title: '请填写账号和密码', icon: 'none' })
@@ -21,6 +25,7 @@ export default function Login() {
     const r = await dispatch(loginWithPassword({ username: username.trim(), password }))
     if (loginWithPassword.fulfilled.match(r)) {
       await Taro.showToast({ title: '登录成功', icon: 'success' })
+      goHome()
     }
   }
 
@@ -28,6 +33,7 @@ export default function Login() {
     const r = await dispatch(loginWithWechatMini())
     if (loginWithWechatMini.fulfilled.match(r)) {
       await Taro.showToast({ title: '登录成功', icon: 'success' })
+      goHome()
     }
   }
 
@@ -45,6 +51,9 @@ export default function Login() {
         <View className="page-login__card">
           <Text className="page-login__ok">已登录</Text>
           <Text className="page-login__meta">方式：{channel === 'wechat' ? '微信' : '账号密码'}</Text>
+          <Button className="page-login__btn page-login__btn--primary" onClick={goHome}>
+            进入首页
+          </Button>
           <Button className="page-login__btn" onClick={onLogout}>
             退出登录
           </Button>
