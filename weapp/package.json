@@ -8,6 +8,7 @@
     "dev:weapp": "taro build --type weapp --watch"
   },
   "dependencies": {
+    "abortcontroller-polyfill": "^1.7.8",
     "@reduxjs/toolkit": "^2.2.7",
     "@tarojs/components": "3.6.23",
     "@tarojs/helper": "3.6.23",
