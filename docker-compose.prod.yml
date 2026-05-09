@@ -21,6 +21,9 @@ services:
       dockerfile: Dockerfile
     container_name: xhdshg-backend
     restart: unless-stopped
+    # 显式启动命令，覆盖镜像内曾被 `docker commit` 改坏的 ENTRYPOINT/CMD（例如 `sh python -m ...`）
+    entrypoint: ["python", "-m", "uvicorn"]
+    command: ["main:app", "--host", "0.0.0.0", "--port", "8000"]
     depends_on:
       db:
         condition: service_healthy
@@ -47,3 +50,4 @@ services:
 volumes:
   pgdata:
   uploads_data:
+
