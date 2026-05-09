@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, Input, Button } from '@tarojs/components'
+import { View, Text, Input, Button, Navigator } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { loginWithPassword, loginWithWechatMini, logout } from '../../store/slices/authSlice'
@@ -51,9 +51,10 @@ export default function Login() {
         <View className="page-login__card">
           <Text className="page-login__ok">已登录</Text>
           <Text className="page-login__meta">方式：{channel === 'wechat' ? '微信' : '账号密码'}</Text>
-          <Button className="page-login__btn page-login__btn--primary" onClick={goHome}>
-            进入首页
-          </Button>
+          {/* Navigator + reLaunch：不依赖 JS 跳转，避免部分机型 Button 样式异常看不到入口 */}
+          <Navigator className="page-login__nav-home" url="/pages/Home/index" openType="reLaunch">
+            <Text className="page-login__nav-home-text">进入首页</Text>
+          </Navigator>
           <Button className="page-login__btn" onClick={onLogout}>
             退出登录
           </Button>

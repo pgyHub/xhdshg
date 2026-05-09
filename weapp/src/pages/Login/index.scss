@@ -75,7 +75,23 @@
     display: block;
     font-size: 26px;
     color: #666;
+    margin-bottom: 24px;
+  }
+
+  &__nav-home {
+    display: block;
     margin-bottom: 20px;
+    text-align: center;
+    text-decoration: none;
+    background: #c41e3a;
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+
+  &__nav-home-text {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
   }
 
   &__err {
